@@ -1,14 +1,12 @@
 <template>
     <div>
         <div id="map"></div>
-        <div class="button-group">
-            <button @click="changeSize(0)">Hide</button>
-            <button @click="changeSize(1080)">show</button>
-            <button @click="displayMarker(markerPositions1)">marker set 1</button>
-            <button @click="displayMarker(markerPositions2)">marker set 2</button>
-            <button @click="displayMarker([])">marker set 3 (empty)</button>
-            <button @click="displayInfoWindow">infowindow</button>
-        </div>
+<!--        <div class="button-group">-->
+<!--            <button @click="displayMarker(markerPositions1)">marker set 1</button>-->
+<!--            <button @click="displayMarker(markerPositions2)">marker set 2</button>-->
+<!--            <button @click="displayMarker([])">marker set 3 (empty)</button>-->
+<!--            <button @click="displayInfoWindow">infowindow</button>-->
+<!--        </div>-->
     </div>
 </template>
 
@@ -59,12 +57,7 @@ export default {
             //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
             this.map = new kakao.maps.Map(container, options);
         },
-        changeSize(size) {
-            const container = document.getElementById("map");
-            container.style.width = `${size}px`;
-            container.style.height = `${size}px`;
-            this.map.relayout();
-        },
+
         displayMarker(markerPositions) {
             if (this.markers.length > 0) {
                 this.markers.forEach((marker) => marker.setMap(null));
@@ -116,10 +109,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-#map {
-    width: 100%;
-    height: 1080px;
+<style lang="scss" scoped>
+#map{
+    weight:100%;
+    height: 1140px;
 }
 .button-group {
     margin: 10px 0px;
