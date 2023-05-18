@@ -19,9 +19,18 @@
     <attraction-addr class="addr"></attraction-addr>
     <div>태그넣기</div>
     <attraction-comment></attraction-comment>
-    <div ref="comment">댓글 목록</div>
-    <div>추천</div>
-    <div ref="recommendation">추천이미지</div>
+    <div ref="comment"><attraction-comment2></attraction-comment2></div>
+    <hr />
+    <div><h2>제목과 유사한 여행지 추천</h2></div>
+    <div ref="recommendation">
+      <attraction-recommend
+        onclick=""
+        v-for="recommend in recommendList"
+        :key="recommend"
+        :title="recommend"
+        remove="false"
+      ></attraction-recommend>
+    </div>
   </div>
 </template>
 
@@ -33,6 +42,8 @@ import AttractionImg from "./item/AttractionImg.vue";
 import AttractionAddr from "./item/AttractionAddr.vue";
 import AttractionSido from "./item/AttractionSido.vue";
 import AttractionComment from "./item/AttractionComment.vue";
+import AttractionComment2 from "./item/AttractionComment2.vue";
+import AttractionRecommend from "./item/AttractionRecommend.vue";
 
 export default {
   components: {
@@ -43,6 +54,14 @@ export default {
     AttractionImg,
     AttractionSido,
     AttractionComment,
+    AttractionComment2,
+    AttractionRecommend,
+  },
+
+  data() {
+    return {
+      recommendList: [1, 1, 1],
+    };
   },
 
   methods: {
@@ -69,8 +88,8 @@ export default {
 }
 
 .tab {
-  margin-right: 60px;
-  margin-left: 60px;
+  margin-right: 8%;
+  margin-left: 8%;
 }
 .img {
   margin-top: 30px;

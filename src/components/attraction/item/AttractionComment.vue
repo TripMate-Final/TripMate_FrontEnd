@@ -3,11 +3,11 @@
     <div class="form">
       <form name="tform" id="tform">
         <span class="writeForm">
-          <textarea placeholder="댓글 작성해주세요"> </textarea>
+          <textarea class="formtext" placeholder="댓글 작성해주세요"> </textarea>
         </span>
-        <div>
+        <div class="btn-container">
           <span>
-            <button>로그인</button>
+            <button class="btn-write">댓글 쓰기</button>
           </span>
         </div>
       </form>
@@ -31,10 +31,27 @@ export default {
 
 <style scoped>
 .write {
-  background-color: gray;
+  background-color: rgb(224, 224, 224);
 }
 
 .form {
   width: 100%;
+}
+.formtext {
+  height: 120px;
+  margin-top: 30px;
+  width: 95%;
+  box-sizing: border-box;
+}
+.btn-container {
+  text-align: right;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-write {
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
