@@ -37,7 +37,11 @@
           </b-col>
         </b-row>
         <b-row>
-          <b-col cols="6" style="background-color: green">게시판</b-col>
+          <b-col cols="6" style="background-color:darkgrey">
+              <p>인기게시판</p>
+              <b-table :items="items" thead-class="d-none">
+              </b-table>
+          </b-col>
           <b-col cols="3">
             <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card>
           </b-col>
@@ -51,8 +55,20 @@
   </b-container-fluid>
 </template>
 
-<script setup>
-
+<script>
+  export default {
+      data(){
+          return {
+              items:[
+                  {type:'자유', title:'게시판1'},
+                  {type:'자유', title:'게시판2'},
+                  {type:'자유', title:'게시판3'},
+                  {type:'자유', title:'게시판4'},
+                  {type:'자유', title:'게시판5'},
+              ]
+          }
+      }
+  }
 </script>
 
 <style scoped>
@@ -71,4 +87,5 @@
 .row{
   margin-top:30px;
 }
+
 </style>
