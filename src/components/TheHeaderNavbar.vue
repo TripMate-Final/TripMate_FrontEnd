@@ -14,8 +14,8 @@
           </b-form>
         </b-col>
         <b-col cols="1">
-          <b-navbar-brand id="map" href="#" >
-            <img src="../assets/img/navbar/map.png"/>
+          <b-navbar-brand id="mapicon" href="#" >
+            <img src="../assets/img/navbar/mapicon.png"/>
           </b-navbar-brand>
         </b-col>
       </b-navbar>
@@ -34,7 +34,7 @@ img{
   height:50px;
   padding:0px;
 }
-#map{
+#mapicon{
   margin-bottom: 10px;
 }
 #submitBtn{
