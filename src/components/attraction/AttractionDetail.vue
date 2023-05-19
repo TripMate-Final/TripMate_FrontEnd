@@ -1,8 +1,8 @@
 <template>
   <div>
-    <attraction-title></attraction-title>
-    <attraction-sido></attraction-sido>
-    <attraction-like-view></attraction-like-view>
+    <attraction-title :title="attraction.title"></attraction-title>
+    <attraction-sido :addr="attraction.addr1"></attraction-sido>
+    <attraction-like-view :hit="attraction.hit" :like="attraction.likeCnt"></attraction-like-view>
     <hr style="margin-bottom: 0px" />
     <b-nav tabs class="tabs">
       <b-nav-item class="tab" @click="scrollToImg()">사진보기</b-nav-item>
@@ -10,12 +10,16 @@
       <b-nav-item class="tab" @click="scrollToComment()">댓글</b-nav-item>
       <b-nav-item class="tab" @click="scrollToRecommendation()">추천</b-nav-item>
     </b-nav>
-    <div class="img" ref="img"><attraction-img></attraction-img></div>
+    <div class="img" ref="img">
+      <attraction-img :image="attraction.firstImage"></attraction-img>
+    </div>
     <div><h2>상세정보</h2></div>
     <hr />
-    <div class="content" ref="content"><attraction-content></attraction-content></div>
+    <div class="content" ref="content">
+      <attraction-content :overview="attraction.overview"></attraction-content>
+    </div>
 
-    <div>지도지도지도</div>
+    <div><the-kakao-map></the-kakao-map></div>
     <attraction-addr class="addr"></attraction-addr>
     <div>태그넣기</div>
     <attraction-comment></attraction-comment>
@@ -44,6 +48,8 @@ import AttractionSido from "./item/AttractionSido.vue";
 import AttractionComment from "./item/AttractionComment.vue";
 import AttractionComment2 from "./item/AttractionComment2.vue";
 import AttractionRecommend from "./item/AttractionRecommend.vue";
+import TheKakaoMap from "../map/TheKakaoMap.vue";
+import http from "@/util/http-common";
 
 export default {
   components: {
@@ -56,10 +62,13 @@ export default {
     AttractionComment,
     AttractionComment2,
     AttractionRecommend,
+    TheKakaoMap,
   },
 
   data() {
     return {
+      contentId: Number,
+      attraction: Object,
       recommendList: [1, 1, 1],
     };
   },
@@ -77,6 +86,15 @@ export default {
     scrollToRecommendation() {
       this.$refs.recommendation.scrollIntoView({ behavior: "smooth" });
     },
+  },
+
+  created() {
+    this.contentId = this.$route.params.contentId;
+    console.log(this.contentId);
+    http.get(`/attraction/${125505}`).then(({ data }) => {
+      console.log(data);
+      this.attraction = data;
+    });
   },
 };
 </script>

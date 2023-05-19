@@ -1,10 +1,13 @@
 <template>
-  <div>경남 밀양시</div>
+  <div>{{ addr }}</div>
 </template>
 
 <script>
 export default {
   name: "AttractionSido",
+  props: {
+    addr: String,
+  },
   components: {},
   data() {
     return {

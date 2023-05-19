@@ -26,7 +26,7 @@ const routes = [
       },
 
       {
-        path: 'detail',
+        path: 'detail/:contentId',
         name: 'detail',
         component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
       },
