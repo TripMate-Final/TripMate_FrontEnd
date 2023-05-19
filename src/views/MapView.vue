@@ -27,7 +27,6 @@ export default {
     position:absolute;
     width:600px;
     height:100%;
-    //background-color:#62B273;
     z-index:99
 }
 </style>

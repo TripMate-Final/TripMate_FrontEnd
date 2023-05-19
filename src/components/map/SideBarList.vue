@@ -49,12 +49,14 @@ export default {
         background-color: #fff !important;
         height: 100%;
     }
-    .sidebar-list{
-        background-color: #62B273;
-    }
+
 }
 .sidebar-top{
   padding: 10px 15px;
   position: relative;
+}
+.sidebar-list{
+    height: calc(100%-20px);
+
 }
 </style>
