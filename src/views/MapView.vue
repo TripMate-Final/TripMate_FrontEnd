@@ -25,7 +25,7 @@ export default {
 
 .sidebar-list{
     position:absolute;
-    width:300px;
+    width:600px;
     height:100%;
     //background-color:#62B273;
     z-index:99
