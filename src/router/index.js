@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainView from '../views/MainView.vue'
 import MapView from '../views/MapView.vue'
+import AttractionView from "@/views/AttractionView.vue";
 
 Vue.use(VueRouter)
 
@@ -11,6 +12,27 @@ const routes = [
     name: 'main',
     component: MainView
   },
+  {
+    path: '/attraction',
+    name: 'attraction',
+    component: AttractionView,
+    redirect: '/attraction/list',
+    children:[
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionList.vue')
+      },
+
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
+      },
+    ]
+  },
+
+
   {
     path: '/about',
     name: 'about',

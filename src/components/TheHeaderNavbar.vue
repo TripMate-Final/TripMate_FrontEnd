@@ -10,7 +10,7 @@
         <b-col cols="9">
           <b-form class="d-flex">
             <b-form-input placeholder="Search" ></b-form-input>
-            <b-button id="submitBtn" type="submit">Search</b-button>
+            <b-button id="submitBtn" type="submit" @click="moveSelect()" >Search</b-button>
           </b-form>
         </b-col>
         <b-col cols="1">
@@ -26,7 +26,15 @@
 <script>
   export default {
       name: "TheHeaderNavbar",
+
+      methods:{
+        moveSelect(){
+            console.log(1)
+            this.$router.push({name:'attraction'})
+        }
+      }
   };
+
 </script>
 
 <style scoped>
