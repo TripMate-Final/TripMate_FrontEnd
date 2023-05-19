@@ -1,12 +1,15 @@
 <template>
   <div id="title">
-    <h2>여행지 제목</h2>
+    <h2>{{ title }}</h2>
   </div>
 </template>
 
 <script>
 export default {
   name: "AttractionTitle",
+  props: {
+    title: String,
+  },
   components: {},
   data() {
     return {

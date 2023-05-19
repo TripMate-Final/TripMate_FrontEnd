@@ -1,11 +1,15 @@
 <template>
-  <div>주소주소주소주소주소</div>
+  <div>{{ addr }}</div>
 </template>
 
 <script>
 export default {
   name: "AttractionAddr",
+  props: {
+    addr: Object,
+  },
   components: {},
+
   data() {
     return {
       message: "",

@@ -1,19 +1,25 @@
 <template>
   <div>
-    <b-img src="https://picsum.photos/400/400/?image=12" alt="Image" class="img"></b-img>
+    <b-img :src="image" alt="Image" class="img"></b-img>
   </div>
 </template>
 
 <script>
 export default {
   name: "AttractionImg",
+  props: {
+    image: String,
+    // img: {
+    //   type: String,
+    //   required: true,
+    // },
+  },
   components: {},
   data() {
     return {
       message: "",
     };
   },
-  created() {},
   methods: {},
 };
 </script>

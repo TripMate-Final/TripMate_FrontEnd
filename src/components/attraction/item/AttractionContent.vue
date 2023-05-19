@@ -1,6 +1,6 @@
 <template>
   <div>
-    내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+    {{ overview }}
   </div>
 </template>
 
@@ -8,6 +8,9 @@
 export default {
   name: "AttractionContent",
   components: {},
+  props: {
+    overview: String,
+  },
   data() {
     return {
       message: "",
