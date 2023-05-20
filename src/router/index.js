@@ -1,58 +1,58 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import MainView from '../views/MainView.vue'
-import MapView from '../views/MapView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import MainView from "../views/MainView.vue";
+import MapView from "../views/MapView.vue";
 import AttractionView from "@/views/AttractionView.vue";
 import AttractionList from "@/components/attraction/AttractionList.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'main',
-    component: MainView
+    path: "/",
+    name: "main",
+    component: MainView,
   },
   {
-    path: '/attraction',
-    name: 'attraction',
+    path: "/attraction",
+    name: "attraction",
     component: AttractionView,
-    redirect: '/attraction/list',
-    children:[
+    redirect: "/attraction/list",
+    children: [
       {
-        path: 'list',
-        name: 'list',
+        path: "list",
+        name: "list",
         component: AttractionList,
       },
 
       {
-        path: 'detail/:contentId',
-        name: 'detail',
-        component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
+        path: "detail/:contentId",
+        name: "detail",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../components/attraction/AttractionDetail.vue"),
       },
-    ]
+    ],
   },
 
-
   {
-    path: '/about',
-    name: 'about',
+    path: "/about",
+    name: "about",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
-    path:'/map',
-    name:'map',
-    component: MapView
-  }
-]
+    path: "/map",
+    name: "map",
+    component: MapView,
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
