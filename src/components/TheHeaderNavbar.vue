@@ -9,11 +9,18 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
-                    <b-nav-item href="#">홈</b-nav-item>
-                    <b-nav-item href="#">여행정보</b-nav-item>
-                    <b-nav-item href="#">여행지도</b-nav-item>
+                  <b-nav-item href="#">
+                    <router-link :to="{ name: 'main' }" class="link">
+                      메인
+                    </router-link>
+                    <router-link :to="{ name: 'attraction' }" class="m-2 link">
+                      여행정보
+                    </router-link>
+                    <router-link :to="{ name: 'map' }" class="m-2 link">
+                      여행지도
+                    </router-link>
+                  </b-nav-item>
                 </b-navbar-nav>
-
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form>
@@ -22,9 +29,9 @@
                     </b-nav-form>
 
                     <b-nav-item-dropdown right>
-                        <!-- Using 'button-content' slot -->
                         <template #button-content>
-                            <em>User</em>
+                          <img src="../assets/img/navbar/user-person.png"
+                               class="UserPerson">
                         </template>
                         <b-dropdown-item href="#">Profile</b-dropdown-item>
                         <b-dropdown-item href="#">Sign Out</b-dropdown-item>
@@ -33,27 +40,6 @@
             </b-collapse>
         </b-navbar>
     </div>
-
-    <!--    <b-container class="bv-example-row text-center">-->
-<!--      <b-navbar toggleable >-->
-<!--        <b-col cols="2">-->
-<!--          <b-navbar-brand href="#" >-->
-<!--            <img src="../assets/img/navbar/logo.png"/>-->
-<!--          </b-navbar-brand>-->
-<!--        </b-col>-->
-<!--        <b-col cols="9">-->
-<!--          <b-form class="d-flex">-->
-<!--            <b-form-input placeholder="Search" ></b-form-input>-->
-<!--            <b-button id="submitBtn" type="submit">Search</b-button>-->
-<!--          </b-form>-->
-<!--        </b-col>-->
-<!--        <b-col cols="1">-->
-<!--          <b-navbar-brand id="map" href="#" >-->
-<!--            <img src="../assets/img/navbar/map.png"/>-->
-<!--          </b-navbar-brand>-->
-<!--        </b-col>-->
-<!--      </b-navbar>-->
-<!--    </b-container>-->
 
 </template>
 
@@ -65,6 +51,6 @@
 
 <style scoped>
 .logo{
-    height: 80px;
+    height: 70px;
 }
 </style>
