@@ -35,13 +35,14 @@ export default {
 .plan-button{
   float: right;
   height: 35px;
-  margin-bottom: 10px;
   z-index: 3;
-  background-color: #569A64;
-  border-radius: 20%;
-  color: white;
-  border: none;
-  font-family: NanumSquareOTF;
+  margin-bottom: 10px;
+  padding: 0px 10px;
+  background-color:#EFECEC;
+  border: 1px solid #0d172a;
+  border-radius: 1.5rem;
+  color: #0d172a;
+  font-family: "NanumSquareOTF","RocGrotesk-Wide";
   font-size: 15px;
   font-weight: bold;
   font-stretch: normal;
@@ -49,6 +50,11 @@ export default {
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
+}
+.plan-button:hover{
+  background-color: #569A64;
+  color: #fff;
+  border: 0px;
 }
 .sidebar-list-top .top-title{
     float: left;

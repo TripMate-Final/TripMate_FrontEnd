@@ -91,15 +91,14 @@ export default {
 .openbtn {
   left:0px;
   margin: 10px 20px;
+  padding: 0px 10px;
   position: absolute;
   height: 35px;
-  weight: 120px;
-  /*z-index: 3;*/
-  background-color: #569A64;
-  border-radius: 20%;
-  color: white;
-  border: none;
-  font-family: NanumSquareOTF;
+  background-color:#EFECEC;
+  border: 1px solid #0d172a;
+  border-radius: 1.5rem;
+  color: #0d172a;
+  font-family: "NanumSquareOTF","RocGrotesk-Wide";
   font-size: 15px;
   font-weight: bold;
   font-stretch: normal;
@@ -110,6 +109,8 @@ export default {
 }
 
 .openbtn:hover {
-  background-color: #444;
+  background-color: #569A64;
+  color: #fff;
+  border: 0px;
 }
 </style>
