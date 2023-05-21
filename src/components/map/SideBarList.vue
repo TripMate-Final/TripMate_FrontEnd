@@ -6,19 +6,19 @@
         <a href="javascript:void(0)" class="closebtn" @click="closeNav">×</a>
       </div>
       <side-bar-list-top></side-bar-list-top>
-      <side-bar-list-tab></side-bar-list-tab>
+      <side-bar-list-tag></side-bar-list-tag>
       <side-bar-attraction-list></side-bar-attraction-list>
     </div>
   </div>
 </template>
 <script>
 import SideBarListTop from "@/components/map/SideBarListTop.vue";
-import SideBarListTab from "@/components/map/SideBarListTab.vue";
+import SideBarListTag from "@/components/map/SideBarListTag.vue";
 import SideBarAttractionList from "@/components/map/SideBarAttractionList.vue";
 export default {
     name:'SideBarList',
     components:{
-      SideBarListTab,
+      SideBarListTag,
       SideBarListTop,
       SideBarAttractionList,
     },
