@@ -43,6 +43,6 @@ export default {
 .sidebar-detail{
   width:400px;
   height: 1140px;
-  z-index:99
+  z-index:98
 }
 </style>

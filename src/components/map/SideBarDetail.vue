@@ -58,12 +58,11 @@ export default {
 }
 .myDetail {
   position: absolute;
-  z-index:2;
+  z-index: 2;
   width: 0;
   background-color: #fff;
   display: block;
   transition: 0.5s;
-  border-left: 0px;
   height: 100%;
   overflow-x: hidden;
   overflow-y:hidden
@@ -88,13 +87,14 @@ export default {
 .myDetail .closebtn {
   font-size: 36px;
 }
+
 .openbtn {
   left:0px;
   margin: 10px 20px;
   position: absolute;
   height: 35px;
   weight: 120px;
-  z-index: 3;
+  /*z-index: 3;*/
   background-color: #569A64;
   border-radius: 20%;
   color: white;
