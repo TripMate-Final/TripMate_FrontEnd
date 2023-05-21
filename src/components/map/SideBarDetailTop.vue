@@ -36,6 +36,7 @@ export default {
 <style scoped>
 .sidebar-detail-top{
   /*margin-top:-70px;*/
+  margin:10px;
   height: 500px;
 }
 .sidebar-detail-top .image-box {

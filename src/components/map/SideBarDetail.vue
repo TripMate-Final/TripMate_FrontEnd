@@ -69,6 +69,9 @@ export default {
   overflow-x: hidden;
   overflow-y:hidden
 }
+.myDetail .comment-box{
+  margin:10px;
+}
 .myDetail .comment-list{
   overflow-y: scroll;
 }
