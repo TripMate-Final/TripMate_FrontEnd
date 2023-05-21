@@ -3,25 +3,21 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-header">
             <slot name="header">
               default header
             </slot>
           </div>
-
           <div class="modal-body">
             <slot name="body">
               default body
             </slot>
           </div>
-
           <div class="modal-footer">
             <slot name="footer">
               default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
+              <button class="modal-default-button" @click="$emit('close')">close</button>
+              <button class="modal-default-button" @click="moveToPlan" >OK</button>
             </slot>
           </div>
         </div>
@@ -37,6 +33,14 @@ export default {
     return {
     }
   },
+  methods:{
+    moveToPlan(){
+      this.$router.push({
+        name: "plan",
+        // params: { articleno: article.articleno },
+      });
+    }
+  }
 }
 </script>
 
