@@ -1,28 +1,32 @@
 <template>
   <div class="sidebar-attraction-list">
     <attraction-card
-        onclick=""
         v-for="tag in attractionList"
         :key="tag"
         :title="tag"
         remove="false"
-    >
-    </attraction-card>
+    ></attraction-card>
   </div>
 </template>
 
 <script>
-import AttractionCard from "@/components/attraction/item/AttractionCard.vue";
+import AttractionCard from "@/components/map/AttractionCard.vue";
+
 export default {
+
   name: "SideBarAttractionList",
   components:{
-    AttractionCard,
+    AttractionCard
   },
   data(){
     return {
-      attractionList: ["11", "11", "11", "11", 1, 1, 1, 1, 1, 1, 1],
+      attractionList: [125266,125405],
     }
   },
+  methods: {
+    showDetail() {
+    }
+  }
 }
 </script>
 

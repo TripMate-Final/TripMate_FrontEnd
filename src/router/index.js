@@ -44,7 +44,14 @@ const routes = [
   {
     path:'/map',
     name:'map',
-    component: MapView
+    component: MapView,
+    children:[
+      {
+        path: 'detail/:contentId',
+        name: 'detail',
+        component: () => import(/* webpackChunkName: "about" */ '../components/map/SideBarDetail.vue')
+      },
+    ]
   }
 ]
 

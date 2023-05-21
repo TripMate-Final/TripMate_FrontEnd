@@ -1,48 +1,52 @@
 <template>
-  <div class="side-bar-wrapper">
+  <div class="sidebar-wrapper">
     <button class="openbtn" id="openbtn" @click="openNav">목록보기</button>
-    <div id="mySidebar" class="sidebar">
+    <div class="myDetail" id="myDetail">
       <div>
         <a href="javascript:void(0)" class="closebtn" @click="closeNav">×</a>
       </div>
-      <side-bar-list-top></side-bar-list-top>
-      <side-bar-list-tab></side-bar-list-tab>
-      <side-bar-attraction-list></side-bar-attraction-list>
+      <side-bar-detail-top></side-bar-detail-top>
+      <div class="comment-box">
+        <attraction-comment></attraction-comment>
+        <div class="comment-list">
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
 <script>
-import SideBarListTop from "@/components/map/SideBarListTop.vue";
-import SideBarListTab from "@/components/map/SideBarListTab.vue";
-import SideBarAttractionList from "@/components/map/SideBarAttractionList.vue";
+import AttractionComment from "@/components/attraction/item/AttractionComment.vue";
+import SideBarDetailTop from "@/components/map/SideBarDetailTop.vue";
+
 export default {
-    name:'SideBarList',
-    components:{
-      SideBarListTab,
-      SideBarListTop,
-      SideBarAttractionList,
-    },
-    data(){
-        return {
+  name: "SideBarDetail",
+  components:{
+    SideBarDetailTop,
+    AttractionComment,
+  },
+  data(){
+    return {
 
-        }
-    },
-    methods:{
-      openNav() {
-        console.log("open")
-        document.getElementById("mySidebar").style.width = "400px";
-        document.getElementById("openbtn").style.zIndex=1;
-      },
-      closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("openbtn").style.zIndex=2;
-      },
     }
+  },
+  methods:{
+    openNav() {
+      console.log("open")
+      document.getElementById("myDetail").style.width = "400px";
+      document.getElementById("openbtn").style.zIndex=1;
+    },
+    closeNav() {
+      document.getElementById("myDetail").style.width = "0";
+      document.getElementById("openbtn").style.zIndex=2;
+    },
+  }
 }
-
 </script>
+
 <style scoped>
-.side-bar-wrapper{
+.sidebar-wrapper{
+  /*background-color: #569A64;*/
   position: relative;
   z-index: 1;
   top:0;
@@ -52,7 +56,7 @@ export default {
   display:block;
   overflow-y:hidden;
 }
-.sidebar {
+.myDetail {
   position: absolute;
   z-index:2;
   width: 0;
@@ -65,8 +69,11 @@ export default {
   overflow-x: hidden;
   overflow-y:hidden
 }
+.myDetail .comment-list{
+  overflow-y: scroll;
+}
 
-.sidebar a {
+.myDetail a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -76,10 +83,10 @@ export default {
   text-align:right;
 }
 
-.sidebar a:hover {
+.myDetail a:hover {
   color: #f1f1f1;
 }
-.sidebar .closebtn {
+.myDetail .closebtn {
   font-size: 36px;
 }
 .openbtn {
@@ -106,5 +113,4 @@ export default {
 .openbtn:hover {
   background-color: #444;
 }
-
 </style>
