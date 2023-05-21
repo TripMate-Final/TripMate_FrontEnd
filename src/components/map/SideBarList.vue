@@ -31,10 +31,12 @@ export default {
       openNav() {
         console.log("open")
         document.getElementById("mySidebar").style.width = "400px";
+        document.getElementById("mySidebar").style.borderRight="0.5px solid"
         document.getElementById("openbtn").style.zIndex=1;
       },
       closeNav() {
         document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("mySidebar").style.borderRight="0px"
         document.getElementById("openbtn").style.zIndex=2;
       },
     }

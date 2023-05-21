@@ -34,10 +34,12 @@ export default {
     openNav() {
       console.log("open")
       document.getElementById("myDetail").style.width = "400px";
+      document.getElementById("myDetail").style.borderRight="0.5px solid"
       document.getElementById("openbtn").style.zIndex=1;
     },
     closeNav() {
       document.getElementById("myDetail").style.width = "0";
+      document.getElementById("myDetail").style.borderRight="0px"
       document.getElementById("openbtn").style.zIndex=2;
     },
   }
