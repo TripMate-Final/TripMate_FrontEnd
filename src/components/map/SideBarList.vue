@@ -37,6 +37,8 @@ export default {
       closeNav() {
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("mySidebar").style.borderRight="0px"
+        document.getElementById("myDetail").style.width = "0";
+        document.getElementById("myDetail").style.borderRight="0px"
         document.getElementById("openbtn").style.zIndex=2;
       },
     }
