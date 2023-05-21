@@ -1,61 +1,26 @@
 <template>
-    <b-row>
-        <b-row class="row-tab">
-            <b-col>
-               <b-avatar src=""></b-avatar>
-                <span>전체</span>
-            </b-col>
-            <b-col>
-                <b-avatar src=""></b-avatar>
-                <span>관광지</span>
-            </b-col>
-            <b-col>
-                <b-avatar src=""></b-avatar>
-                <span >문화시설</span>
-            </b-col>
-            <b-col>
-            <b-avatar src=""></b-avatar>
-            <span >축제공연행사</span>
-            </b-col>
-        </b-row>
-        <b-row class="row-tab">
-            <b-col>
-                <b-avatar src=""></b-avatar>
-                <span>여행코스</span>
-            </b-col>
-            <b-col>
-                <b-avatar src=""></b-avatar>
-                <span>전체</span>
-            </b-col>
-            <b-col>
-                <b-avatar src=""></b-avatar>
-                <span>관광지</span>
-            </b-col>
-            <b-col>
-                <b-avatar src=""></b-avatar>
-                <span >문화시설</span>
-            </b-col>
-        </b-row>
-        <b-row class="row-tab">
-            <b-col>
-                <b-avatar src=""></b-avatar>
-                <span >축제공연행사</span>
-            </b-col><b-col>
-            <b-avatar src=""></b-avatar>
-            <span>여행코스</span>
-            </b-col>
-            <b-col></b-col>
-            <b-col></b-col>
-        </b-row>
-    </b-row>
+  <div class="sidebar-tab">
+      <div v-for="i in 3" :key="i">
+        <category-icon onclick=""
+                       v-for="tag in categoryList.slice((i-1)*4,(i-1)*4+4)"
+                       :key="tag"
+                       :title="tag"
+                       remove="false"
+        ></category-icon>
+      </div>
+    </div>
 </template>
 
 <script>
+import CategoryIcon from "@/components/map/CategoryIcon.vue";
 export default {
     name:'SideBarListTab',
+    components:{
+        CategoryIcon,
+    },
     data(){
         return {
-
+          categoryList:["11", "11", "11", "11", 1, 1, 1, 1, 1, 1, 1],
         }
     },
     methods:{
@@ -65,14 +30,9 @@ export default {
 </script>
 
 <style scoped>
-.row-tab{
-    margin: 10px 15px;
-    margin-bottom:25px;
-    height: 50px;
-}
-.col{
-    margin-bottom: 10px;
-    width: 65px;
-    font-size: 1px;
+.sidebar-tab{
+  height: 300px;
+  margin:10px;
+  background-color: #42b983;
 }
 </style>
