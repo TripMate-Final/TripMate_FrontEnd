@@ -36,23 +36,28 @@
           </b-form-group>
         </form>
       </div>
-
-      <div class="links">
+      <b-button v-b-modal.modal-regist size="sm">회원가입</b-button>
+      <b-button v-b-modal.modal-findpassword size="sm">Forgot your password?</b-button>
+      <!-- <div class="links">
         <a href="" @click="flip('password', $event)">Forgot your password?</a>
-      </div>
-
-      <template #model-footer="{ ok }">
-        <b-button size="sm" variant="success" @click="ok()"> ssOK </b-button>
+      </div> -->
+      <template #modal-footer="{ ok }">
+        <b-button size="sm" variant="success" @click="ok()"> OK </b-button>
       </template>
     </b-modal>
+    <user-register-modal></user-register-modal>
+    <find-password-modal></find-password-modal>
   </div>
 </template>
 
 <script>
 import http from "@/util/http-common";
+import UserRegisterModal from "./UserRegisterModal.vue";
+import FindPasswordModal from "./FindPasswordModal.vue";
+
 export default {
   name: "LoginModal",
-  components: {},
+  components: { UserRegisterModal, FindPasswordModal },
   data() {
     return {
       id: "",
@@ -60,6 +65,7 @@ export default {
       ismodal: false,
       nameState: null,
       submittedNames: [],
+      userinfo: {},
     };
   },
   created() {},
@@ -71,6 +77,7 @@ export default {
 
     handleOk(bvModalEvent) {
       bvModalEvent.preventDefault();
+      var vm = this;
       http
         .post(`/user/login`, {
           userId: this.id,
@@ -78,11 +85,19 @@ export default {
         })
         .then(function (response) {
           if (response.status == 200) {
-            alert("로그인 성공");
+            vm.userinfo = response.data;
+            vm.loginok();
           } else {
-            alert("틀렸습니다");
+            console.log(vm);
+            alert("로그인 실패");
           }
         });
+    },
+
+    loginok() {
+      this.$session.set("userinfo", this.userinfo);
+      alert("로그인 성공");
+      window.location.reload(true);
     },
   },
 };
