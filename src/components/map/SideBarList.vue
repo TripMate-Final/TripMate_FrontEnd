@@ -59,8 +59,6 @@ export default {
   background-color: #fff;
   display: block;
   transition: 0.5s;
-  border: 1px solid #444444;
-  border-left: 0px;
   height: 100%;
   overflow-x: hidden;
   overflow-y:hidden
