@@ -1,77 +1,131 @@
 <template>
-  <div>
+  <div class="example">
     <b-row>
       <b-col>
         <b-alert show><h3>글쓰기</h3></b-alert>
       </b-col>
     </b-row>
-    <form @submit.prevent="submitForm">
-      <div>
-        <label for="title">제목</label>
-        <input type="text" id="title" v-model="post.title" required />
-      </div>
-      <div>
-        <label for="content">내용</label>
-        <textarea id="content" v-model="post.content" required></textarea>
-      </div>
-      <div>
-        <button type="submit">작성 완료</button>
-      </div>
-    </form>
+    <span class="text-left">
+      <h2>Title<input class="write" v-model="boardTitle" /></h2>
+    </span>
+
+    <quill-editor
+      class="editor"
+      ref="myTextEditor"
+      :disabled="false"
+      :value="content"
+      :options="editorOption"
+      @change="onEditorChange"
+      @blur="onEditorBlur($event)"
+      @focus="onEditorFocus($event)"
+      @ready="onEditorReady($event)"
+    />
+    <b-col class="text-right">
+      <b-button variant="outline-primary" @click="write()">글쓰기</b-button>
+    </b-col>
   </div>
 </template>
 
 <script>
+import hljs from "highlight.js";
+import debounce from "lodash/debounce";
+import { quillEditor } from "vue-quill-editor";
+import "highlight.js/styles/tomorrow.css";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import http from "@/util/http-common";
 export default {
+  name: "quill-example-snow",
+  title: "Theme: snow",
+  components: {
+    quillEditor,
+  },
   data() {
     return {
-      post: {
-        title: "",
-        content: "",
+      editorOption: {
+        placeholder: "place holder test",
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline", "strike"], // <strong>, <em>, <u>, <s>
+            ["blockquote", "code-block"], // <blockquote>, <pre class="ql-syntax" spellcheck="false">
+            [{ header: 1 }, { header: 2 }], // <h1>, <h2>
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ script: "sub" }, { script: "super" }], // <sub>, <sup>
+            [{ indent: "-1" }, { indent: "+1" }], // class제어
+            [{ direction: "rtl" }], //class 제어
+            [{ size: ["small", false, "large", "huge"] }], //class 제어 - html로 되도록 확인
+            [{ header: [1, 2, 3, 4, 5, 6, false] }], // <h1>, <h2>, <h3>, <h4>, <h5>, <h6>, normal
+            [{ font: [] }], // 글꼴 class로 제어
+            [{ color: [] }, { background: [] }], //style="color: rgb(230, 0, 0);", style="background-color: rgb(230, 0, 0);"
+            [{ align: [] }], // class
+            // ["clean"],
+            ["link", "image", "video"],
+          ],
+          syntax: {
+            highlight: (text) => hljs.highlightAuto(text).value,
+          },
+        },
       },
+      content: "",
+      boardTitle: "",
+      userinfo: null,
     };
   },
   methods: {
-    submitForm() {
-      // 폼 제출 시 실행될 로직 작성
-      // this.post.title와 this.post.content를 사용하여 게시글 데이터를 처리하거나 전송할 수 있습니다.
-      // 예를 들어, HTTP 요청을 보내거나 상위 컴포넌트로 데이터를 전달하는 등의 작업을 수행할 수 있습니다.
-      console.log("글 작성 폼 제출:", this.post.title);
-
-      // 폼 제출 후 폼 초기화
-      this.post.title = "";
-      this.post.content = "";
+    onEditorChange: debounce(function (value) {
+      this.content = value.html;
+    }, 466),
+    onEditorBlur(editor) {
+      console.log("editor blur!", editor);
     },
+    onEditorFocus(editor) {
+      console.log("editor focus!", editor);
+    },
+    onEditorReady(editor) {
+      console.log("editor ready!", editor);
+    },
+
+    write() {
+      console.log(this.boardTitle);
+      console.log(this.content);
+      console.log(this.userinfo.userId);
+      var vm = this;
+      http
+        .post(`/board`, {
+          boardContent: this.content,
+          boardTitle: this.boardTitle,
+          userId: this.userinfo.userId,
+        })
+        .then(function (response) {
+          if (response.status == 200) {
+            alert("글쓰기 성공");
+          } else {
+            alert("글쓰기 실패");
+          }
+          vm.$router.push("/board/list");
+        });
+    },
+  },
+  computed: {
+    editor() {
+      return this.$refs.myTextEditor.quill;
+    },
+    contentCode() {
+      return hljs.highlightAuto(this.content).value;
+    },
+  },
+  mounted() {
+    console.log("this is Quill instance:", this.editor);
+  },
+
+  created() {
+    this.userinfo = this.$session.get("userinfo");
   },
 };
 </script>
 
 <style scoped>
-.post-form {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-weight: bold;
-}
-
-input,
-textarea {
-  margin-bottom: 10px;
-  padding: 5px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
+.write {
+  margin-left: 20px;
 }
 </style>
