@@ -14,13 +14,13 @@
 <script>
 import CategoryIcon from "@/components/map/CategoryIcon.vue";
 export default {
-    name:'SideBarListTab',
+    name:'SideBarListTag',
     components:{
         CategoryIcon,
     },
     data(){
         return {
-          categoryList:["11", "11", "11", "11", 1, 1, 1, 1, 1, 1, 1],
+          categoryList:[1,2,3,4,5,6,7,8,9,10],
         }
     },
     methods:{

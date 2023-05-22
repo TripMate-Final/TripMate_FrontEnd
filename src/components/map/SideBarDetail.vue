@@ -1,42 +1,33 @@
 <template>
   <div class="sidebar-wrapper">
-    <button class="openbtn" id="openbtn" @click="openNav">목록보기</button>
-    <div class="myDetail" id="myDetail">
-      <div>
-        <a href="javascript:void(0)" class="closebtn" @click="closeNav">×</a>
-      </div>
-      <side-bar-detail-top></side-bar-detail-top>
-      <div class="comment-box">
-        <attraction-comment></attraction-comment>
-        <div class="comment-list">
+      <div class="myDetail" id="myDetail">
+        <div>
+          <a href="javascript:void(0)" class="closebtn" @click="closeNav">×</a>
+        </div>
+        <side-bar-detail-top></side-bar-detail-top>
+        <div class="comment-box">
+          <attraction-comment></attraction-comment>
+          <div class="comment-list">
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
 import AttractionComment from "@/components/attraction/item/AttractionComment.vue";
 import SideBarDetailTop from "@/components/map/SideBarDetailTop.vue";
-
+import { mapState } from "vuex";
 export default {
   name: "SideBarDetail",
   components:{
     SideBarDetailTop,
     AttractionComment,
   },
-  data(){
-    return {
-
-    }
-  },
-  methods:{
-    openNav() {
-      console.log("open")
-      document.getElementById("myDetail").style.width = "400px";
-      document.getElementById("myDetail").style.borderRight="0.5px solid"
-      document.getElementById("openbtn").style.zIndex=1;
+    computed: {
+        ...mapState(['detailData']),
     },
+  methods: {
     closeNav() {
       document.getElementById("myDetail").style.width = "0";
       document.getElementById("myDetail").style.borderRight="0px"
@@ -61,7 +52,7 @@ export default {
 .myDetail {
   position: absolute;
   z-index: 2;
-  width: 0;
+  width: 0px;
   background-color: #fff;
   display: block;
   transition: 0.5s;
@@ -93,29 +84,4 @@ export default {
   font-size: 36px;
 }
 
-.openbtn {
-  left:0px;
-  margin: 10px 20px;
-  padding: 0px 10px;
-  position: absolute;
-  height: 35px;
-  background-color:#EFECEC;
-  border: 1px solid #0d172a;
-  border-radius: 1.5rem;
-  color: #0d172a;
-  font-family: "NanumSquareOTF","RocGrotesk-Wide";
-  font-size: 15px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-}
-
-.openbtn:hover {
-  background-color: #569A64;
-  color: #fff;
-  border: 0px;
-}
 </style>

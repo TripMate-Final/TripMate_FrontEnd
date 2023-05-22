@@ -12,7 +12,7 @@
 
         <b-col md="8">
           <b-card-body>
-            <p>title</p>
+            <p @click="openDetail(125266)">title</p>
             <b-card-text >
              내용입니다.
             </b-card-text>
@@ -58,14 +58,23 @@
 
 <script>
 import AttractionTag from "@/components/attraction/item/AttractionTag.vue";
+import {mapActions} from "vuex";
 export default {
   name: "AttractionCard",
   components: {
     AttractionTag,
   },
   datas:{
+
   },
   methods:{
+      ...mapActions(['fetchDetailData']),
+
+    openDetail(contentId){
+        this.fetchDetailData(contentId);
+        document.getElementById("myDetail").style.width = "400px";
+        document.getElementById("myDetail").style.borderRight="0.5px solid"
+    }
 
   }
 };

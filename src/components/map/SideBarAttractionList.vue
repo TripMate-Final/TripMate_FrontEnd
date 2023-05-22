@@ -24,8 +24,7 @@ export default {
     }
   },
   methods: {
-    showDetail() {
-    }
+
   }
 }
 </script>

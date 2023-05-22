@@ -1,7 +1,7 @@
 <template>
-  <div class="side-bar-wrapper">
-    <button class="openbtn" id="openbtn" @click="openNav">목록보기</button>
-    <div id="mySidebar" class="sidebar">
+  <div class="sidebar-wrapper">
+    <button class="openbtn" id="openbtn" :class="[{'openBtnStyle':btnActive}]" @click="openNav">목록보기</button>
+    <div id="mySidebar" :class="[{'sidebarListStyle':isActive}]" class="sidebar">
       <div>
         <a href="javascript:void(0)" class="closebtn" @click="closeNav">×</a>
       </div>
@@ -23,30 +23,26 @@ export default {
       SideBarAttractionList,
     },
     data(){
-        return {
-
+        return{
+            isActive:false,
+            btnActive:false,
         }
     },
     methods:{
       openNav() {
-        console.log("open")
-        document.getElementById("mySidebar").style.width = "400px";
-        document.getElementById("mySidebar").style.borderRight="0.5px solid"
-        document.getElementById("openbtn").style.zIndex=1;
+          this.isActive = true;
+          this.btnActive = true;
       },
       closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("mySidebar").style.borderRight="0px"
-        document.getElementById("myDetail").style.width = "0";
-        document.getElementById("myDetail").style.borderRight="0px"
-        document.getElementById("openbtn").style.zIndex=2;
+          this.isActive = false;
+          this.btnActive = false;
       },
     }
 }
 
 </script>
 <style scoped>
-.side-bar-wrapper{
+.sidebar-wrapper{
   position: relative;
   z-index: 1;
   top:0;
@@ -90,7 +86,7 @@ export default {
   padding: 0px 10px;
   position: absolute;
   height: 35px;
-  z-index: 3;
+  z-index: 2;
   background-color:#EFECEC;
   border: 1px solid #0d172a;
   border-radius: 1.5rem;
@@ -110,5 +106,11 @@ export default {
   color: #fff;
   border: 0px;
 }
-
+.sidebarListStyle{
+    width : 400px;
+    border-right: 0.5px solid;
+}
+.openBtnStyle{
+    zIndex : 1
+}
 </style>
