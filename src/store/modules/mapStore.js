@@ -4,13 +4,14 @@ const mapStore={
     namespaced: true,
     state:{
         detailData: null,
+        address:null,
     },
 
     mutations:{
         setDetailData(state,data){
             state.detailData = data;
             console.log(state.detailData)
-        }
+        },
     },
     actions:{
         fetchDetailData({commit}, contentId){

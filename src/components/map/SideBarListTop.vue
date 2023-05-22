@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar-list-top">
-        <strong class="top-title">서울특별시 강남구</strong>
+        <strong class="top-title">{{ this.$store.state.mapStore.address }}</strong>
         <button class="plan-button" id="show-modal" @click="showModal = true">계획짜기</button>
         <PlanModal class="plan-modal" v-if="showModal" @close="showModal = false">
           <h3 slot="header">custom header</h3>
