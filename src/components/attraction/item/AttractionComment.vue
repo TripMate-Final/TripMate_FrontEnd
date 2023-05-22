@@ -9,6 +9,7 @@
           <span>
             <button class="btn-write">댓글 쓰기</button>
           </span>
+          <!-- <div class="button_base b01_simple_rollover">01_Button</div> -->
         </div>
       </form>
     </div>
@@ -53,5 +54,10 @@ export default {
   height: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.btn-write:hover {
+  color: #ffffff;
+  background-color: #363636;
+  cursor: pointer;
 }
 </style>

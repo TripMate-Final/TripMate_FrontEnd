@@ -3,8 +3,8 @@
     <attraction-tag-nav></attraction-tag-nav>
     <attraction-card
       onclick=""
-      v-for="tag in attractionList"
-      :key="tag"
+      v-for="(tag, index) in attractionList"
+      :key="index"
       :title="tag"
       remove="false"
     >
@@ -25,8 +25,14 @@ export default {
 
   data() {
     return {
+      modalCheck: false,
       attractionList: [1, 1, 1, 1, 1, 1, 1],
     };
+  },
+  methods: {
+    modalOpen() {
+      this.modalCheck = !this.modalCheck;
+    },
   },
 
   // created() {

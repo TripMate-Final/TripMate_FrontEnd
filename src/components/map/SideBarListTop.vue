@@ -25,7 +25,7 @@ export default {
 }
 
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .sidebar-list-top{
   height: 30px;
   margin:5px 10px;

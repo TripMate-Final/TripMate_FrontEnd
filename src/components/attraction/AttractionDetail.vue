@@ -13,9 +13,9 @@
     <div class="img" ref="img">
       <attraction-img :image="attraction.firstImage"></attraction-img>
     </div>
-    <div><h2>상세정보</h2></div>
+    <div ref="content"><h2>상세정보</h2></div>
     <hr />
-    <div class="content" ref="content">
+    <div class="content">
       <attraction-content :overview="attraction.overview"></attraction-content>
     </div>
 

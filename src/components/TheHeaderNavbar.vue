@@ -22,6 +22,7 @@
                   </b-nav-item>
                 </b-navbar-nav>
                 <!-- Right aligned nav items -->
+
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form>
                         <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
@@ -33,9 +34,11 @@
                           <img src="../assets/img/navbar/user-person.png"
                                class="UserPerson">
                         </template>
-                        <b-dropdown-item href="#">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                        <b-dropdown-item href="#" v-b-modal.loginmodal v-if="userinfo == null">Login</b-dropdown-item>
+                        <b-dropdown-item href="#" v-if="userinfo != null" >Profile</b-dropdown-item>
+                        <b-dropdown-item href="#" v-if="userinfo != null" @click="logout">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
+                    <login-modal></login-modal>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
@@ -44,9 +47,39 @@
 </template>
 
 <script>
+import loginModal from "@/components/user/LoginModal.vue";
   export default {
       name: "TheHeaderNavbar",
+      components:{
+          loginModal
+      },
+
+      data() {
+          return {
+              userinfo: null,
+          };
+      },
+
+      created() {
+          this.userinfo = this.$session.get("userinfo");
+      },
+
+      methods: {
+          moveSelect() {
+              this.$router.push({ name: "attraction" });
+          },
+          login() {
+              this.userinfo = this.$session.get("userinfo");
+          },
+          logout() {
+              this.$session.clear();
+              window.location.reload(true);
+          },
+      },
+
   };
+
+
 </script>
 
 <style scoped>
