@@ -64,8 +64,10 @@ export default {
   components: {
     AttractionTag,
   },
-  datas:{
+  data(){
+    return{
 
+    }
   },
   methods:{
       ...mapActions(['mapStore/fetchDetailData']),

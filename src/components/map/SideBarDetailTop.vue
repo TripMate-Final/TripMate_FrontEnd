@@ -18,22 +18,7 @@
       <attraction-tag></attraction-tag>
     </b-card-body>
   </b-card>
-<!--  <div class="sidebar-detail-top">-->
-<!--    <div class="image-box">-->
-<!--      <img class="image-thumbnail" src="@/assets/img/sample/test1.png">-->
-<!--    </div>-->
-<!--    <div class="content-box">-->
-<!--      <div class="content-title">-->
-<!--        <strong>{{ detailData.title }}</strong>-->
-<!--      </div>-->
-<!--      <div class="content-addr">-->
-<!--        <span>{{detailData.addr1}}</span>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="tag-box">-->
-<!--      <attraction-tag></attraction-tag>-->
-<!--    </div>-->
-<!--  </div>-->
+
 </template>
 <script>
 import AttractionTag from "@/components/attraction/item/AttractionTag.vue";

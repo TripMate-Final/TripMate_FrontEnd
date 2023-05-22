@@ -4,7 +4,6 @@ import MainView from '../views/MainView.vue'
 import MapView from '../views/MapView.vue'
 import AttractionView from "@/views/AttractionView.vue";
 import AttractionList from "@/components/attraction/AttractionList.vue";
-import PlanView from "@/views/PlanView.vue";
 
 Vue.use(VueRouter)
 
@@ -54,11 +53,6 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/plan',
-    name: 'plan',
-    component: PlanView,
-  }
 ]
 
 const router = new VueRouter({
