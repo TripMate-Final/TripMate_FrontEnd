@@ -1,9 +1,9 @@
 import http from "@/util/http-common";
 
 const mapStore={
+    namespaced: true,
     state:{
         detailData: null,
-        isClicked:false
     },
 
     mutations:{

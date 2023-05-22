@@ -21,12 +21,6 @@ export default {
         SideBarListTag,
         SideBarAttractionList,
     },
-    data(){
-
-    },
-    methods:{
-
-    }
 }
 
 </script>

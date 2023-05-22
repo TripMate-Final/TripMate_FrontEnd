@@ -68,10 +68,10 @@ export default {
 
   },
   methods:{
-      ...mapActions(['fetchDetailData']),
+      ...mapActions(['mapStore/fetchDetailData']),
 
     openDetail(contentId){
-        this.fetchDetailData(contentId);
+      this["mapStore/fetchDetailData"](contentId)
     }
 
   }
