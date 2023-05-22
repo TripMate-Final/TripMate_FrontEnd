@@ -34,6 +34,7 @@ export default {
         };
     },
     mounted() {
+        console.log(process.env.VUE_APP_KAKAO_MAP_API_KEY);
         if (window.kakao && window.kakao.maps) {
             this.initMap();
         } else {
@@ -41,7 +42,7 @@ export default {
             /* global kakao */
             script.onload = () => kakao.maps.load(this.initMap);
             script.src =
-                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0";
+                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=" + process.env.VUE_APP_KAKAO_MAP_API_KEY;
             document.head.appendChild(script);
         }
     },
