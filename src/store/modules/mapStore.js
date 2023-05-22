@@ -3,6 +3,7 @@ import http from "@/util/http-common";
 const mapStore={
     state:{
         detailData: null,
+        isClicked:false
     },
 
     mutations:{

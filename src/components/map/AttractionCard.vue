@@ -12,7 +12,7 @@
 
         <b-col md="8">
           <b-card-body>
-            <p @click="openDetail(125266)">title</p>
+              <a v-b-toggle href="#sidebar-detail" @click="openDetail(125266)" @click.prevent>title</a>
             <b-card-text >
              내용입니다.
             </b-card-text>
@@ -72,8 +72,6 @@ export default {
 
     openDetail(contentId){
         this.fetchDetailData(contentId);
-        document.getElementById("myDetail").style.width = "400px";
-        document.getElementById("myDetail").style.borderRight="0.5px solid"
     }
 
   }

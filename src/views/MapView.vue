@@ -36,13 +36,9 @@ export default {
 .kakao-map {width:100%;height:100%; position:absolute; top:0px; left:0px; z-index:1}
 
 .sidebar-list{
-    width:400px;
-    height: 1140px;
     z-index:99
 }
 .sidebar-detail{
-  width:400px;
-  height: 1140px;
   z-index:98
 }
 </style>

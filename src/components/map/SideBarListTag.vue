@@ -31,8 +31,7 @@ export default {
 
 <style scoped>
 .sidebar-tab{
-  height: 300px;
-  margin:10px;
+  height: 400px;
   background-color: #42b983;
 }
 </style>
