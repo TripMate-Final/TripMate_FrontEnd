@@ -92,7 +92,6 @@ export default {
     this.contentId = this.$route.params.contentId;
     console.log(this.contentId);
     http.get(`/attraction/${125505}`).then(({ data }) => {
-      console.log(data);
       this.attraction = data;
     });
   },

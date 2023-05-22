@@ -1,6 +1,5 @@
-<!-- <template>
-  
-  <b-container class="bv-example-row mt-3">
+<template>
+  <div>
     <b-row>
       <b-col>
         <b-alert show><h3>글목록</h3></b-alert>
@@ -11,21 +10,6 @@
         <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <b-table striped hover :items="articles" :fields="fields" @row-clicked="viewArticle">
-          <template #cell(subject)="data">
-            <router-link :to="{ name: 'boardview', params: { articleno: articles.board } }">
-              {{ data.item.subject }}
-            </router-link>
-          </template>
-        </b-table>
-      </b-col>
-    </b-row>
-  </b-container>
-</template> -->
-<template>
-  <div>
     <b-form-group
       label="검색"
       label-for="filter-input"
@@ -61,9 +45,10 @@
       show-empty
       small
       @filtered="onFiltered"
+      @row-clicked="handleRowClick"
     >
+      >
       <template #cell(name)="row"> {{ row.value.first }} {{ row.value.last }} </template>
-
       <template #cell(actions)="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
@@ -75,7 +60,7 @@
 
       <template #row-details="row">
         <b-card>
-          <ul>
+          <ul @click="viewDetail">
             <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
           </ul>
         </b-card>
@@ -153,11 +138,13 @@ export default {
     moveWrite() {
       this.$router.push({ name: "boardwrite" });
     },
-    viewArticle(article) {
-      this.$router.push({
-        name: "boardDetail",
-        params: { boardId: article.boardId },
-      });
+    handleRowClick(item) {
+      console.log(item);
+      // this.$router.push({
+      //   name: "boardDetail",
+      //   params: { boardId: item.boardId },
+      // });
+      this.$router.push(`detail/${item.boardId}`);
     },
     info(item, index, button) {
       this.infoModal.title = `Row index: ${index}`;

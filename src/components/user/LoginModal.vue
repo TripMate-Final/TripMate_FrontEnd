@@ -10,27 +10,16 @@
     >
       <div>
         <form ref="form" @submit.stop.prevent="handleSubmit">
-          <b-form-group
-            label="Id"
-            label-for="id-input"
-            invalid-feedback="Id is required"
-            :state="nameState"
-          >
+          <b-form-group label="Id" label-for="id-input" invalid-feedback="Id is required">
             <b-form-input id="name-input" v-model="id" :state="nameState" required></b-form-input>
           </b-form-group>
         </form>
         <form ref="form" @submit.stop.prevent="handleSubmit">
-          <b-form-group
-            label="Password"
-            label-for="name-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
+          <b-form-group label="Password" label-for="name-input" invalid-feedback="Name is required">
             <b-form-input
               id="name-input"
               type="password"
               v-model="password"
-              :state="nameState"
               required
             ></b-form-input>
           </b-form-group>

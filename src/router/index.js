@@ -80,7 +80,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardWrite"),
       },
       {
-        path: "detail/:boardid",
+        path: "detail/:boardId",
         name: "boardDetail",
         component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardDetail"),
       },
@@ -88,11 +88,6 @@ const routes = [
         path: "modify",
         name: "boardmodify",
         component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardModify"),
-      },
-      {
-        path: "delete/:articleno",
-        name: "boarddelete",
-        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardDelete"),
       },
     ],
   },

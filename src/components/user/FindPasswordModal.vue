@@ -3,28 +3,13 @@
     <b-modal id="modal-findpassword" size="sm" title="비밀번호찾기" ok-only>
       <div>
         <form ref="form" @submit.stop.prevent="handleSubmit">
-          <b-form-group
-            label="Id"
-            label-for="id-input"
-            invalid-feedback="Id is required"
-            :state="nameState"
-          >
-            <b-form-input id="id-input" v-model="id" :state="nameState" required></b-form-input>
+          <b-form-group label="Id" label-for="id-input" invalid-feedback="Id is required">
+            <b-form-input id="id-input" v-model="id" required></b-form-input>
           </b-form-group>
         </form>
         <form ref="form" @submit.stop.prevent="handleSubmit">
-          <b-form-group
-            label="email"
-            label-for="email-input"
-            invalid-feedback="Id is required"
-            :state="nameState"
-          >
-            <b-form-input
-              id="email-input"
-              v-model="email"
-              :state="nameState"
-              required
-            ></b-form-input>
+          <b-form-group label="email" label-for="email-input" invalid-feedback="Id is required">
+            <b-form-input id="email-input" v-model="email" required></b-form-input>
           </b-form-group>
         </form>
       </div>
@@ -46,6 +31,8 @@ export default {
   data() {
     return {
       message: "",
+      id: "",
+      email: "",
     };
   },
   created() {},
