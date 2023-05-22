@@ -46,15 +46,7 @@
 <script>
   export default {
       name: "TheHeaderNavbar",
-
-      methods:{
-        moveSelect(){
-            console.log(1)
-            this.$router.push({name:'attraction'})
-        }
-      }
   };
-
 </script>
 
 <style scoped>

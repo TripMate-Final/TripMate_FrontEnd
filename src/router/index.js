@@ -4,6 +4,7 @@ import MainView from '../views/MainView.vue'
 import MapView from '../views/MapView.vue'
 import AttractionView from "@/views/AttractionView.vue";
 import AttractionList from "@/components/attraction/AttractionList.vue";
+import PlanView from "@/views/PlanView.vue";
 
 Vue.use(VueRouter)
 
@@ -33,7 +34,6 @@ const routes = [
     ]
   },
 
-
   {
     path: '/about',
     name: 'about',
@@ -45,7 +45,19 @@ const routes = [
   {
     path:'/map',
     name:'map',
-    component: MapView
+    component: MapView,
+    children:[
+      {
+        path: 'detail/:contentId',
+        name: 'detail',
+        component: () => import(/* webpackChunkName: "about" */ '../components/map/SideBarDetail.vue')
+      },
+    ]
+  },
+  {
+    path: '/plan',
+    name: 'plan',
+    component: PlanView,
   }
 ]
 
