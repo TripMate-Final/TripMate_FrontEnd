@@ -62,8 +62,8 @@ export default {
   data() {
     return {
       userinfo: null,
-      keyword: "fqfq",
-      categoryCode: "eeeee",
+      keyword: "",
+      categoryCode: 10,
     };
   },
 
@@ -88,6 +88,7 @@ export default {
         name: "attractionlist",
         query: { keyword: this.keyword, categoryCode: this.categoryCode },
       });
+      this.forceReload();
     },
     forceReload() {
       window.location.reload();

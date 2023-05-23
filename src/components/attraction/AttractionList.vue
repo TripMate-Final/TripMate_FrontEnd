@@ -28,6 +28,7 @@ export default {
       modalCheck: false,
       attractionList: [],
       keyword: "",
+        categoryCode:10,
     };
   },
   methods: {
@@ -38,7 +39,8 @@ export default {
 
   created() {
     this.keyword = this.$route.query.keyword;
-    http.get(`/attraction/select/${this.keyword}`).then(({ data }) => {
+    this.categoryCode = this.$route.query.categoryCode;
+    http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`).then(({ data }) => {
       this.attractionList = data;
     });
     // window.location.reload(true);
