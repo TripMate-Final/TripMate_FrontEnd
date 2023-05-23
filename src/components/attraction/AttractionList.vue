@@ -41,6 +41,7 @@ export default {
     http.get(`/attraction/select/${this.keyword}`).then(({ data }) => {
       this.attractionList = data;
     });
+    console.log(this.attractionList);
   },
 };
 </script>

@@ -5,7 +5,7 @@ import MapView from '../views/MapView.vue'
 import AttractionView from "@/views/AttractionView.vue";
 import BoardView from "@/views/BoardView.vue";
 import UserView from "@/views/UserView.vue";
-
+import AttrationList from "@/components/attraction/AttractionList.vue";
 Vue.use(VueRouter)
 
 const routes = [
@@ -18,17 +18,17 @@ const routes = [
     path: '/attraction',
     name: 'attraction',
     component: AttractionView,
-    redirect: '/attraction/list/공항',
     children:[
       {
-        path: 'list/:keyword',
-        name: 'list',
-        component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionList.vue')
+        path: 'list',
+        name: 'attractionlist',
+        component: AttrationList
+        // component: () => import(/* webpackChunkName: "about" */ '@/components/attraction/AttractionList.vue')
       },
 
       {
         path: 'detail/:contentId',
-        name: 'detail',
+        name: 'attractiondetail',
         component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
       },
     ]
