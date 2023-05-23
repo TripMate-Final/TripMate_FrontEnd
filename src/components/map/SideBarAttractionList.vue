@@ -1,24 +1,25 @@
 <template>
-  <div class="sidebar-attraction-list">
+  <draggable div class="sidebar-attraction-list" v-model="attractionList" draggable=".attraction-card">
     <attraction-card
+            class="attraction-card"
             v-for="(tag, index) in attractionList"
             :key="index"
             :attraction="tag"
             remove="false"
     ></attraction-card>
-  </div>
+  </draggable>
 </template>
 
 <script>
 import AttractionCard from "@/components/map/AttractionCard.vue";
 import http from "@/util/http-common";
-// import {mapState} from "vuex";
-
+import draggable from 'vuedraggable'
 export default {
 
     name: "SideBarAttractionList",
     components: {
-        AttractionCard
+        AttractionCard,
+        draggable,
     },
 
     data() {
