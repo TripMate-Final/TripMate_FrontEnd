@@ -65,7 +65,9 @@ export default {
     AttractionTag,
   },
     props: {
-        attraction: {},
+        attraction: {
+          type:Object
+        },
     },
   data(){
     return{

@@ -6,6 +6,8 @@ const mapStore={
         categoryCode:10,
         detailData: null,
         address:null,
+        selectedDay:0,
+        planList:[]
     },
 
     mutations:{
@@ -15,6 +17,22 @@ const mapStore={
         },
         SET_CATEGORY_CODE(state,value){
             state.categoryCode = value;
+        },
+        SET_SELECTED_DAY(state,value){
+            state.selectedDay = value;
+        },
+        ADD_PLAN(state,plan){
+            const existingDay = state.planList.find((day) => day.day === state.selectedDay);
+            console.log(existingDay);
+            if(existingDay){
+                existingDay.elements.push(plan);
+            }else{
+                const newPlan ={
+                    day:state.selectedDay,
+                    elements:[plan],
+                };
+                state.planList.push(newPlan);
+            }
         }
     },
     actions:{
@@ -33,12 +51,20 @@ const mapStore={
         },
         setCategoryCode({commit},categoryCode){
             commit('SET_CATEGORY_CODE',categoryCode)
+        },
+        setSelectedDay({commit},day){
+            commit('SET_SELECTED_DAY',day)
+        },
+        addPlan({commit,state},plan){
+            if(state.selectedDay != 0){
+                commit('ADD_PLAN',plan);
+            }
         }
     },
     getters:{
         getCategoryCode(state){
             return state.categoryCode
-        }
+        },
     }
 };
 

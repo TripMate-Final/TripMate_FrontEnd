@@ -2,9 +2,9 @@
   <div>
       <b-card header-tag="header">
         <template #header>
-          <h6 class="mb-0">{{title}}</h6>
+          <h6 class="mb-0">{{data.title}}</h6>
         </template>
-        <b-card-text>{{content}}</b-card-text>
+        <b-card-text>{{data.content}}</b-card-text>
       </b-card>
   </div>
 
@@ -14,8 +14,9 @@
 export default {
   name: "SideBarPlanTop",
   props: {
-    title: String,
-    content: String,
+    data:{
+      type:Object
+    }
   },
   data() {
     return {

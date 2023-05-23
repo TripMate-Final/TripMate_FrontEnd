@@ -2,47 +2,43 @@
   <div>
     <b-sidebar id="sidebar-plan" width="400px" right shadow>
       <side-bar-plan-top></side-bar-plan-top>
-      <side-bar-plan-card v-for="item in dummyData"
-                          :key="item.id"
-                          :title="item.title" :content="item.content"
-                          remove="false">
-
-      </side-bar-plan-card>
+      <div v-for="dayItem in filteredList" :key="dayItem.day">
+        {{dayItem.day}}일차
+        <attraction-card v-for="item in dayItem.elements" :key="item.id" :attraction="item" remove="false">
+        </attraction-card>
+      </div>
     </b-sidebar>
   </div>
 </template>
 <script>
 
 import SideBarPlanTop from "@/components/plan/SideBarPlanTop.vue";
-import SideBarPlanCard from "@/components/plan/SideBarPlanCard.vue";
+import {mapState} from "vuex";
+import AttractionCard from "@/components/map/AttractionCard.vue";
 export default {
   name: 'SideBarPlanList',
   components: {
+    AttractionCard,
     SideBarPlanTop,
-    SideBarPlanCard
   },
   data() {
     return {
-      dummyData: [
-        {
-          id: 1,
-          title: '1일차',
-          content: '1일차입니다..',
-        },
-        {
-          id: 2,
-          title: '2일차',
-          content: '2일차입니당',
-        },
-        {
-          id: 3,
-          title: '3일차',
-          content: '3일차입니당',
-        },
-        // 더 많은 더미 데이터를 추가할 수 있습니다.
-      ],
+
     }
   },
+  computed:{
+    ...mapState('mapStore', {
+      planList: state => state.planList,
+      selectedDay: state => state.selectedDay
+    }),
+    filteredList(){
+      if(this.selectedDay == 0){
+        return this.planList.slice().sort((a, b) => a.day - b.day);
+      }else{
+        return this.planList.filter((dayItem) => dayItem.day === this.selectedDay);
+      }
+    }
+  }
 }
 
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <draggable div class="sidebar-attraction-list" v-model="attractionList" draggable=".attraction-card">
+  <div class="sidebar-attraction-list">
     <attraction-card
             class="attraction-card"
             v-for="(tag, index) in attractionList"
@@ -7,19 +7,17 @@
             :attraction="tag"
             remove="false"
     ></attraction-card>
-  </draggable>
+  </div>
 </template>
 
 <script>
 import AttractionCard from "@/components/map/AttractionCard.vue";
 import http from "@/util/http-common";
-import draggable from 'vuedraggable'
 export default {
 
     name: "SideBarAttractionList",
     components: {
         AttractionCard,
-        draggable,
     },
 
     data() {
