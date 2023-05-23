@@ -33,7 +33,14 @@ const mapStore={
                 };
                 state.planList.push(newPlan);
             }
-        }
+        },
+        DELETE_PLAN(state, {day,index}){
+            state.planList.forEach((item) => {
+                if (item.day == day && item.elements[index]) {
+                    item.elements.splice(index, 1);
+                }
+            });
+          }
     },
     actions:{
         fetchDetailData({commit}, contentId){
@@ -59,6 +66,9 @@ const mapStore={
             if(state.selectedDay != 0){
                 commit('ADD_PLAN',plan);
             }
+        },
+        deletePlan({commit},{day,index}){
+            commit('DELETE_PLAN',{day,index})
         }
     },
     getters:{
