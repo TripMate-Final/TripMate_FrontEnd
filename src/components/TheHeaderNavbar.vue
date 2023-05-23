@@ -13,7 +13,7 @@
             <b-nav-item href="#">
               <router-link :to="{ name: 'main' }" class="m-2 link"> 메인 </router-link>
               <router-link :to="{ name: 'attraction' }" class="m-2 link"> 여행정보 </router-link>
-              <router-link :to="{ name: 'map' }" class="m-2 link"> 여행지도 </router-link>
+              <router-link :to="{ name: 'map' }" class="m-2 link" @click.native="forceReload"> 여행지도 </router-link>
               <router-link :to="{ name: 'board' }" class="m-2 link"> 게시판 </router-link>
             </b-nav-item>
           </b-navbar-nav>
@@ -73,6 +73,9 @@ export default {
       this.$session.clear();
       window.location.reload(true);
     },
+    forceReload(){
+      window.location.reload();
+    }
   },
 };
 </script>
