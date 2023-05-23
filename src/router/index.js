@@ -4,6 +4,8 @@ import MainView from '../views/MainView.vue'
 import MapView from '../views/MapView.vue'
 import AttractionView from "@/views/AttractionView.vue";
 import AttractionList from "@/components/attraction/AttractionList.vue";
+import BoardView from "@/views/BoardView.vue";
+import UserView from "@/views/UserView.vue";
 
 Vue.use(VueRouter)
 
@@ -52,6 +54,42 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../components/map/SideBarDetail.vue')
       },
     ]
+  },
+
+  {
+    path: '/board',
+    name: 'board',
+    component: BoardView,
+    redirect: '/board/list',
+
+    children: [
+      {
+        path: "list",
+        name: "boardlist",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardList"),
+      },
+      {
+        path: "write",
+        name: "boardwrite",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardWrite"),
+      },
+      {
+        path: "detail/:boardId",
+        name: "boardDetail",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardDetail"),
+      },
+      {
+        path: "modify/:boardId",
+        name: "boardmodify",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardModify"),
+      },
+    ],
+  },
+
+  {
+    path: '/user',
+    name: 'user',
+    component: UserView,
   },
 ]
 
