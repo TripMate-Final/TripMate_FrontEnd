@@ -12,6 +12,7 @@
 <script>
 import AttractionCard from "@/components/map/AttractionCard.vue";
 import http from "@/util/http-common";
+// import {mapState} from "vuex";
 
 export default {
 
@@ -23,11 +24,25 @@ export default {
     data() {
         return {
             attractionList: [],
-            keyword: "광화문",
-            categoryCode:10,
+            keyword: "제주도",
+            categoryCode:12,
+        }
+    },
+    computed:{
+        category(){
+            return this.$store.getters["mapStore/getCategoryCode"]
+        }
+    },
+    watch:{
+        category(value){
+            this.categoryCode = value;
+            http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`).then(({ data }) => {
+                this.attractionList = data;
+            });
         }
     },
     created() {
+        console.log(this.categoryCode)
         http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`).then(({ data }) => {
             this.attractionList = data;
         });
