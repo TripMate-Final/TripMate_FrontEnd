@@ -19,10 +19,10 @@ const routes = [
     path: '/attraction',
     name: 'attraction',
     component: AttractionView,
-    redirect: '/attraction/list',
+    redirect: '/attraction/list/서울',
     children:[
       {
-        path: 'list',
+        path: 'list/:keyword',
         name: 'list',
         component: AttractionList,
       },

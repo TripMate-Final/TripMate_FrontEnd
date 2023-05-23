@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ keyword }}
     <attraction-tag-nav></attraction-tag-nav>
     <attraction-card
       onclick=""
@@ -15,7 +16,7 @@
 <script>
 import AttractionCard from "./item/AttractionCard.vue";
 import AttractionTagNav from "./item/AttractionTagNav.vue";
-// import http from "@/util/http-common";
+import http from "@/util/http-common";
 export default {
   name: "AttractionList",
   components: {
@@ -27,6 +28,7 @@ export default {
     return {
       modalCheck: false,
       attractionList: [1, 1, 1, 1, 1, 1, 1],
+      keyword: "",
     };
   },
   methods: {
@@ -35,12 +37,13 @@ export default {
     },
   },
 
-  // created() {
-  //   http.get(`/attraction/list`).then(({ data }) => {
-  //     console.log(data);
-  //     this.attractionList = data;
-  //   });
-  // },
+  created() {
+    this.keyword = this.$route.params.keyword;
+    http.get(`/attraction/list/${this.keyword}`).then(({ data }) => {
+      console.log(data);
+      this.attractionList = data;
+    });
+  },
 };
 </script>
 

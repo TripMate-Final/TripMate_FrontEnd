@@ -1,28 +1,34 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="light">
-
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-brand href="#">
+        <b-navbar-brand href="#">
           <img class="logo" src="../assets/img/navbar/logo.png" />
-          </b-navbar-brand>
+        </b-navbar-brand>
 
-          <b-navbar-nav class="mx-auto">
-            <b-nav-item href="#">
-              <router-link :to="{ name: 'main' }" class="m-2 link"> 메인 </router-link>
-              <router-link :to="{ name: 'attraction' }" class="m-2 link"> 여행정보 </router-link>
-              <router-link :to="{ name: 'map' }" class="m-2 link"> 여행지도 </router-link>
-              <router-link :to="{ name: 'board' }" class="m-2 link"> 게시판 </router-link>
-            </b-nav-item>
-          </b-navbar-nav>
+        <b-navbar-nav class="mx-auto">
+          <b-nav-item href="#">
+            <router-link :to="{ name: 'main' }" class="m-2 link"> 메인 </router-link>
+            <router-link :to="{ name: 'attraction' }" class="m-2 link"> 여행정보 </router-link>
+            <router-link :to="{ name: 'map' }" class="m-2 link"> 여행지도 </router-link>
+            <router-link :to="{ name: 'board' }" class="m-2 link"> 게시판 </router-link>
+          </b-nav-item>
+        </b-navbar-nav>
         <!-- Right aligned nav items -->
 
         <b-navbar-nav>
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+            <b-form-input
+              size="sm"
+              class="mr-sm-2"
+              placeholder="Search"
+              v-model="keyword"
+            ></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="selectKeyword()"
+              >Search</b-button
+            >
           </b-nav-form>
 
           <b-nav-item-dropdown right>
@@ -55,6 +61,7 @@ export default {
   data() {
     return {
       userinfo: null,
+      keyword: "",
     };
   },
 
@@ -73,6 +80,9 @@ export default {
       this.$session.clear();
       window.location.reload(true);
     },
+    selectKeyword() {
+      this.$router.push(`/attraction/list/${this.keyword}`);
+    },
   },
 };
 </script>
@@ -81,17 +91,17 @@ export default {
 .logo {
   height: 70px;
 }
-::v-deep{
-  .navbar-nav a{
-    color:#0d172a;
+::v-deep {
+  .navbar-nav a {
+    color: #0d172a;
     font-family: "NanumSquareOTF", "RocGrotesk-Wide";
     font-size: 18px;
   }
-  .navbar-nav a:hover{
-    color:#569A64;
+  .navbar-nav a:hover {
+    color: #569a64;
   }
-  a .router-link-exact-active{
-     color:#569A64;
+  a .router-link-exact-active {
+    color: #569a64;
   }
 }
 </style>
