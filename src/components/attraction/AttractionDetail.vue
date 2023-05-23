@@ -26,15 +26,11 @@
     <div ref="comment"><attraction-comment2></attraction-comment2></div>
     <hr />
     <div><h2>제목과 유사한 여행지 추천</h2></div>
-    <div ref="recommendation">
-      <attraction-recommend
-        onclick=""
-        v-for="recommend in recommendList"
-        :key="recommend"
-        :title="recommend"
-        remove="false"
-      ></attraction-recommend>
-    </div>
+    <span ref="recommendation">
+      <attraction-img-card :contentId="attraction.recommendId1"></attraction-img-card>
+      <attraction-img-card :contentId="attraction.recommendId2"></attraction-img-card>
+      <attraction-img-card :contentId="attraction.recommendId3"></attraction-img-card>
+    </span>
   </div>
 </template>
 
@@ -47,7 +43,7 @@ import AttractionAddr from "./item/AttractionAddr.vue";
 import AttractionSido from "./item/AttractionSido.vue";
 import AttractionComment from "./item/AttractionComment.vue";
 import AttractionComment2 from "./item/AttractionComment2.vue";
-import AttractionRecommend from "./item/AttractionRecommend.vue";
+import AttractionImgCard from "./item/AttractionImgCard.vue";
 import TheKakaoMap from "../map/TheKakaoMap.vue";
 import http from "@/util/http-common";
 
@@ -61,7 +57,7 @@ export default {
     AttractionSido,
     AttractionComment,
     AttractionComment2,
-    AttractionRecommend,
+    AttractionImgCard,
     TheKakaoMap,
   },
 
