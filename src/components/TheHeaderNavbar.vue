@@ -4,9 +4,9 @@
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-brand href="#">
+                <router-link :to="{ name: 'main' }" class="b-navbar-brand">
                     <img class="logo" src="../assets/img/navbar/logo.png" />
-                </b-navbar-brand>
+                </router-link>
 
                 <b-navbar-nav class="mx-auto">
                     <b-nav-item href="#">
@@ -16,7 +16,6 @@
                         <router-link :to="{ name: 'board' }" class="m-2 link"> 게시판 </router-link>
                     </b-nav-item>
                 </b-navbar-nav>
-                <!-- Right aligned nav items -->
 
                 <b-navbar-nav>
                     <b-nav-form>
