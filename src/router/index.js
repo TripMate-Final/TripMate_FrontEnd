@@ -18,6 +18,7 @@ const routes = [
     path: '/attraction',
     name: 'attraction',
     component: AttractionView,
+    redirect: '/attraction/list',
     children:[
       {
         path: 'list',

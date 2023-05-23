@@ -35,8 +35,11 @@ export default {
       this.modalCheck = !this.modalCheck;
     },
   },
+    mounted() {
+      console.log(this.$route.query);
+    },
 
-  created() {
+    created() {
     this.keyword = this.$route.params.keyword;
     http.get(`/attraction/select/${this.keyword}`).then(({ data }) => {
       this.attractionList = data;

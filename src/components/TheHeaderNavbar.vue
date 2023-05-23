@@ -27,7 +27,7 @@
               placeholder="Search"
               v-model="keyword"
             ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="selectKeyword()"
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="selectKeyword($event)"
               >Search</b-button
             >
           </b-nav-form>
@@ -82,7 +82,8 @@ export default {
       this.$session.clear();
       window.location.reload(true);
     },
-    selectKeyword() {
+    selectKeyword(event) {
+      event.preventDefault();
       this.$router.push({
         name: "attractionlist",
         query: { keyword: this.keyword, categoryCode: this.categoryCode },
