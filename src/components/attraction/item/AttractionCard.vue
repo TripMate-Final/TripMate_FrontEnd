@@ -13,7 +13,7 @@
         <b-col md="8">
           <b-card-body title="attraction.title">
             <b-card-text>
-              <router-link to="./detail/125505">내용입니다</router-link>
+              <router-link to="../detail/125505">내용입니다</router-link>
             </b-card-text>
             <AttractionTag></AttractionTag>
           </b-card-body>

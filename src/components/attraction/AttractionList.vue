@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ keyword }}
     <attraction-tag-nav></attraction-tag-nav>
     <attraction-card
       onclick=""
@@ -27,7 +26,7 @@ export default {
   data() {
     return {
       modalCheck: false,
-      attractionList: [1, 1, 1, 1, 1, 1, 1],
+      attractionList: [],
       keyword: "",
     };
   },
@@ -39,8 +38,7 @@ export default {
 
   created() {
     this.keyword = this.$route.params.keyword;
-    http.get(`/attraction/list/${this.keyword}`).then(({ data }) => {
-      console.log(data);
+    http.get(`/attraction/select/${this.keyword}`).then(({ data }) => {
       this.attractionList = data;
     });
   },
