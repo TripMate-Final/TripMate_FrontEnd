@@ -5,7 +5,7 @@
       onclick=""
       v-for="(tag, index) in attractionList"
       :key="index"
-      :title="tag"
+      :attraction="tag"
       remove="false"
     >
     </attraction-card>
@@ -35,16 +35,13 @@ export default {
       this.modalCheck = !this.modalCheck;
     },
   },
-    mounted() {
-      console.log(this.$route.query);
-    },
 
-    created() {
-    this.keyword = this.$route.params.keyword;
+  created() {
+    this.keyword = this.$route.query.keyword;
     http.get(`/attraction/select/${this.keyword}`).then(({ data }) => {
       this.attractionList = data;
     });
-    console.log(this.attractionList);
+    // window.location.reload(true);
   },
 };
 </script>

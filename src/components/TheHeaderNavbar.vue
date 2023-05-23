@@ -88,7 +88,6 @@ export default {
         name: "attractionlist",
         query: { keyword: this.keyword, categoryCode: this.categoryCode },
       });
-      // this.$router.push(`/attraction/list/${this.keyword}`);
     },
     forceReload() {
       window.location.reload();

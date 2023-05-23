@@ -1,19 +1,24 @@
 <template>
   <div>
+    <!-- {{ attraction }} -->
     <b-card no-body class="overflow-hidden">
       <b-row>
         <b-col md="4">
           <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
+            :src="`${attraction.firstImage}`"
             alt="Image"
             class="rounded-0"
+            height="250"
           ></b-card-img>
         </b-col>
 
         <b-col md="8">
-          <b-card-body title="attraction.title">
+          <b-card-body title=""
+            >{{ attraction.title }}
             <b-card-text>
-              <router-link to="../detail/125505">내용입니다</router-link>
+              <router-link :to="`./detail/${attraction.contentId}`">{{
+                attraction.addr1
+              }}</router-link>
             </b-card-text>
             <AttractionTag></AttractionTag>
           </b-card-body>
@@ -31,7 +36,7 @@
               />
             </svg>
           </div>
-          <div class="heart-icon">
+          <!-- <div class="heart-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -48,7 +53,7 @@
                 d="M20.84 4.58a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.09a5.5 5.5 0 0 0-7.78 7.78l1.06 1.09L12 21.01l7.78-7.77 1.06-1.09a5.5 5.5 0 0 0 0-7.77z"
               />
             </svg>
-          </div>
+          </div> -->
         </b-col>
       </b-row>
     </b-card>
@@ -61,6 +66,9 @@ export default {
   name: "AttractionCard",
   components: {
     AttractionTag,
+  },
+  props: {
+    attraction: {},
   },
 };
 </script>

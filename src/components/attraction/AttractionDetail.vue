@@ -91,7 +91,7 @@ export default {
   created() {
     this.contentId = this.$route.params.contentId;
     console.log(this.contentId);
-    http.get(`/attraction/${125505}`).then(({ data }) => {
+    http.get(`/attraction/${this.contentId}`).then(({ data }) => {
       this.attraction = data;
     });
   },
