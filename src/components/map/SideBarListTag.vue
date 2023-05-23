@@ -1,26 +1,32 @@
 <template>
-  <div class="sidebar-tab">
-      <div v-for="i in 3" :key="i">
-        <category-icon onclick=""
-                       v-for="tag in categoryList.slice((i-1)*4,(i-1)*4+4)"
-                       :key="tag"
-                       :title="tag"
-                       remove="false"
-        ></category-icon>
-      </div>
+  <b-card class="mb-3">
+    <div v-for="categoryData in categoryList" :key="categoryData.categoryCode">
+      <category-icon :categoryData="categoryData"></category-icon>
     </div>
+  </b-card>
 </template>
 
 <script>
 import CategoryIcon from "@/components/map/CategoryIcon.vue";
 export default {
-    name:'SideBarListTab',
+    name:'SideBarListTag',
     components:{
         CategoryIcon,
     },
     data(){
         return {
-          categoryList:["11", "11", "11", "11", 1, 1, 1, 1, 1, 1, 1],
+          categoryList: [
+            {"categoryCode":10,"categoryName":"전체"},
+            {"categoryCode":12,"categoryName":"관광지"},
+            {"categoryCode":14,"categoryName":"문화시설"},
+            {"categoryCode":15,"categoryName":"축제공연행사"},
+            {"categoryCode":25,"categoryName":"여행코스"},
+            {"categoryCode":28,"categoryName":"레포츠"},
+            {"categoryCode":32,"categoryName":"숙박"},
+            {"categoryCode":38,"categoryName":"쇼핑"},
+            {"categoryCode":39,"categoryName":"음식점"},
+            {"categoryCode":77,"categoryName":"좋아요"}
+          ]
         }
     },
     methods:{
@@ -29,10 +35,11 @@ export default {
 }
 </script>
 
-<style scoped>
-.sidebar-tab{
-  height: 300px;
-  margin:10px;
-  background-color: #42b983;
+<style scoped lang="scss">
+::v-deep {
+  .card-body{
+    padding: 8px;
+    padding-bottom: 15px;
+  }
 }
 </style>

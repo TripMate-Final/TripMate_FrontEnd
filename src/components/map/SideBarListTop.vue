@@ -1,22 +1,15 @@
 <template>
     <div class="sidebar-list-top">
-        <strong class="top-title">서울특별시 강남구</strong>
-        <button class="plan-button" id="show-modal" @click="showModal = true">계획짜기</button>
-        <PlanModal class="plan-modal" v-if="showModal" @close="showModal = false">
-          <h3 slot="header">custom header</h3>
-        </PlanModal>
+        <strong class="top-title">{{ this.$store.state.mapStore.address }}</strong>
+        <button class="plan-button"  v-b-toggle.sidebar-plan>계획짜기</button>
     </div>
 </template>
 
 <script>
-import PlanModal from "@/components/plan/PlanModal.vue";
-
 export default {
   name:'SideBarListTop',
-  components: {PlanModal},
-  data: function () {
+  data() {
     return {
-      showModal: false
     }
   },
   methods:{

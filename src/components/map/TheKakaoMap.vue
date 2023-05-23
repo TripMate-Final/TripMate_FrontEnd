@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div id="map"></div>
+        <div id="map">
+        </div>
 <!--        <div class="button-group">-->
 <!--            <button @click="displayMarker(markerPositions1)">marker set 1</button>-->
 <!--            <button @click="displayMarker(markerPositions2)">marker set 2</button>-->
@@ -31,33 +32,61 @@ export default {
             ],
             markers: [],
             infowindow: null,
+            latitude:0,
+            longitude:0,
         };
     },
+
     mounted() {
         console.log(process.env.VUE_APP_KAKAO_MAP_API_KEY);
         if (window.kakao && window.kakao.maps) {
-            this.initMap();
+            this.initializeKakaoMap();
         } else {
             const script = document.createElement("script");
             /* global kakao */
-            script.onload = () => kakao.maps.load(this.initMap);
+            script.onload = () => kakao.maps.load(this.initializeKakaoMap());
             script.src =
-                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=" + process.env.VUE_APP_KAKAO_MAP_API_KEY;
+                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=" + process.env.VUE_APP_KAKAO_MAP_API_KEY;
             document.head.appendChild(script);
         }
     },
     methods: {
-        initMap() {
-            const container = document.getElementById("map");
-            const options = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667),
-                level: 5,
-            };
+      initializeKakaoMap() {
+        kakao.maps.load(() => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                this.handleSuccess,
+                this.handleError
+            );
+          } else {
+            console.log("Geolocation is not supported by this browser.");
+          }
+        });
+      },
+      handleSuccess(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        const geocoder = new kakao.maps.services.Geocoder();
 
-            //지도 객체를 등록합니다.
-            //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-            this.map = new kakao.maps.Map(container, options);
-        },
+        geocoder.coord2Address(longitude, latitude, (result, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            const address = result[0].address;
+            const district = address.region_1depth_name +" "+ address.region_2depth_name+" "+ address.region_3depth_name;
+            this.$store.state.mapStore.address = district;
+            console.log("District:", this.address);
+          } else {
+            console.log("Reverse Geocoding error:", status);
+          }
+        });
+        const container = document.getElementById("map");
+        const options = {
+          center: new kakao.maps.LatLng(this.latitude, this.longitude),
+          level: 5,
+        };
+        this.map = new kakao.maps.Map(container, options);
+      },
 
         displayMarker(markerPositions) {
             if (this.markers.length > 0) {

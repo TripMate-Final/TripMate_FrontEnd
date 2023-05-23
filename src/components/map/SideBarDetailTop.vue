@@ -1,20 +1,24 @@
 <template>
-  <div class="sidebar-detail-top">
-    <div class="image-box">
-      <img class="image-thumbnail" src="@/assets/img/sample/test1.png">
-    </div>
-    <div class="content-box">
-      <div class="content-title">
-        <strong>멀티캠퍼스 역삼</strong>
-      </div>
-      <div class="content-addr">
-        <span>서울특별시 강남구 역삼동</span>
-      </div>
-    </div>
-    <div class="tag-box">
+  <b-card
+      no-body
+      :img-src="detailData.firstImage"
+      img-alt="Image"
+      img-top
+  >
+    <template #header>
+      <h4 class="mb-0">{{ detailData.title }}</h4>
+    </template>
+
+    <b-card-body>
+      <b-card-title>{{detailData.addr1}}</b-card-title>
+      <b-card-sub-title class="mb-2">우편번호 : {{detailData.zipCode}}</b-card-sub-title>
+      <b-card-text>
+        {{detailData.overview}}
+      </b-card-text>
       <attraction-tag></attraction-tag>
-    </div>
-  </div>
+    </b-card-body>
+  </b-card>
+
 </template>
 <script>
 import AttractionTag from "@/components/attraction/item/AttractionTag.vue";
@@ -22,6 +26,12 @@ import AttractionTag from "@/components/attraction/item/AttractionTag.vue";
 export default {
   name:'SideBarDetailTop',
   components: {AttractionTag},
+  props:{
+    detailData:{
+      type:Object,
+      required:true
+    }
+  },
   data(){
     return {
 

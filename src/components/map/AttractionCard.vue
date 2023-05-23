@@ -12,7 +12,7 @@
 
         <b-col md="8">
           <b-card-body>
-            <p>title</p>
+              <a v-b-toggle href="#sidebar-detail" @click="openDetail(125266)" @click.prevent>title</a>
             <b-card-text >
              내용입니다.
             </b-card-text>
@@ -58,14 +58,23 @@
 
 <script>
 import AttractionTag from "@/components/attraction/item/AttractionTag.vue";
+import {mapActions} from "vuex";
 export default {
   name: "AttractionCard",
   components: {
     AttractionTag,
   },
-  datas:{
+  data(){
+    return{
+
+    }
   },
   methods:{
+      ...mapActions(['mapStore/fetchDetailData']),
+
+    openDetail(contentId){
+      this["mapStore/fetchDetailData"](contentId)
+    }
 
   }
 };
