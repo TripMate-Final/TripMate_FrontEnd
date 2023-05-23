@@ -1,6 +1,6 @@
 <template>
   <div>
-    <attraction-tag-nav></attraction-tag-nav>
+    <attraction-tag-nav :keyword="keyword"></attraction-tag-nav>
     <attraction-card
       onclick=""
       v-for="(tag, index) in attractionList"
@@ -28,7 +28,7 @@ export default {
       modalCheck: false,
       attractionList: [],
       keyword: "",
-        categoryCode:10,
+      categoryCode: 10,
     };
   },
   methods: {
@@ -40,9 +40,11 @@ export default {
   created() {
     this.keyword = this.$route.query.keyword;
     this.categoryCode = this.$route.query.categoryCode;
-    http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`).then(({ data }) => {
-      this.attractionList = data;
-    });
+    http
+      .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`)
+      .then(({ data }) => {
+        this.attractionList = data;
+      });
     // window.location.reload(true);
   },
 };

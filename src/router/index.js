@@ -18,7 +18,7 @@ const routes = [
     path: '/attraction',
     name: 'attraction',
     component: AttractionView,
-    redirect: '/attraction/list',
+    
     children:[
       {
         path: 'list',
@@ -96,7 +96,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- {{ attraction }} -->
     <b-card no-body class="overflow-hidden">
       <b-row>
         <b-col md="4">
@@ -13,14 +12,21 @@
         </b-col>
 
         <b-col md="8">
-          <b-card-body title=""
-            >{{ attraction.title }}
-            <b-card-text>
-              <router-link :to="`./detail/${attraction.contentId}`">{{
-                attraction.addr1
-              }}</router-link>
+          <b-card-body
+            ><router-link :to="`./detail/${attraction.contentId}`"
+              ><h3>{{ attraction.title }}</h3></router-link
+            >
+            <b-card-text class="content"
+              ><h5>
+                {{ attraction.addr1 }}
+              </h5>
             </b-card-text>
-            <AttractionTag></AttractionTag>
+            <AttractionTag
+              class="tag"
+              :gugunName="attraction.gugunName"
+              :categoryName="attraction.categoryName"
+              :cat3Name="attraction.cat3Name"
+            ></AttractionTag>
           </b-card-body>
           <div class="heart-icon">
             <svg
@@ -85,5 +91,12 @@ export default {
   right: 10px;
   margin: 10px;
   margin-left: 10px;
+}
+
+.tag {
+  position: absolute;
+  margin-left: 10px;
+  bottom: 0;
+  margin-bottom: 20px;
 }
 </style>

@@ -9,12 +9,14 @@
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
-      <b-col class="text-right" v-if="userInfo.userId === board.userId">
-        <b-button variant="outline-info" size="sm" @click="boardModify" class="mr-2"
-          >글수정</b-button
-        >
-        <b-button variant="outline-danger" size="sm" @click="boardDelete">글삭제</b-button>
-      </b-col>
+      <span v-if="userInfo != null">
+        <b-col class="text-right" v-if="userInfo.userId === board.userId">
+          <b-button variant="outline-info" size="sm" @click="boardModify" class="mr-2"
+            >글수정</b-button
+          >
+          <b-button variant="outline-danger" size="sm" @click="boardDelete">글삭제</b-button>
+        </b-col>
+      </span>
     </b-row>
     <span class="text-left">
       <h3>Title<input class="write" v-model="boardTitle" :disabled="true" /></h3>

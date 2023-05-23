@@ -21,7 +21,7 @@
 
     <div><the-kakao-map></the-kakao-map></div>
     <attraction-addr class="addr"></attraction-addr>
-    <div>태그넣기</div>
+    <div><h2 style="text-align: left">톡 댓글!</h2></div>
     <attraction-comment></attraction-comment>
     <div ref="comment"><attraction-comment2></attraction-comment2></div>
     <hr />
@@ -69,7 +69,7 @@ export default {
     return {
       contentId: Number,
       attraction: Object,
-      recommendList: [1, 1, 1],
+      recommendList: [1, 2, 3],
     };
   },
 
@@ -89,6 +89,7 @@ export default {
   },
 
   created() {
+    window.scrollTo(0, 0);
     this.contentId = this.$route.params.contentId;
     console.log(this.contentId);
     http.get(`/attraction/${this.contentId}`).then(({ data }) => {
