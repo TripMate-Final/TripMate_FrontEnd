@@ -4,7 +4,7 @@
       <b-row>
         <b-col md="4">
           <b-card-img
-              :src="`${attraction.firstImage}`"
+              :src="displayedImage"
               alt="Image"
               class="rounded-0"
           ></b-card-img>
@@ -75,6 +75,13 @@ export default {
     ...mapState('mapStore', {
       selectedDay: state => state.selectedDay
     }),
+    displayedImage() {
+      if (this.attraction.firstImage != "") {
+        return this.attraction.firstImage; // 이미지가 있는 경우 실제 이미지 출력
+      } else {
+        return require("@/assets/img/noimg.png"); // 이미지가 없는 경우 예시 이미지 출력
+      }
+    },
   },
   methods:{
     ...mapActions(['mapStore/fetchDetailData','mapStore/deletePlan']),
