@@ -13,22 +13,43 @@
 </template>
 
 <script>
+import http from "@/util/http-common";
 export default {
   name: "AttractionLikeView",
   props: {
     hit: Number,
     like: Number,
+    contentId: Number,
   },
   components: {},
   data() {
     return {
+      userinfo: null,
       message: "",
     };
   },
-  created() {},
+  created() {
+    this.userinfo = this.$session.get("userinfo");
+  },
   methods: {
     setLike() {
       console.log(111); //여기다가 좋아요 하기
+      if (this.userinfo == null) {
+        alert("로그인하세요!!");
+      } else {
+        http
+          .post(`/user/like`, {
+            userId: this.userinfo.userId,
+            contentId: this.contentId,
+          })
+          .then(function (response) {
+            if (response.status == 200) {
+              alert("좋아요!");
+            } else {
+              alert("좋아요 실패");
+            }
+          });
+      }
     },
   },
 };

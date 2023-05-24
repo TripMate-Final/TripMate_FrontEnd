@@ -2,7 +2,11 @@
   <div>
     <attraction-title :title="attraction.title"></attraction-title>
     <attraction-sido :addr="attraction.addr1"></attraction-sido>
-    <attraction-like-view :hit="attraction.hit" :like="attraction.likeCnt"></attraction-like-view>
+    <attraction-like-view
+      :hit="attraction.hit"
+      :like="attraction.likeCnt"
+      :contentId="attraction.contentId"
+    ></attraction-like-view>
     <hr style="margin-bottom: 0px" />
     <b-nav tabs class="tabs">
       <b-nav-item class="tab" @click="scrollToImg()">사진보기</b-nav-item>
@@ -25,7 +29,7 @@
     <attraction-comment></attraction-comment>
     <div ref="comment"><attraction-comment2></attraction-comment2></div>
     <hr />
-    <div><h2>제목과 유사한 여행지 추천</h2></div>
+    <div ref="recommendation"><h2>제목과 유사한 여행지 추천</h2></div>
 
     <div class="card-container">
       <span v-for="(item, index) in recommendList" :key="index" class="card">

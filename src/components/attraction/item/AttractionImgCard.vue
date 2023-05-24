@@ -23,7 +23,6 @@ export default {
   created() {},
   methods: {
     handleClick() {
-      // this.$emit("click", this.attraction);
       this.$router.push({
         name: "attractiondetail",
         params: {
