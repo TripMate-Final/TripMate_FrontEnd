@@ -12,7 +12,7 @@
           <b-nav-item href="#">
             <router-link :to="{ name: 'main' }" class="m-2 link"> 메인 </router-link>
             <router-link
-              :to="{ name: 'attractionlist', query: { keyword: '동대문', categoryCode: 12 } }"
+              :to="{ name: 'attractionlist', query: { keyword: '', categoryCode: 10 } }"
               class="m-2 link"
               >여행정보</router-link
             >
