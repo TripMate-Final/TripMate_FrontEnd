@@ -54,7 +54,7 @@
             <b-dropdown-item v-if="userInfo == null" @click="loginPage" v-b-modal.loginmodal
               >Login</b-dropdown-item
             >
-            <b-dropdown-item v-if="userInfo">Profile</b-dropdown-item>
+            <b-dropdown-item v-if="userInfo" @click="myPage">Profile</b-dropdown-item>
             <b-dropdown-item v-if="userInfo" @click="logout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
           <!-- <login-modal></login-modal> -->
@@ -96,6 +96,13 @@ export default {
         name: "userlogin",
       });
     },
+
+    myPage() {
+      this.$router.push({
+        name: "usermypage",
+      });
+    },
+
     moveSelect() {
       this.$router.push({ name: "attraction" });
     },

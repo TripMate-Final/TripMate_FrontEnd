@@ -123,6 +123,12 @@ const routes = [
         name: "userlogin",
         component: () => import(/* webpackChunkName: "board" */ "@/components/user/UserLogin"),
       },
+
+      {
+        path: "mypage",
+        name: "usermypage",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/user/UserMyPage"),
+      },
     ],
   },
 ];

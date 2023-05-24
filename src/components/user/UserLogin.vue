@@ -33,24 +33,35 @@
               ></b-form-input>
             </b-form-group>
             <b-button type="button" variant="primary" class="m-1" @click="confirm">로그인</b-button>
-            <b-button type="button" variant="success" class="m-1" @click="movePage"
+            <b-button type="button" variant="success" class="m-1" v-b-modal.modal-regist
               >회원가입</b-button
+            >
+            <b-button type="button" variant="success" class="m-1" v-b-modal.modal-findpassword
+              >비밀번호 찾기</b-button
             >
           </b-form>
         </b-card>
       </b-col>
       <b-col></b-col>
     </b-row>
+    <user-register-modal></user-register-modal>
+    <find-password-modal></find-password-modal>
   </b-container>
 </template>
 
 <script>
+import UserRegisterModal from "./UserRegisterModal.vue";
+import FindPasswordModal from "./FindPasswordModal.vue";
 import { mapState, mapActions } from "vuex";
 
 const userStore = "userStore";
 
 export default {
   name: "UserLogin",
+  components: {
+    UserRegisterModal,
+    FindPasswordModal,
+  },
   data() {
     return {
       // isLoginError: false,
