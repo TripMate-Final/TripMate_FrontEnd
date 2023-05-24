@@ -29,7 +29,7 @@
     <attraction-addr class="addr"></attraction-addr>
     <div ref="comment"><h2 style="text-align: left">톡 댓글!</h2></div>
     <attraction-comment :contentId="attraction.contentId"></attraction-comment>
-    <div><attraction-comment2></attraction-comment2></div>
+    <attraction-comment2 :commentsList="commentsList"></attraction-comment2>
     <hr />
     <div ref="recommendation"><h2>제목과 유사한 여행지 추천</h2></div>
 
@@ -73,10 +73,9 @@ export default {
   data() {
     return {
       contentId: 0,
-      attraction: {
-        firstImage: "@/assets/img/noimg.png",
-      },
+      attraction: {},
       recommendList: [],
+      commentsList: {},
     };
   },
 
@@ -110,6 +109,9 @@ export default {
       http.get(`/attraction/preview/${this.attraction.recommendId3}`).then(({ data }) => {
         this.recommendList.push(data);
       });
+    });
+    http.get(`/comment/${this.contentId}`).then(({ data }) => {
+      this.commentsList = data;
     });
   },
 };

@@ -1,5 +1,6 @@
 <template>
   <div class="write" id="writeComment">
+    {{ commentsList }}
     <b-row class="text-center">
       <b-col><img class="usericon" src="@/assets/img/usericon.png" width="60px" /></b-col>
       <b-col cols="11">
@@ -29,6 +30,9 @@
 <script>
 export default {
   name: "AttractionComment2",
+  props: {
+    commentsList: {},
+  },
   components: {},
   data() {
     return {
