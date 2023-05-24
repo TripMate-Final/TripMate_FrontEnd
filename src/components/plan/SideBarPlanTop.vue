@@ -7,8 +7,15 @@
             {{navItem.title}}</b-nav-item>
         </b-nav>
       </b-card-header>
-
-      <b-card :title="activeCard.title" :sub-title="activeCard.subTitle">
+      <b-card v-if="selectedNavItem == 0">
+          <b-input-group prepend="제목" class="mt-3">
+              <b-form-input  v-model="inputTitle" :disabled="isChecked === 1"></b-form-input>
+              <b-input-group-append>
+                  <button class="save-title-button" :class="{'active': isChecked === 1, 'inactive': isChecked === 0}" @click="saveTitle"> {{ buttonText }}</button>
+              </b-input-group-append>
+          </b-input-group>
+      </b-card>
+      <b-card v-if="selectedNavItem != 0" :title="activeCard.title" :sub-title="activeCard.subTitle">
         {{ activeCard.content }}
       </b-card>
     </b-card>
@@ -24,6 +31,9 @@ export default {
   data() {
     return {
       selectedNavItem: 0,
+      isChecked: 0,
+      buttonText: '저장',
+      inputTitle: '',
       navItems: [
         {id: 0, title: '여행요약'},
         {id: 1, title: '1일차'},
@@ -60,7 +70,16 @@ export default {
       this.selectedNavItem = navItemId;
       console.log(navItemId);
       this["mapStore/setSelectedDay"](navItemId);
-    }
+    },
+      saveTitle() {
+        if(this.isChecked === 0){
+            this.isChecked = 1;
+            this.buttonText = '수정';
+        }else{
+            this.isChecked = 0;
+            this.buttonText = '저장';
+        }
+      }
   },
   computed: {
     activeCard() {
@@ -82,4 +101,30 @@ export default {
     color: #569A64;
   }
 }
+
+.save-title-button{
+  float: right;
+  z-index: 3;
+  background-color:#EFECEC;
+  color: #0d172a;
+  font-family: "NanumSquareOTF","RocGrotesk-Wide";
+  font-size: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+.save-title-button:hover{
+  background-color: #569A64;
+  color: #fff;
+  border: 0px;
+}
+.save-title-button.active{
+  background-color: #569A64;
+  color: #fff;
+  border: 0px;
+}
+
 </style>
