@@ -75,6 +75,9 @@ const mapStore={
         getCategoryCode(state){
             return state.categoryCode
         },
+        getDetailData(state){
+            return state.detailData
+        }
     }
 };
 

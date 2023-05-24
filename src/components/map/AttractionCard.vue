@@ -78,7 +78,7 @@ export default {
       ...mapActions(['mapStore/fetchDetailData']),
 
     openDetail(contentId){
-        console.log(contentId)
+      console.log(contentId)
       this["mapStore/fetchDetailData"](contentId)
     }
 
