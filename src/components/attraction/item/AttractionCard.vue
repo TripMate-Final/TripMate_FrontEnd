@@ -3,12 +3,7 @@
     <b-card no-body class="overflow-hidden">
       <b-row>
         <b-col md="4">
-          <b-card-img
-            :src="`${attraction.firstImage}`"
-            alt="Image"
-            class="rounded-0"
-            height="250"
-          ></b-card-img>
+          <b-card-img :src="displayedImage" alt="Image" class="rounded-0" height="250"></b-card-img>
         </b-col>
 
         <b-col md="8">
@@ -75,6 +70,18 @@ export default {
   },
   props: {
     attraction: {},
+  },
+
+  computed: {
+    displayedImage() {
+      // console.log(this.attraction.firstImage);
+      if (this.attraction.firstImage != "") {
+        return this.attraction.firstImage; // 이미지가 있는 경우 실제 이미지 출력
+      } else {
+        // return "../../src/assets/img/noimg.png";
+        return require("@/assets/img/noimg.png"); // 이미지가 없는 경우 예시 이미지 출력
+      }
+    },
   },
 };
 </script>

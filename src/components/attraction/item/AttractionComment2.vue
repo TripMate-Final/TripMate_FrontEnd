@@ -6,17 +6,16 @@
         <div class="form">
           <form name="tform" id="tform">
             <span class="writeForm">
-              <textarea class="formtext" placeholder="여기 댓글 내용 들어감 들어감 들어감">
-              </textarea>
+              <textarea class="formtext" placeholder="내내내내내ㅐ낸요요요요요요요용"> </textarea>
             </span>
             <div class="btn-container">
               <span>
                 <div>
-                  <span class="username">이름이름</span>|
+                  <span class="username">이름이</span>|
                   <span class="date">2023-05-05</span>
                 </div>
 
-                <button class="btn-write">댓글 쓰기</button>
+                <button class="btn-write">대댓글 달기</button>
               </span>
               <!-- <div class="button_base b01_simple_rollover">01_Button</div> -->
             </div>

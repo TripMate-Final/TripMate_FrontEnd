@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button type="button" class="btn on" onclick="setLike();" title="선택됨">
+    <b-button type="button" class="btn on" @click="setLike()" title="선택됨">
       <img class="img" src="@/assets/img/redheart.png" />
       <span class="num" id="conLike">{{ like }}</span>
     </b-button>
@@ -26,7 +26,11 @@ export default {
     };
   },
   created() {},
-  methods: {},
+  methods: {
+    setLike() {
+      console.log(111); //여기다가 좋아요 하기
+    },
+  },
 };
 </script>
 

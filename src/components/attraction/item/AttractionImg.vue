@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-img :src="image" alt="Image" class="img"></b-img>
+    <b-img :src="displayedImage" alt="Image" class="img"></b-img>
   </div>
 </template>
 
@@ -21,6 +21,17 @@ export default {
     };
   },
   methods: {},
+  computed: {
+    displayedImage() {
+      // console.log(this.attraction.firstImage);
+      if (this.image != "") {
+        return this.image; // 이미지가 있는 경우 실제 이미지 출력
+      } else {
+        // return "../../src/assets/img/noimg.png";
+        return require("@/assets/img/noimg.png"); // 이미지가 없는 경우 예시 이미지 출력
+      }
+    },
+  },
 };
 </script>
 
