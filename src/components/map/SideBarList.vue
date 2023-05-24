@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-button id="show-list-btn" v-b-toggle.sidebar-list>목록보기</b-button>
-        <b-sidebar width="400px" id="sidebar-list" shadow>
+        <b-sidebar width="400px" id="sidebar-list" shadow visible>
             <div class="px-3 py-2">
                 <side-bar-list-top></side-bar-list-top>
             </div>
