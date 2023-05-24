@@ -23,7 +23,9 @@
       <attraction-content :overview="attraction.overview"></attraction-content>
     </div>
 
-    <div><the-kakao-map></the-kakao-map></div>
+    <div>
+      <the-kakao-map :lat="attraction.latitude" :lng="attraction.longitude"></the-kakao-map>
+    </div>
     <attraction-addr class="addr"></attraction-addr>
     <div><h2 style="text-align: left">톡 댓글!</h2></div>
     <attraction-comment></attraction-comment>
@@ -31,10 +33,12 @@
     <hr />
     <div ref="recommendation"><h2>제목과 유사한 여행지 추천</h2></div>
 
-    <div class="card-container">
-      <span v-for="(item, index) in recommendList" :key="index" class="card">
-        <attraction-img-card :attraction="item" class="img"></attraction-img-card>
-      </span>
+    <div class="card-container" style="max-width: 200rem; max-height: 200px">
+      <attraction-img-card
+        :attraction="item"
+        v-for="(item, index) in recommendList"
+        :key="index"
+      ></attraction-img-card>
     </div>
   </div>
 </template>
@@ -136,7 +140,8 @@ h2 {
   margin-top: 20px;
 }
 .card-container {
-  display: flex; /* 요소들을 가로로 정렬하는 Flexbox 레이아웃 사용 */
+  display: flex;
+  margin-bottom: 400px;
 }
 
 .card {

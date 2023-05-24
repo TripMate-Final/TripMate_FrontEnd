@@ -1,11 +1,16 @@
 <template>
-  <span class="card" @click="handleClick">
-    <b-card overlay :img-src="displayedImage" img-alt="Card Image" text-variant="black" class="img">
-      <b-card-text class="text">
-        <h2>{{ attraction.title }}</h2>
-      </b-card-text>
-    </b-card>
-  </span>
+  <b-card
+    class="img card w-100 h-100"
+    @click="handleClick"
+    overlay
+    :img-src="displayedImage"
+    img-alt="Card Image"
+    text-variant="black"
+  >
+    <b-card-text class="text">
+      <h3>{{ attraction.title }}</h3>
+    </b-card-text>
+  </b-card>
 </template>
 
 <script>
@@ -52,11 +57,12 @@ export default {
   display: inline-block; /* 인라인 블록 요소로 설정하여 가로 공간을 차지하도록 함 */
 }
 
-.img {
+.card-img {
+  height: 300px;
   width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: center;
   margin-right: 10px;
+  top: 0;
 }
 </style>
