@@ -34,14 +34,15 @@ export default {
             // ],
             // markers: [],
             // infowindow: null,
-            latitude:0,
-            longitude:0,
+            latitude:33.24453413,
+            longitude:126.559473,
         };
     },
 
     mounted() {
         if (window.kakao && window.kakao.maps) {
             this.initMap();
+            this.displayMarker();
         } else {
             this.loadScript();
         }
@@ -49,11 +50,19 @@ export default {
     computed:{
         getDetailData(){
             return this.$store.getters["mapStore/getDetailData"]
+        },
+        getPlanData(){
+            return this.$store.getters["mapStore/getPlanData"]
         }
     },
     watch:{
         getDetailData(detailData){
-            this.displayMarker(detailData.latitude,detailData.longitude);
+            this.latitude = detailData.latitude;
+            this.longitude = detailData.longitude;
+            this.displayMarker();
+        },
+        getPlanData(planList){
+            console.log("plan ::: " + planList);
         }
     },
     methods: {
@@ -74,25 +83,31 @@ export default {
             this.map = new kakao.maps.Map(container, options);
         },
         initMap() {
-            kakao.maps.load(() => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        this.handleSuccess,
-                        this.handleError
-                    );
-                } else {
-                    console.log("Geolocation is not supported by this browser.");
-                }
-            });
+           if(this.latitude != 0 && this.longitude != 0){
+               window.kakao.maps.load(() => {
+                this.loadMap();
+                this.displayMarker();
+               });
+           } else{
+               window.kakao.maps.load(() => {
+                   if (navigator.geolocation) {
+                       navigator.geolocation.getCurrentPosition(
+                           this.handleSuccess,
+                           this.handleError
+                       );
+                   } else {
+                       console.log("Geolocation is not supported by this browser.");
+                   }
+               });
+           }
         },
         handleSuccess(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            this.latitude = latitude;
-            this.longitude = longitude;
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+
             const geocoder = new kakao.maps.services.Geocoder();
 
-            geocoder.coord2Address(longitude, latitude, (result, status) => {
+            geocoder.coord2Address(this.longitude, this.latitude, (result, status) => {
                 if (status === kakao.maps.services.Status.OK) {
                     const address = result[0].address;
                     const district = address.region_1depth_name +" "+ address.region_2depth_name+" "+ address.region_3depth_name;
@@ -103,8 +118,8 @@ export default {
             });
            this.loadMap();
         },
-        displayMarker(latitude, longitude){
-            const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+        displayMarker(){
+            const markerPosition = new kakao.maps.LatLng(this.latitude, this.longitude);
             const marker = new kakao.maps.Marker({
                 position:markerPosition
             });

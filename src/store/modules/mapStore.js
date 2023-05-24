@@ -77,6 +77,9 @@ const mapStore={
         },
         getDetailData(state){
             return state.detailData
+        },
+        getPlanData(state){
+            return state.planList;
         }
     }
 };
