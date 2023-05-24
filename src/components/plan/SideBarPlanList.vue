@@ -17,6 +17,7 @@
 import SideBarPlanCard from "@/components/plan/SideBarPlanCard.vue";
 import SideBarPlanTop from "@/components/plan/SideBarPlanTop.vue";
 import {mapState} from "vuex";
+import http from "@/util/http-common";
 
 export default {
   name: 'SideBarPlanList',
@@ -31,8 +32,9 @@ export default {
   },
   computed:{
     ...mapState('mapStore', {
+      planTitle : state => state.planTitle,
       planList: state => state.planList,
-      selectedDay: state => state.selectedDay
+      selectedDay: state => state.selectedDay,
     }),
     filteredList(){
       if(this.selectedDay == 0){
@@ -43,7 +45,22 @@ export default {
     }
   },methods:{
       savePlan(){
-
+          var vm = this;
+          http
+              .post(`/plan/regist`, {
+                  planList: this.planList,
+                  planLength: this.planList.length,
+                  planTitle: this.planTitle,
+                  userId : 'ssafy',
+              })
+              .then(function (response) {
+                  if (response.status == 200) {
+                      alert("계획 등록 성공");
+                  } else {
+                      alert("계획 등록 실패");
+                  }
+                  vm.$router.push("/");
+              });
       }
     }
 }

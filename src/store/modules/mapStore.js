@@ -7,13 +7,13 @@ const mapStore={
         detailData: null,
         address:null,
         selectedDay:0,
-        planList:[]
+        planList:[],
+        planTitle :''
     },
 
     mutations:{
         SET_DETAIL_DATA(state,value){
             state.detailData = value;
-            console.log(state.detailData)
         },
         SET_CATEGORY_CODE(state,value){
             state.categoryCode = value;
@@ -21,9 +21,11 @@ const mapStore={
         SET_SELECTED_DAY(state,value){
             state.selectedDay = value;
         },
+        SET_PLAN_TITLE(state,value){
+            state.planTitle = value;
+        },
         ADD_PLAN(state,plan){
             const existingDay = state.planList.find((day) => day.day === state.selectedDay);
-            console.log(existingDay);
             if(existingDay){
                 existingDay.elements.push(plan);
             }else{
@@ -60,7 +62,10 @@ const mapStore={
             commit('SET_CATEGORY_CODE',categoryCode)
         },
         setSelectedDay({commit},day){
-            commit('SET_SELECTED_DAY',day)
+            commit('SET_SELECTED_DAY',day);
+        },
+        setPlanTitle({commit},planTitle){
+            commit('SET_PLAN_TITLE',planTitle);
         },
         addPlan({commit,state},plan){
             if(state.selectedDay != 0){
@@ -68,15 +73,15 @@ const mapStore={
             }
         },
         deletePlan({commit},{day,index}){
-            commit('DELETE_PLAN',{day,index})
+            commit('DELETE_PLAN',{day,index});
         }
     },
     getters:{
         getCategoryCode(state){
-            return state.categoryCode
+            return state.categoryCode;
         },
         getDetailData(state){
-            return state.detailData
+            return state.detailData;
         },
         getPlanData(state){
             return state.planList;
