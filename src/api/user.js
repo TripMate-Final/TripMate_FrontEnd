@@ -2,6 +2,7 @@ import http from "@/util/http-common";
 
 async function login(user, success, fail) {
   // console.log(JSON.stringify(user));
+  // console.log({ userId: user.userId, userPassword: user.userPassword });
   await http
     .post(`/user/login`, { userId: user.userId, userPassword: user.userPassword })
     .then(success)

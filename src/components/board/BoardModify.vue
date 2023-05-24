@@ -27,6 +27,10 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
+
 import hljs from "highlight.js";
 import debounce from "lodash/debounce";
 import { quillEditor } from "vue-quill-editor";
@@ -68,7 +72,6 @@ export default {
       },
       content: "",
       boardTitle: "",
-      userinfo: null,
     };
   },
   methods: {
@@ -105,6 +108,8 @@ export default {
     },
   },
   computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
     editor() {
       return this.$refs.myTextEditor.quill;
     },
@@ -117,7 +122,6 @@ export default {
   },
 
   created() {
-    this.userInfo = this.$session.get("userinfo");
     http.get(`/board/${this.$route.params.boardId}`).then(({ data }) => {
       this.board = data;
       this.boardTitle = this.board.boardTitle;

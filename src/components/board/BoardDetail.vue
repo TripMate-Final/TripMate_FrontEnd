@@ -9,7 +9,7 @@
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
-      <span v-if="userInfo != null">
+      <span>
         <b-col class="text-right" v-if="userInfo.userId === board.userId">
           <b-button variant="outline-info" size="sm" @click="boardModify" class="mr-2"
             >글수정</b-button
@@ -37,6 +37,9 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 import http from "@/util/http-common";
 import hljs from "highlight.js";
 import debounce from "lodash/debounce";
@@ -77,11 +80,9 @@ export default {
       content: "",
       boardTitle: "",
       board: {},
-      userInfo: {},
     };
   },
   created() {
-    this.userInfo = this.$session.get("userinfo");
     http.get(`/board/${this.$route.params.boardId}`).then(({ data }) => {
       this.board = data;
       this.boardTitle = this.board.boardTitle;
@@ -120,6 +121,8 @@ export default {
     },
   },
   computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
     editor() {
       return this.$refs.myTextEditor.quill;
     },
