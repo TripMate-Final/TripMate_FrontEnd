@@ -53,7 +53,7 @@ export default {
     },
     watch:{
         getDetailData(detailData){
-            this.displayMarker(detailData);
+            this.displayMarker(detailData.latitude,detailData.longitude);
         }
     },
     methods: {
@@ -103,8 +103,8 @@ export default {
             });
            this.loadMap();
         },
-        displayMarker(detailData){
-            const markerPosition = new kakao.maps.LatLng(detailData.latitude, detailData.longitude);
+        displayMarker(latitude, longitude){
+            const markerPosition = new kakao.maps.LatLng(latitude, longitude);
             const marker = new kakao.maps.Marker({
                 position:markerPosition
             });
