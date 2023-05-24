@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainView from '../views/MainView.vue'
 import MapView from '../views/MapView.vue'
+import PlanView from '../views/PlanView.vue'
 import AttractionView from "@/views/AttractionView.vue";
 import BoardView from "@/views/BoardView.vue";
 import UserView from "@/views/UserView.vue";
@@ -54,6 +55,18 @@ const routes = [
         path: 'detail/:contentId',
         name: 'detail',
         component: () => import(/* webpackChunkName: "about" */ '../components/map/SideBarDetail.vue')
+      },
+    ]
+  },
+  {
+    path:'/plan',
+    name:'plan',
+    component: PlanView,
+    children:[
+      {
+        path: 'detail/:planId',
+        name: 'planDetail',
+        component: () => import(/* webpackChunkName: "about" */ '../components/plan/ShowPlanList.vue')
       },
     ]
   },
