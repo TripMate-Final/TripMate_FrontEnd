@@ -15,7 +15,12 @@
       <b-card-text>
         {{detailData.overview}}
       </b-card-text>
-      <attraction-tag></attraction-tag>
+      <AttractionTag
+          class="tag"
+          :gugunName="detailData.gugunName"
+          :categoryName="detailData.categoryName"
+          :cat3Name="detailData.cat3Name"
+      ></AttractionTag>
     </b-card-body>
   </b-card>
 

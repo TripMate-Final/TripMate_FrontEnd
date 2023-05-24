@@ -16,7 +16,12 @@
             <b-card-text >
                 {{ attraction.addr1 }}
             </b-card-text>
-            <AttractionTag></AttractionTag>
+            <AttractionTag
+                class="tag"
+                :gugunName="attraction.gugunName"
+                :categoryName="attraction.categoryName"
+                :cat3Name="attraction.cat3Name"
+            ></AttractionTag>
           </b-card-body>
           <div class="heart-icon">
             <svg
