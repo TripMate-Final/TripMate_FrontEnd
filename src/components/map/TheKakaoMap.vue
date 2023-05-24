@@ -2,93 +2,132 @@
     <div>
         <div id="map">
         </div>
-<!--        <div class="button-group">-->
-<!--            <button @click="displayMarker(markerPositions1)">marker set 1</button>-->
-<!--            <button @click="displayMarker(markerPositions2)">marker set 2</button>-->
-<!--            <button @click="displayMarker([])">marker set 3 (empty)</button>-->
-<!--            <button @click="displayInfoWindow">infowindow</button>-->
-<!--        </div>-->
+        <!--        <div class="button-group">-->
+        <!--            <button @click="displayMarker(markerPositions1)">marker set 1</button>-->
+        <!--            <button @click="displayMarker(markerPositions2)">marker set 2</button>-->
+        <!--            <button @click="displayMarker([])">marker set 3 (empty)</button>-->
+        <!--            <button @click="displayInfoWindow">infowindow</button>-->
+        <!--        </div>-->
     </div>
 </template>
 
 <script>
+
 export default {
     name: "KakaoMap",
     data() {
         return {
-            markerPositions1: [
-                [33.452278, 126.567803],
-                [33.452671, 126.574792],
-                [33.451744, 126.572441],
-            ],
-            markerPositions2: [
-                [37.499590490909185, 127.0263723554437],
-                [37.499427948430814, 127.02794423197847],
-                [37.498553760499505, 127.02882598822454],
-                [37.497625593121384, 127.02935713582038],
-                [37.49629291770947, 127.02587362608637],
-                [37.49754540521486, 127.02546694890695],
-                [37.49646391248451, 127.02675574250912],
-            ],
-            markers: [],
-            infowindow: null,
-            latitude:0,
-            longitude:0,
+            map : null,
+            // markerPositions1: [
+            //     [33.452278, 126.567803],
+            //     [33.452671, 126.574792],
+            //     [33.451744, 126.572441],
+            // ],
+            // markerPositions2: [
+            //     [37.499590490909185, 127.0263723554437],
+            //     [37.499427948430814, 127.02794423197847],
+            //     [37.498553760499505, 127.02882598822454],
+            //     [37.497625593121384, 127.02935713582038],
+            //     [37.49629291770947, 127.02587362608637],
+            //     [37.49754540521486, 127.02546694890695],
+            //     [37.49646391248451, 127.02675574250912],
+            // ],
+            // markers: [],
+            // infowindow: null,
+            latitude:33.24453413,
+            longitude:126.559473,
         };
     },
 
     mounted() {
-        console.log(process.env.VUE_APP_KAKAO_MAP_API_KEY);
         if (window.kakao && window.kakao.maps) {
-            this.initializeKakaoMap();
+            this.initMap();
+            this.displayMarker();
         } else {
-            const script = document.createElement("script");
-            /* global kakao */
-            script.onload = () => kakao.maps.load(this.initializeKakaoMap());
-            script.src =
-                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=" + process.env.VUE_APP_KAKAO_MAP_API_KEY;
-            document.head.appendChild(script);
+            this.loadScript();
+        }
+    },
+    computed:{
+        getDetailData(){
+            return this.$store.getters["mapStore/getDetailData"]
+        },
+        getPlanData(){
+            return this.$store.getters["mapStore/getPlanData"]
+        }
+    },
+    watch:{
+        getDetailData(detailData){
+            this.latitude = detailData.latitude;
+            this.longitude = detailData.longitude;
+            this.displayMarker();
+        },
+        getPlanData(planList){
+            console.log("plan ::: " + planList);
         }
     },
     methods: {
-      initializeKakaoMap() {
-        kakao.maps.load(() => {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                this.handleSuccess,
-                this.handleError
-            );
-          } else {
-            console.log("Geolocation is not supported by this browser.");
-          }
-        });
-      },
-      handleSuccess(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        const geocoder = new kakao.maps.services.Geocoder();
+        loadScript(){
+            const script = document.createElement("script");
+            /* global kakao */
+            script.onload = () => kakao.maps.load(this.initMap());
+            script.src =
+                "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&libraries=services&appkey=" + process.env.VUE_APP_KAKAO_MAP_API_KEY;
+            document.head.appendChild(script);
+        },
+        loadMap(){
+            const container = document.getElementById("map");
+            const options = {
+                center: new kakao.maps.LatLng(this.latitude, this.longitude),
+                level: 5,
+            };
+            this.map = new kakao.maps.Map(container, options);
+        },
+        initMap() {
+           if(this.latitude != 0 && this.longitude != 0){
+               window.kakao.maps.load(() => {
+                this.loadMap();
+                this.displayMarker();
+               });
+           } else{
+               window.kakao.maps.load(() => {
+                   if (navigator.geolocation) {
+                       navigator.geolocation.getCurrentPosition(
+                           this.handleSuccess,
+                           this.handleError
+                       );
+                   } else {
+                       console.log("Geolocation is not supported by this browser.");
+                   }
+               });
+           }
+        },
+        handleSuccess(position) {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
 
-        geocoder.coord2Address(longitude, latitude, (result, status) => {
-          if (status === kakao.maps.services.Status.OK) {
-            const address = result[0].address;
-            const district = address.region_1depth_name +" "+ address.region_2depth_name+" "+ address.region_3depth_name;
-            this.$store.state.mapStore.address = district;
-            console.log("District:", this.address);
-          } else {
-            console.log("Reverse Geocoding error:", status);
-          }
-        });
-        const container = document.getElementById("map");
-        const options = {
-          center: new kakao.maps.LatLng(this.latitude, this.longitude),
-          level: 5,
-        };
-        this.map = new kakao.maps.Map(container, options);
-      },
+            const geocoder = new kakao.maps.services.Geocoder();
 
-        displayMarker(markerPositions) {
+            geocoder.coord2Address(this.longitude, this.latitude, (result, status) => {
+                if (status === kakao.maps.services.Status.OK) {
+                    const address = result[0].address;
+                    const district = address.region_1depth_name +" "+ address.region_2depth_name+" "+ address.region_3depth_name;
+                    this.$store.state.mapStore.address = district;
+                } else {
+                    console.log("Reverse Geocoding error:", status);
+                }
+            });
+           this.loadMap();
+        },
+        displayMarker(){
+            const markerPosition = new kakao.maps.LatLng(this.latitude, this.longitude);
+            const marker = new kakao.maps.Marker({
+                position:markerPosition
+            });
+            marker.setMap(this.map);
+            this.map.setCenter(markerPosition);
+            this.map.setLevel(2);
+        },
+        displayMarkers(markerPositions) {
             if (this.markers.length > 0) {
                 this.markers.forEach((marker) => marker.setMap(null));
             }

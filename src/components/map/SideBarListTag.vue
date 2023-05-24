@@ -1,6 +1,6 @@
 <template>
   <b-card class="mb-3">
-    <div v-for="categoryData in categoryList" :key="categoryData.categoryCode">
+    <div v-for="categoryData in categoryList" :key="categoryData.categoryCode" @click="updateCategoryCode(categoryData.categoryCode)">
       <category-icon :categoryData="categoryData"></category-icon>
     </div>
   </b-card>
@@ -8,6 +8,7 @@
 
 <script>
 import CategoryIcon from "@/components/map/CategoryIcon.vue";
+import {mapActions} from "vuex";
 export default {
     name:'SideBarListTag',
     components:{
@@ -30,7 +31,10 @@ export default {
         }
     },
     methods:{
-
+        ...mapActions(['mapStore/setCategoryCode']),
+        updateCategoryCode(categoryCode){
+            this["mapStore/setCategoryCode"](categoryCode)
+        }
     }
 }
 </script>

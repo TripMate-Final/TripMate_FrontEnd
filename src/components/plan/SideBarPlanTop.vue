@@ -7,8 +7,15 @@
             {{navItem.title}}</b-nav-item>
         </b-nav>
       </b-card-header>
-
-      <b-card :title="activeCard.title" :sub-title="activeCard.subTitle">
+      <b-card v-if="selectedNavItem == 0">
+          <b-input-group prepend="제목" class="mt-3">
+              <b-form-input  v-model="inputTitle" :disabled="isChecked === 1"></b-form-input>
+              <b-input-group-append>
+                  <button class="save-title-button" :class="{'active': isChecked === 1, 'inactive': isChecked === 0}" @click="saveTitle"> {{ buttonText }}</button>
+              </b-input-group-append>
+          </b-input-group>
+      </b-card>
+      <b-card v-if="selectedNavItem != 0" :title="activeCard.title" :sub-title="activeCard.subTitle">
         {{ activeCard.content }}
       </b-card>
     </b-card>
@@ -17,56 +24,76 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "SideBarPlanTop",
   data() {
     return {
-      selectedNavItem: 'card0',
+      selectedNavItem: 0,
+      isChecked: 0,
+      buttonText: '저장',
+      inputTitle: '',
       navItems: [
-        {id: 'card0', title: '여행요약'},
-        {id: 'card1', title: '1일차'},
-        {id: 'card2', title: '2일차'},
-        {id: 'card3', title: '3일차'}
+        {id: 0, title: '여행요약'},
+        {id: 1, title: '1일차'},
+        {id: 2, title: '2일차'},
+        {id: 3, title: '3일차'},
       ],
       cards: {
-        card0: {
+        0: {
           title: '여행요약',
           subTitle: '여행요약입니다',
           content: '내용입니다'
         },
-        card1: {
+        1: {
           title: 'Card 1',
           subTitle: 'Subtitle for Card 1',
           content: 'Content for Card 1'
         },
-        card2: {
+        2: {
           title: 'Card 2',
           subTitle: 'Subtitle for Card 2',
           content: 'Content for Card 2'
         },
-        card3: {
+        3: {
           title: 'Card 3',
           subTitle: 'Subtitle for Card 3',
           content: 'Content for Card 3'
-        }
+        },
       }
     }
   },
   methods: {
+    ...mapActions(['mapStore/addPlan','mapStore/setSelectedDay']),
     selectNavItem(navItemId) {
       this.selectedNavItem = navItemId;
-    }
+      console.log(navItemId);
+      this["mapStore/setSelectedDay"](navItemId);
+    },
+      saveTitle() {
+        if(this.isChecked === 0){
+            this.isChecked = 1;
+            this.buttonText = '수정';
+        }else{
+            this.isChecked = 0;
+            this.buttonText = '저장';
+        }
+      }
   },
   computed: {
     activeCard() {
       return this.cards[this.selectedNavItem];
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
 ::v-deep {
+  a{
+    color: #2c3e50;
+  }
   .active > a{
     color: #569A64;
   }
@@ -74,4 +101,30 @@ export default {
     color: #569A64;
   }
 }
+
+.save-title-button{
+  float: right;
+  z-index: 3;
+  background-color:#EFECEC;
+  color: #0d172a;
+  font-family: "NanumSquareOTF","RocGrotesk-Wide";
+  font-size: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+.save-title-button:hover{
+  background-color: #569A64;
+  color: #fff;
+  border: 0px;
+}
+.save-title-button.active{
+  background-color: #569A64;
+  color: #fff;
+  border: 0px;
+}
+
 </style>

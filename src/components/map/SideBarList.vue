@@ -1,12 +1,12 @@
 <template>
     <div>
         <b-button id="show-list-btn" v-b-toggle.sidebar-list>목록보기</b-button>
-        <b-sidebar width="400px" id="sidebar-list"  shadow>
+        <b-sidebar width="400px" id="sidebar-list" shadow>
             <div class="px-3 py-2">
                 <side-bar-list-top></side-bar-list-top>
             </div>
             <side-bar-list-tag></side-bar-list-tag>
-            <side-bar-attraction-list></side-bar-attraction-list>
+            <side-bar-attraction-list :attractionList="attractionList"></side-bar-attraction-list>
         </b-sidebar>
     </div>
 </template>
@@ -15,12 +15,17 @@ import SideBarListTop from "@/components/map/SideBarListTop.vue";
 import SideBarListTag from "@/components/map/SideBarListTag.vue";
 import SideBarAttractionList from "@/components/map/SideBarAttractionList.vue";
 export default {
-    name:'SideBarList',
-    components:{
+    name: 'SideBarList',
+    components: {
         SideBarListTop,
         SideBarListTag,
         SideBarAttractionList,
     },
+    data() {
+        return {
+        }
+    },
+    methods: {},
 }
 
 </script>
