@@ -6,6 +6,7 @@ import AttractionView from "@/views/AttractionView.vue";
 import BoardView from "@/views/BoardView.vue";
 import UserView from "@/views/UserView.vue";
 import AttrationList from "@/components/attraction/AttractionList.vue";
+import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
 Vue.use(VueRouter)
 
 const routes = [
@@ -30,7 +31,8 @@ const routes = [
       {
         path: 'detail/:contentId',
         name: 'attractiondetail',
-        component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
+        component: AttractionDetail
+        // component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
       },
     ]
   },

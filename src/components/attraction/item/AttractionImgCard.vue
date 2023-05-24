@@ -1,36 +1,62 @@
 <template>
-  <div class="card">
-    <b-card overlay :img-src="`${attraction.firstImage}`" img-alt="Card Image" text-variant="white">
+  <span class="card" @click="handleClick">
+    <b-card overlay :img-src="displayedImage" img-alt="Card Image" text-variant="black" class="img">
       <b-card-text class="text">
         <h2>{{ attraction.title }}</h2>
       </b-card-text>
     </b-card>
-  </div>
+  </span>
 </template>
 
 <script>
-import http from "@/util/http-common";
 export default {
   name: "AttractionImgCard",
   props: {
-    contentId: Number,
+    attraction: {},
   },
   components: {},
   data() {
     return {
       message: "",
-      attraction: {},
     };
   },
-  created() {
-    console.log(this.contentId);
-    http.get(`/attraction/preview/${this.contentId}`).then(({ data }) => {
-      this.attraction = data;
-      console.log(this.attraction);
-    });
+  created() {},
+  methods: {
+    handleClick() {
+      this.$router.push({
+        name: "attractiondetail",
+        params: {
+          contentId: this.attraction.contentId,
+        },
+      });
+      window.location.reload(true);
+      window.scrollTo(0, 0);
+    },
   },
-  methods: {},
+  computed: {
+    displayedImage() {
+      // console.log(this.attraction.firstImage);
+      if (this.attraction.firstImage != "") {
+        return this.attraction.firstImage; // 이미지가 있는 경우 실제 이미지 출력
+      } else {
+        // return "../../src/assets/img/noimg.png";
+        return require("@/assets/img/noimg.png"); // 이미지가 없는 경우 예시 이미지 출력
+      }
+    },
+  },
 };
 </script>
 
-<style></style>
+<style scoped>
+.card {
+  display: inline-block; /* 인라인 블록 요소로 설정하여 가로 공간을 차지하도록 함 */
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 10px;
+}
+</style>

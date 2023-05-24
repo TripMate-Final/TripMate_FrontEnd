@@ -2,7 +2,11 @@
   <div>
     <attraction-title :title="attraction.title"></attraction-title>
     <attraction-sido :addr="attraction.addr1"></attraction-sido>
-    <attraction-like-view :hit="attraction.hit" :like="attraction.likeCnt"></attraction-like-view>
+    <attraction-like-view
+      :hit="attraction.hit"
+      :like="attraction.likeCnt"
+      :contentId="attraction.contentId"
+    ></attraction-like-view>
     <hr style="margin-bottom: 0px" />
     <b-nav tabs class="tabs">
       <b-nav-item class="tab" @click="scrollToImg()">사진보기</b-nav-item>
@@ -25,12 +29,13 @@
     <attraction-comment></attraction-comment>
     <div ref="comment"><attraction-comment2></attraction-comment2></div>
     <hr />
-    <div><h2>제목과 유사한 여행지 추천</h2></div>
-    <span ref="recommendation">
-      <attraction-img-card :contentId="attraction.recommendId1"></attraction-img-card>
-      <attraction-img-card :contentId="attraction.recommendId2"></attraction-img-card>
-      <attraction-img-card :contentId="attraction.recommendId3"></attraction-img-card>
-    </span>
+    <div ref="recommendation"><h2>제목과 유사한 여행지 추천</h2></div>
+
+    <div class="card-container">
+      <span v-for="(item, index) in recommendList" :key="index" class="card">
+        <attraction-img-card :attraction="item" class="img"></attraction-img-card>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -63,9 +68,11 @@ export default {
 
   data() {
     return {
-      contentId: Number,
-      attraction: Object,
-      recommendList: [1, 2, 3],
+      contentId: 0,
+      attraction: {
+        firstImage: "@/assets/img/noimg.png",
+      },
+      recommendList: [],
     };
   },
 
@@ -87,9 +94,18 @@ export default {
   created() {
     window.scrollTo(0, 0);
     this.contentId = this.$route.params.contentId;
-    console.log(this.contentId);
+    // console.log(this.contentId);
     http.get(`/attraction/${this.contentId}`).then(({ data }) => {
       this.attraction = data;
+      http.get(`/attraction/preview/${this.attraction.recommendId1}`).then(({ data }) => {
+        this.recommendList.push(data);
+      });
+      http.get(`/attraction/preview/${this.attraction.recommendId2}`).then(({ data }) => {
+        this.recommendList.push(data);
+      });
+      http.get(`/attraction/preview/${this.attraction.recommendId3}`).then(({ data }) => {
+        this.recommendList.push(data);
+      });
     });
   },
 };
@@ -118,5 +134,12 @@ export default {
 
 h2 {
   margin-top: 20px;
+}
+.card-container {
+  display: flex; /* 요소들을 가로로 정렬하는 Flexbox 레이아웃 사용 */
+}
+
+.card {
+  flex: 1; /* 가로 공간을 동일하게 분할 */
 }
 </style>
