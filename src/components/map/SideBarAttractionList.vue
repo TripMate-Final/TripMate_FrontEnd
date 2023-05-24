@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-attraction-list">
+  <div class="sidebar-attraction-list" ref="scrollContainer" @scroll="handleScroll">
     <attraction-card
             class="attraction-card"
             v-for="(tag, index) in attractionList"
@@ -24,8 +24,10 @@ export default {
     data() {
         return {
           attractionList :[],
-          keyword:'',
-          categoryCode:10
+          keyword:"",
+          categoryCode:10,
+          isScrolledToBottom: false,
+          pageNum: 0,
         }
     },
     computed:{
@@ -36,7 +38,10 @@ export default {
     watch:{
         category(value){
             this.categoryCode = value;
-            http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`).then(({ data }) => {
+            this.pageNum = 0;
+            this.$refs.scrollContainer.scrollTo(0, 0);
+            http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`)
+                .then(({ data }) => {
                 this.attractionList = data;
             });
         }
@@ -51,10 +56,40 @@ export default {
             this.categoryCode = 10;
         }
         http
-            .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`)
+            .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`)
             .then(({data}) => {
                 this.attractionList = data;
             });
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.handleScroll);
+    },
+    methods:{
+        handleScroll() {
+            const scrollContainer = this.$refs.scrollContainer;
+            const scrollTop = scrollContainer.scrollTop;
+            const windowHeight = scrollContainer.offsetHeight;
+            const documentHeight = scrollContainer.scrollHeight;
+            if (scrollTop + windowHeight >= documentHeight) {
+                this.isScrolledToBottom = true;
+                this.pageNum += 1;
+                if (this.pageNum < 9999) {
+                    http
+                        .get(
+                            `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`
+                        )
+                        .then(({ data }) => {
+                            if (data.length < 2) {
+                                this.pageNum = 9999;
+                            } else {
+                                this.attractionList = this.attractionList.concat(data);
+                            }
+                        });
+                }
+            } else {
+                this.isScrolledToBottom = false;
+            }
+        },
     }
 }
 </script>
