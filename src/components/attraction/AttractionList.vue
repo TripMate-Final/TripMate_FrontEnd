@@ -1,11 +1,11 @@
 <template>
   <div>
-    <attraction-tag-nav></attraction-tag-nav>
+    <attraction-tag-nav :keyword="keyword"></attraction-tag-nav>
     <attraction-card
       onclick=""
       v-for="(tag, index) in attractionList"
       :key="index"
-      :title="tag"
+      :attraction="tag"
       remove="false"
     >
     </attraction-card>
@@ -15,7 +15,7 @@
 <script>
 import AttractionCard from "./item/AttractionCard.vue";
 import AttractionTagNav from "./item/AttractionTagNav.vue";
-// import http from "@/util/http-common";
+import http from "@/util/http-common";
 export default {
   name: "AttractionList",
   components: {
@@ -26,7 +26,9 @@ export default {
   data() {
     return {
       modalCheck: false,
-      attractionList: [1, 1, 1, 1, 1, 1, 1],
+      attractionList: [],
+      keyword: "",
+      categoryCode: 10,
     };
   },
   methods: {
@@ -35,12 +37,16 @@ export default {
     },
   },
 
-  // created() {
-  //   http.get(`/attraction/list`).then(({ data }) => {
-  //     console.log(data);
-  //     this.attractionList = data;
-  //   });
-  // },
+  created() {
+    this.keyword = this.$route.query.keyword;
+    this.categoryCode = this.$route.query.categoryCode;
+    http
+      .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`)
+      .then(({ data }) => {
+        this.attractionList = data;
+      });
+    // window.location.reload(true);
+  },
 };
 </script>
 

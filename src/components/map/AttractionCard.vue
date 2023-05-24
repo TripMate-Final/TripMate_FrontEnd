@@ -3,18 +3,18 @@
     <b-card no-body class="overflow-hidden">
       <b-row>
         <b-col md="4">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
+            <b-card-img
+                    :src="`${attraction.firstImage}`"
+                    alt="Image"
+                    class="rounded-0"
+            ></b-card-img>
         </b-col>
 
         <b-col md="8">
           <b-card-body>
-              <a v-b-toggle href="#sidebar-detail" @click="openDetail(125266)" @click.prevent>title</a>
+              <a v-b-toggle href="#sidebar-detail" @click="openDetail(`${attraction.contentId}`)" @click.prevent>{{ attraction.title }}</a>
             <b-card-text >
-             내용입니다.
+                {{ attraction.addr1 }}
             </b-card-text>
             <AttractionTag></AttractionTag>
           </b-card-body>
@@ -64,6 +64,11 @@ export default {
   components: {
     AttractionTag,
   },
+    props: {
+        attraction: {
+          type:Object
+        },
+    },
   data(){
     return{
 
@@ -73,6 +78,7 @@ export default {
       ...mapActions(['mapStore/fetchDetailData']),
 
     openDetail(contentId){
+      console.log(contentId)
       this["mapStore/fetchDetailData"](contentId)
     }
 

@@ -108,9 +108,11 @@ export default {
         title: "",
         content: "",
       },
+      userInfo: {},
     };
   },
   created() {
+    this.userInfo = this.$session.get("userinfo");
     http.get(`/board/list`).then(({ data }) => {
       this.items = data;
       // console.log(this.items);
@@ -136,7 +138,11 @@ export default {
 
   methods: {
     moveWrite() {
-      this.$router.push({ name: "boardwrite" });
+      if (this.userInfo == null) {
+        alert("로그인이 필요합니다!!");
+      } else {
+        this.$router.push({ name: "boardwrite" });
+      }
     },
     handleRowClick(item) {
       console.log(item);

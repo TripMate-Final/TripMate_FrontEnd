@@ -32,14 +32,14 @@ export default {
 
 <style scoped>
 .write {
-  background-color: rgb(224, 224, 224);
+  background-color: rgb(240, 240, 240);
 }
 
 .form {
   width: 100%;
 }
 .formtext {
-  height: 120px;
+  height: 80px;
   margin-top: 30px;
   width: 95%;
   box-sizing: border-box;
@@ -51,9 +51,10 @@ export default {
 }
 
 .btn-write {
-  height: 50px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  height: 40px;
+  margin-top: 0.4%;
+  margin-bottom: 1%;
+  margin-right: 1.7%;
 }
 .btn-write:hover {
   color: #ffffff;

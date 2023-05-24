@@ -3,19 +3,25 @@
     <b-card no-body class="overflow-hidden">
       <b-row>
         <b-col md="4">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
+          <b-card-img :src="displayedImage" alt="Image" class="rounded-0" height="250"></b-card-img>
         </b-col>
 
         <b-col md="8">
-          <b-card-body title="attraction.title">
-            <b-card-text>
-              <router-link to="./detail/125505">내용입니다</router-link>
+          <b-card-body
+            ><router-link :to="`./detail/${attraction.contentId}`"
+              ><h3>{{ attraction.title }}</h3></router-link
+            >
+            <b-card-text class="content"
+              ><h5>
+                {{ attraction.addr1 }}
+              </h5>
             </b-card-text>
-            <AttractionTag></AttractionTag>
+            <AttractionTag
+              class="tag"
+              :gugunName="attraction.gugunName"
+              :categoryName="attraction.categoryName"
+              :cat3Name="attraction.cat3Name"
+            ></AttractionTag>
           </b-card-body>
           <div class="heart-icon">
             <svg
@@ -31,7 +37,7 @@
               />
             </svg>
           </div>
-          <div class="heart-icon">
+          <!-- <div class="heart-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -48,7 +54,7 @@
                 d="M20.84 4.58a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.09a5.5 5.5 0 0 0-7.78 7.78l1.06 1.09L12 21.01l7.78-7.77 1.06-1.09a5.5 5.5 0 0 0 0-7.77z"
               />
             </svg>
-          </div>
+          </div> -->
         </b-col>
       </b-row>
     </b-card>
@@ -61,6 +67,21 @@ export default {
   name: "AttractionCard",
   components: {
     AttractionTag,
+  },
+  props: {
+    attraction: {},
+  },
+
+  computed: {
+    displayedImage() {
+      // console.log(this.attraction.firstImage);
+      if (this.attraction.firstImage != "") {
+        return this.attraction.firstImage; // 이미지가 있는 경우 실제 이미지 출력
+      } else {
+        // return "../../src/assets/img/noimg.png";
+        return require("@/assets/img/noimg.png"); // 이미지가 없는 경우 예시 이미지 출력
+      }
+    },
   },
 };
 </script>
@@ -77,5 +98,12 @@ export default {
   right: 10px;
   margin: 10px;
   margin-left: 10px;
+}
+
+.tag {
+  position: absolute;
+  margin-left: 10px;
+  bottom: 0;
+  margin-bottom: 20px;
 }
 </style>

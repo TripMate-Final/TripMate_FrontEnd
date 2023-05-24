@@ -1,17 +1,21 @@
 <template>
   <div>
-    <!--        <label for="tags-remove-on-delete"></label>-->
-    <b-tag v-for="tag in tags" :key="tag" :title="tag" remove="false"> </b-tag>
-    <!--        <p>Value: {{ value }}</p>-->
+    <b-tag v-for="tag in tags" :key="tag" no-remove pill>{{ tag }} </b-tag>
   </div>
 </template>
 
 <script>
 export default {
   name: "AttractionTag",
+  props: {
+    gugunName: String,
+    categoryName: String,
+    cat3Name: String,
+  },
+
   data() {
     return {
-      tags: ["#서울", "#TAG", "#휴양지"],
+      tags: [this.gugunName, this.categoryName, this.cat3Name],
     };
   },
 };

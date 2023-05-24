@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 import MainView from '../views/MainView.vue'
 import MapView from '../views/MapView.vue'
 import AttractionView from "@/views/AttractionView.vue";
-import AttractionList from "@/components/attraction/AttractionList.vue";
 import BoardView from "@/views/BoardView.vue";
 import UserView from "@/views/UserView.vue";
-
+import AttrationList from "@/components/attraction/AttractionList.vue";
+import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
 Vue.use(VueRouter)
 
 const routes = [
@@ -19,18 +19,20 @@ const routes = [
     path: '/attraction',
     name: 'attraction',
     component: AttractionView,
-    redirect: '/attraction/list',
+    
     children:[
       {
         path: 'list',
-        name: 'list',
-        component: AttractionList,
+        name: 'attractionlist',
+        component: AttrationList
+        // component: () => import(/* webpackChunkName: "about" */ '@/components/attraction/AttractionList.vue')
       },
 
       {
         path: 'detail/:contentId',
-        name: 'detail',
-        component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
+        name: 'attractiondetail',
+        component: AttractionDetail
+        // component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
       },
     ]
   },
@@ -96,7 +98,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router
