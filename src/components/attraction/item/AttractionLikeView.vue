@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-button type="button" class="btn on" @click="setLike()" title="선택됨">
-      <img class="img" src="@/assets/img/redheart.png" />
+      <img class="img" src="@/assets/img/redheart.png" v-if="this.isLike" />
+      <img class="img" src="@/assets/img/heart.png" v-else />
       <span class="num" id="conLike">{{ like }}</span>
     </b-button>
     <span class="num_view"
@@ -23,12 +24,12 @@ export default {
     hit: Number,
     like: Number,
     contentId: Number,
+    isLike: Number,
   },
   components: {},
   data() {
     return {
       message: "",
-      islike: 1,
     };
   },
   created() {},

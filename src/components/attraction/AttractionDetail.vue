@@ -6,6 +6,7 @@
       :hit="attraction.hit"
       :like="attraction.likeCnt"
       :contentId="attraction.contentId"
+      :isLike="isLike"
     ></attraction-like-view>
     <hr style="margin-bottom: 0px" />
     <b-nav tabs class="tabs">
@@ -55,6 +56,9 @@ import AttractionComment2 from "./item/AttractionComment2.vue";
 import AttractionImgCard from "./item/AttractionImgCard.vue";
 import TheKakaoMap from "../map/TheKakaoMap.vue";
 import http from "@/util/http-common";
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 
 export default {
   components: {
@@ -76,6 +80,7 @@ export default {
       attraction: {},
       recommendList: [],
       commentsList: {},
+      isLike: 0,
     };
   },
 
@@ -113,6 +118,19 @@ export default {
     http.get(`/comment/${this.contentId}`).then(({ data }) => {
       this.commentsList = data;
     });
+
+    if (this.userInfo != null) {
+      http
+        .get(`/user/isLike?contentId=${this.contentId}&userId=${this.userInfo.userId}`)
+        .then(({ data }) => {
+          this.isLike = data;
+        });
+    }
+  },
+
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
   },
 };
 </script>

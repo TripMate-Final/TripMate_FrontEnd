@@ -23,7 +23,7 @@
               :cat3Name="attraction.cat3Name"
             ></AttractionTag>
           </b-card-body>
-          <div class="heart-icon" v-if="like">
+          <div class="heart-icon" v-if="attraction.isLike">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

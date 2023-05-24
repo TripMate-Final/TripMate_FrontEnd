@@ -16,6 +16,9 @@
 import AttractionCard from "./item/AttractionCard.vue";
 import AttractionTagNav from "./item/AttractionTagNav.vue";
 import http from "@/util/http-common";
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 export default {
   name: "AttractionList",
   components: {
@@ -49,7 +52,7 @@ export default {
         if (this.pageNum < 9999) {
           http
             .get(
-              `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`
+              `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`
             )
             .then(({ data }) => {
               if (data.length < 2) {
@@ -71,12 +74,17 @@ export default {
     this.categoryCode = this.$route.query.categoryCode;
     http
       .get(
-        `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`
+        `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`
       )
       .then(({ data }) => {
         this.attractionList = data;
       });
     // window.location.reload(true);
+  },
+
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
   },
 
   destroyed() {
