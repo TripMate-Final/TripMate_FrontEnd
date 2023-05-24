@@ -30,10 +30,10 @@ export default {
   name: "SideBarPlanTop",
   data() {
     return {
+      inputTitle :'',
       selectedNavItem: 0,
       isChecked: 0,
       buttonText: '저장',
-      inputTitle: '',
       navItems: [
         {id: 0, title: '여행요약'},
         {id: 1, title: '1일차'},
@@ -64,8 +64,13 @@ export default {
       }
     }
   },
+    computed: {
+        activeCard() {
+            return this.cards[this.selectedNavItem];
+        },
+    },
   methods: {
-    ...mapActions(['mapStore/addPlan','mapStore/setSelectedDay']),
+    ...mapActions(['mapStore/setPlanTitle','mapStore/addPlan','mapStore/setSelectedDay']),
     selectNavItem(navItemId) {
       this.selectedNavItem = navItemId;
       console.log(navItemId);
@@ -75,17 +80,14 @@ export default {
         if(this.isChecked === 0){
             this.isChecked = 1;
             this.buttonText = '수정';
+            this['mapStore/setPlanTitle'](this.inputTitle);
         }else{
             this.isChecked = 0;
             this.buttonText = '저장';
         }
       }
   },
-  computed: {
-    activeCard() {
-      return this.cards[this.selectedNavItem];
-    },
-  },
+
 }
 </script>
 
