@@ -1,16 +1,19 @@
 <template>
-  <b-card
-    class="img card w-100 h-100"
-    @click="handleClick"
-    overlay
-    :img-src="displayedImage"
-    img-alt="Card Image"
-    text-variant="black"
-  >
-    <b-card-text class="text">
-      <h3>{{ attraction.title }}</h3>
-    </b-card-text>
-  </b-card>
+  <div>
+    <!-- <h2>{{ attraction.title }}</h2> -->
+    <b-card
+      class="img card w-100 h-100"
+      @click="handleClick"
+      overlay
+      :img-src="displayedImage"
+      img-alt="Card Image"
+      text-variant="black"
+    >
+      <b-card-text class="text">
+        <h3>{{ attraction.title }}</h3>
+      </b-card-text>
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -64,5 +67,10 @@ export default {
   object-position: center;
   margin-right: 10px;
   top: 0;
+}
+
+h2 {
+  margin-top: 50px;
+  text-align: left;
 }
 </style>

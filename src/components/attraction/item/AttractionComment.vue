@@ -1,32 +1,59 @@
 <template>
   <div class="write" id="writeComment">
     <div class="form">
-      <form name="tform" id="tform">
-        <span class="writeForm">
-          <textarea class="formtext" placeholder="댓글 작성해주세요"> </textarea>
-        </span>
+      <div name="tform" id="tform">
+        <div class="writeForm">
+          <textarea class="formtext" placeholder="댓글 작성해주세요" v-model="comment"> </textarea>
+        </div>
         <div class="btn-container">
-          <span>
-            <button class="btn-write">댓글 쓰기</button>
-          </span>
+          <div>
+            <button class="btn-write" @click="write">댓글 쓰기</button>
+          </div>
           <!-- <div class="button_base b01_simple_rollover">01_Button</div> -->
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import http from "@/util/http-common";
 export default {
   name: "AttractionComment",
   components: {},
+  props: {
+    contentId: Number,
+  },
   data() {
     return {
+      comment: "",
       message: "",
+      userinfo: null,
     };
   },
-  created() {},
-  methods: {},
+  created() {
+    this.userinfo = this.$session.get("userinfo");
+  },
+  methods: {
+    write() {
+      if (this.userinfo == null) {
+        alert("로그인 해주세요");
+      } else {
+        http
+          .post(`/comment`, {
+            contentId: this.contentId,
+            userId: this.userinfo.userId,
+            commentContent: this.comment,
+            commentNum: 0,
+          })
+          .then(function (response) {
+            if (response.status == 200) {
+              window.location.reload(true);
+            }
+          });
+      }
+    },
+  },
 };
 </script>
 
