@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     setLike() {
-      console.log(111); //여기다가 좋아요 하기
       if (this.userinfo == null) {
         alert("로그인하세요!!");
       } else {
@@ -43,11 +42,7 @@ export default {
             contentId: this.contentId,
           })
           .then(function (response) {
-            if (response.status == 200) {
-              alert("좋아요!");
-            } else {
-              alert("좋아요 실패");
-            }
+            console(response.status);
           });
       }
     },
