@@ -24,17 +24,28 @@
         </b-navbar-nav>
 
         <b-navbar-nav>
-          <b-nav-form>
+          <b-nav-form v-if="isMapPage">
             <b-form-input
               size="sm"
               class="mr-sm-2"
               placeholder="Search"
               v-model="keyword"
             ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="selectKeyword($event)"
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="selectMapKeyword($event)"
               >Search</b-button
             >
           </b-nav-form>
+            <b-nav-form v-else>
+                <b-form-input
+                        size="sm"
+                        class="mr-sm-2"
+                        placeholder="Search"
+                        v-model="keyword"
+                ></b-form-input>
+                <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="selectKeyword($event)"
+                >Search</b-button
+                >
+            </b-nav-form>
 
           <b-nav-item-dropdown right>
             <template #button-content>
@@ -74,7 +85,11 @@ export default {
   created() {
     this.userinfo = this.$session.get("userinfo");
   },
-
+  computed:{
+      isMapPage(){
+          return this.$route.path === '/map';
+      }
+  },
   methods: {
     moveSelect() {
       this.$router.push({ name: "attraction" });
@@ -94,6 +109,14 @@ export default {
       });
       this.forceReload();
     },
+      selectMapKeyword(event) {
+          event.preventDefault();
+          this.$router.push({
+              name: "map",
+              query: { keyword: this.keyword, categoryCode: this.categoryCode },
+          });
+          this.forceReload();
+      },
     forceReload() {
       window.location.reload();
     },
