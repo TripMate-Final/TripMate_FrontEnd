@@ -13,6 +13,9 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 import http from "@/util/http-common";
 export default {
   name: "AttractionLikeView",
@@ -24,28 +27,33 @@ export default {
   components: {},
   data() {
     return {
-      userinfo: null,
       message: "",
+      islike: 1,
     };
   },
-  created() {
-    this.userinfo = this.$session.get("userinfo");
-  },
+  created() {},
   methods: {
     setLike() {
-      if (this.userinfo == null) {
+      if (this.userInfo == null) {
         alert("로그인하세요!!");
+      } else if (this.islike == 1) {
+        alert("이미 좋아요 눌렀어요!!");
       } else {
         http
           .post(`/user/like`, {
-            userId: this.userinfo.userId,
+            userId: this.userInfo.userId,
             contentId: this.contentId,
           })
           .then(function (response) {
-            console(response.status);
+            console.log(response.status);
+            window.location.reload();
           });
       }
     },
+  },
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
   },
 };
 </script>

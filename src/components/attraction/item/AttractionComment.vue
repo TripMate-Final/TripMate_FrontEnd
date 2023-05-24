@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 import http from "@/util/http-common";
 export default {
   name: "AttractionComment",
@@ -28,21 +31,18 @@ export default {
     return {
       comment: "",
       message: "",
-      userinfo: null,
     };
   },
-  created() {
-    this.userinfo = this.$session.get("userinfo");
-  },
+  created() {},
   methods: {
     write() {
-      if (this.userinfo == null) {
+      if (this.userInfo == null) {
         alert("로그인 해주세요");
       } else {
         http
           .post(`/comment`, {
             contentId: this.contentId,
-            userId: this.userinfo.userId,
+            userId: this.userInfo.userId,
             commentContent: this.comment,
             commentNum: 0,
           })
@@ -53,6 +53,10 @@ export default {
           });
       }
     },
+  },
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
   },
 };
 </script>
