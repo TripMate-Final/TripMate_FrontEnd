@@ -1,68 +1,69 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import MainView from '../views/MainView.vue'
-import MapView from '../views/MapView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import MainView from "../views/MainView.vue";
+import MapView from "../views/MapView.vue";
 import AttractionView from "@/views/AttractionView.vue";
 import BoardView from "@/views/BoardView.vue";
 import UserView from "@/views/UserView.vue";
 import AttrationList from "@/components/attraction/AttractionList.vue";
 import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'main',
-    component: MainView
+    path: "/",
+    name: "main",
+    component: MainView,
   },
   {
-    path: '/attraction',
-    name: 'attraction',
+    path: "/attraction",
+    name: "attraction",
     component: AttractionView,
-    
-    children:[
+
+    children: [
       {
-        path: 'list',
-        name: 'attractionlist',
-        component: AttrationList
+        path: "list",
+        name: "attractionlist",
+        component: AttrationList,
         // component: () => import(/* webpackChunkName: "about" */ '@/components/attraction/AttractionList.vue')
       },
 
       {
-        path: 'detail/:contentId',
-        name: 'attractiondetail',
-        component: AttractionDetail
+        path: "detail/:contentId",
+        name: "attractiondetail",
+        component: AttractionDetail,
         // component: () => import(/* webpackChunkName: "about" */ '../components/attraction/AttractionDetail.vue')
       },
-    ]
+    ],
   },
 
   {
-    path: '/about',
-    name: 'about',
+    path: "/about",
+    name: "about",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
-    path:'/map',
-    name:'map',
+    path: "/map",
+    name: "map",
     component: MapView,
-    children:[
+    children: [
       {
-        path: 'detail/:contentId',
-        name: 'detail',
-        component: () => import(/* webpackChunkName: "about" */ '../components/map/SideBarDetail.vue')
+        path: "detail/:contentId",
+        name: "detail",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../components/map/SideBarDetail.vue"),
       },
-    ]
+    ],
   },
 
   {
-    path: '/board',
-    name: 'board',
+    path: "/board",
+    name: "board",
     component: BoardView,
-    redirect: '/board/list',
+    redirect: "/board/list",
 
     children: [
       {
@@ -89,16 +90,23 @@ const routes = [
   },
 
   {
-    path: '/user',
-    name: 'user',
+    path: "/user",
+    name: "user",
     component: UserView,
+    children: [
+      {
+        path: "login",
+        name: "userlogin",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/user/UserLogin"),
+      },
+    ],
   },
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes,
-})
+});
 
-export default router
+export default router;
