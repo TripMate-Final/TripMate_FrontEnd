@@ -19,12 +19,13 @@ export default {
     components: {
         AttractionCard,
     },
+    props:['list','word','code'],
 
     data() {
         return {
-            attractionList: [],
-            keyword: "제주도",
-            categoryCode:12,
+          attractionList :[],
+          keyword:'',
+          categoryCode:10
         }
     },
     computed:{
@@ -41,11 +42,20 @@ export default {
         }
     },
     created() {
-        console.log(this.categoryCode)
-        http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`).then(({ data }) => {
-            this.attractionList = data;
-        });
-    },
+        this.keyword = this.$route.query.keyword;
+        this.categoryCode = this.$route.query.categoryCode;
+        if(this.keyword == undefined){
+            this.keyword = '';
+        }
+        if(this.categoryCode == undefined){
+            this.categoryCode = 10;
+        }
+        http
+            .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}`)
+            .then(({data}) => {
+                this.attractionList = data;
+            });
+    }
 }
 </script>
 

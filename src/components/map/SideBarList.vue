@@ -6,7 +6,7 @@
                 <side-bar-list-top></side-bar-list-top>
             </div>
             <side-bar-list-tag></side-bar-list-tag>
-            <side-bar-attraction-list :attractionList="attractionList"></side-bar-attraction-list>
+            <side-bar-attraction-list :word="keyword" :code="categoryCode"></side-bar-attraction-list>
         </b-sidebar>
     </div>
 </template>
@@ -14,6 +14,7 @@
 import SideBarListTop from "@/components/map/SideBarListTop.vue";
 import SideBarListTag from "@/components/map/SideBarListTag.vue";
 import SideBarAttractionList from "@/components/map/SideBarAttractionList.vue";
+// import http from "@/util/http-common";
 export default {
     name: 'SideBarList',
     components: {
@@ -23,9 +24,10 @@ export default {
     },
     data() {
         return {
+            keyword:'제주도',
+            categoryCode:10
         }
     },
-    methods: {},
 }
 
 </script>
