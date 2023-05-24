@@ -76,7 +76,7 @@ export default {
     }),
   },
   methods:{
-    ...mapActions(['mapStore/fetchDetailData','mapStore/deletePlan']),
+    ...mapActions(['mapStore/fetchDetailData']),
 
     openDetail(contentId){
       console.log(contentId)
