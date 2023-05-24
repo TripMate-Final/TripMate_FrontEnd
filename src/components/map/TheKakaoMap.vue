@@ -34,11 +34,11 @@ export default {
             // ],
             // markers: [],
             // infowindow: null,
-            latitude:33.24453413,
-            longitude:126.559473,
+            latitude:0,
+            longitude:0,
         };
     },
-
+    props: ['lat','lng'],
     mounted() {
         if (window.kakao && window.kakao.maps) {
             this.initMap();
@@ -83,8 +83,10 @@ export default {
             this.map = new kakao.maps.Map(container, options);
         },
         initMap() {
-           if(this.latitude != 0 && this.longitude != 0){
+           if(this.lat != null && this.lng != null){
                window.kakao.maps.load(() => {
+                this.latitude = this.lat;
+                this.longitude = this.lng;
                 this.loadMap();
                 this.displayMarker();
                });
