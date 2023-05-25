@@ -9,7 +9,7 @@
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
-      <span>
+      <span v-if="userInfo != null">
         <b-col class="text-right" v-if="userInfo.userId === board.userId">
           <b-button variant="outline-info" size="sm" @click="boardModify" class="mr-2"
             >글수정</b-button
@@ -87,6 +87,7 @@ export default {
       this.board = data;
       this.boardTitle = this.board.boardTitle;
       this.content = this.board.boardContent;
+      console.log(data);
     });
   },
   methods: {
