@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-tag v-for="tag in tags" :key="tag" no-remove pill>{{ tag }} </b-tag>
+    <b-tag id="cat-tag" v-for="tag in tags" :key="tag" no-remove pill>{{ tag }} </b-tag>
   </div>
 </template>
 
@@ -21,4 +21,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+::v-deep{
+  #cat-tag{
+    font-size: 16px;
+    letter-spacing: 2px;
+    background-color: #EFECEC;
+    color: #070707;
+  }
+}
+</style>
