@@ -6,17 +6,13 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col></b-col>
-      <b-col cols="8">
+      <b-col cols="5">
         <b-jumbotron>
           <template #header>My Page</template>
-
           <template #lead> 내 정보 확인페이지입니다. </template>
-
           <hr class="my-4" />
-
           <b-container class="mt-4">
-            <b-row>
+            <b-row v-if="this.modify">
               <b-col cols="2"></b-col>
               <b-col cols="2" align-self="end">아이디</b-col
               ><b-col cols="4" align-self="start">{{ userInfo.userId }}</b-col>
@@ -34,38 +30,113 @@
               ><b-col cols="4" align-self="start">{{ userInfo.userEmail }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
-            <!-- <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">가입일</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.joindate }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row> -->
           </b-container>
           <hr class="my-4" />
-
-          <b-button variant="primary" href="#" class="mr-1">정보수정</b-button>
+          <b-button variant="primary" @click="usermodify" class="mr-1">정보수정</b-button>
           <b-button variant="danger" @click="userdelete">회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
-      <b-col></b-col>
+      <b-col>
+        <attraction-card
+          onclick=""
+          v-for="(tag, index) in attractionList"
+          :key="index"
+          :attraction="tag"
+          remove="false"
+        >
+        </attraction-card>
+      </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
+import http from "@/util/http-common";
+import AttractionCard from "../attraction/item/AttractionCard.vue";
 
 const userStore = "userStore";
 
 export default {
   name: "UserMyPage",
-  components: {},
+  components: {
+    AttractionCard,
+  },
   computed: {
-    ...mapState(userStore, ["userInfo"]),
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
+  },
+
+  data() {
+    return {
+      modalCheck: false,
+      attractionList: [],
+      keyword: "",
+      isScrolledToBottom: false,
+      pageNum: 0,
+    };
   },
 
   methods: {
-    userdelete() {},
+    userdelete() {
+      var vm = this;
+      http.delete(`/user/${this.userInfo.userId}`).then(function (response) {
+        if (response.status == 200) {
+          alert("삭제 완료");
+        } else {
+          alert("삭제 실패!!!");
+        }
+        vm.$router.push("/main");
+      });
+    },
+
+    handleScroll() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+      if (scrollTop + windowHeight >= documentHeight) {
+        this.isScrolledToBottom = true;
+        this.pageNum += 1;
+        if (this.pageNum < 9999) {
+          http
+            .get(
+              `/attraction/select?keyword=&categoryCode=77&page=${this.pageNum}&userId=${this.userInfo.userId}`
+            )
+            .then(({ data }) => {
+              if (data.length < 2) {
+                this.pageNum = 9999;
+              } else {
+                this.attractionList = this.attractionList.concat(data);
+              }
+            });
+        }
+      } else {
+        this.isScrolledToBottom = false;
+      }
+    },
+
+    fetchData() {
+      window.addEventListener("scroll", this.handleScroll);
+      http
+        .get(
+          `/attraction/select?keyword=&categoryCode=77&page=${this.pageNum}&userId=${this.userInfo.userId}`
+        )
+        .then(({ data }) => {
+          if (data.length < 2) {
+            this.pageNum = 9999;
+          } else {
+            this.attractionList = this.attractionList.concat(data);
+          }
+        });
+    },
+  },
+  mounted() {
+    this.fetchData();
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>

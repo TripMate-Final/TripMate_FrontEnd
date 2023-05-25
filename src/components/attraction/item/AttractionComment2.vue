@@ -1,5 +1,24 @@
 <template>
-  <div class="write" id="writeComment">
+  <div>
+    <h4>댓글입니다</h4>
+    <div class="mt-4" v-for="(item, index) in commentsList" :key="index">
+      <b-card
+        img-src="https://placekitten.com/300/300"
+        img-alt="Card image"
+        img-left
+        class="mb-3"
+        img-width="100px"
+      >
+        <b-card-text
+          ><div class="name">
+            이름 : {{ item.userName }} <span class="date">날짜 : {{ item.commentDate }}</span>
+          </div>
+          <div class="name">내용 : {{ item.commentContent }}</div>
+        </b-card-text>
+      </b-card>
+    </div>
+  </div>
+  <!-- <div class="write" id="writeComment">
     {{ commentsList }}
     <b-row class="text-center">
       <b-col><img class="usericon" src="@/assets/img/usericon.png" width="60px" /></b-col>
@@ -15,23 +34,20 @@
                   <span class="username">이름이</span>|
                   <span class="date">2023-05-05</span>
                 </div>
-
-                <!-- <button class="btn-write">대댓글 달기</button> -->
               </span>
-              <!-- <div class="button_base b01_simple_rollover">01_Button</div> -->
             </div>
           </form>
         </div>
       </b-col>
     </b-row>
-  </div>
+  </div> -->
 </template>
 
 <script>
 export default {
   name: "AttractionComment2",
   props: {
-    commentsList: {},
+    commentsList: [],
   },
   components: {},
   data() {
@@ -84,7 +100,12 @@ export default {
 }
 
 .date {
-  margin-right: 78%;
-  margin-left: 2%;
+  margin-left: 10%;
+}
+
+.name {
+  text-align: left;
+  margin-right: 60px;
+  margin-bottom: 10px;
 }
 </style>

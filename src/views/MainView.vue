@@ -21,27 +21,35 @@
       <b-col cols="8">
         <b-row>
           <b-col cols="6">
-            <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card>
+            <AttractionImgCard :attraction="card1"></AttractionImgCard>
+            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
-            <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card>
+            <AttractionImgCard :attraction="card2"></AttractionImgCard>
+            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
-            <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card>
+            <AttractionImgCard :attraction="card3"></AttractionImgCard>
+            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
         </b-row>
         <b-row>
-          <b-col cols="6" style="background-color: darkgrey">
-            <p>인기게시판</p>
-            <b-table :items="items" thead-class="d-none"> </b-table>
+          <b-col cols="6">
+            <!-- <p>인기게시판</p>
+            <board-list></board-list> -->
+            <!-- <b-table :items="items" thead-class="d-none"> </b-table> -->
+            <AttractionImgCard :attraction="card6"></AttractionImgCard>
           </b-col>
           <b-col cols="3">
-            <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card>
+            <AttractionImgCard :attraction="card4"></AttractionImgCard>
+            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
-            <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card>
+            <AttractionImgCard :attraction="card5"></AttractionImgCard>
+            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
         </b-row>
+        <board-list class="board"></board-list>
       </b-col>
       <b-col></b-col>
     </b-row>
@@ -49,17 +57,55 @@
 </template>
 
 <script>
+import AttractionImgCard from "@/components/attraction/item/AttractionImgCard.vue";
+import BoardList from "@/components/board/BoardList.vue";
+import http from "@/util/http-common";
 export default {
+  components: {
+    AttractionImgCard,
+    BoardList,
+  },
   data() {
     return {
-      items: [
-        { type: "자유", title: "게시판1" },
-        { type: "자유", title: "게시판2" },
-        { type: "자유", title: "게시판3" },
-        { type: "자유", title: "게시판4" },
-        { type: "자유", title: "게시판5" },
-      ],
+      card1: {},
+      card2: {},
+      card3: {},
+      card4: {},
+      card5: {},
+      card6: {},
+      // items: [
+      //   { type: "자유", title: "게시판1" },
+      //   { type: "자유", title: "게시판2" },
+      //   { type: "자유", title: "게시판3" },
+      //   { type: "자유", title: "게시판4" },
+      //   { type: "자유", title: "게시판5" },
+      // ],
     };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      http.get(`/attraction/preview/125460`).then(({ data }) => {
+        this.card1 = data;
+      });
+      http.get(`/attraction/preview/126323`).then(({ data }) => {
+        this.card2 = data;
+      });
+      http.get(`/attraction/preview/125813`).then(({ data }) => {
+        this.card3 = data;
+      });
+      http.get(`/attraction/preview/125984`).then(({ data }) => {
+        this.card4 = data;
+      });
+      http.get(`/attraction/preview/126123`).then(({ data }) => {
+        this.card5 = data;
+      });
+      http.get(`/attraction/preview/126333`).then(({ data }) => {
+        this.card6 = data;
+      });
+    },
   },
 };
 </script>
@@ -79,5 +125,10 @@ export default {
 }
 .row {
   margin-top: 30px;
+}
+
+.board {
+  margin-top: 70px;
+  margin-bottom: 300px;
 }
 </style>

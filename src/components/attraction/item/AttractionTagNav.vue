@@ -14,7 +14,7 @@
       >
       <div class="ml-auto">
         <b-dropdown id="dropdown-offset" offset="0" text="정렬" class="m-2">
-          <b-dropdown-item href="#">인기순</b-dropdown-item>
+          <b-dropdown-item href="#">좋아요순</b-dropdown-item>
           <div class="dropdown-divider"></div>
           <b-dropdown-item href="#">조회수순</b-dropdown-item>
         </b-dropdown>

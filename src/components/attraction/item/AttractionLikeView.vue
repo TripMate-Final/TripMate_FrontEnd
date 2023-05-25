@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button type="button" class="btn on" @click="setLike()" title="선택됨">
-      <img class="img" src="@/assets/img/redheart.png" v-if="this.isLike" />
+      <img class="img" src="@/assets/img/redheart.png" v-if="this.isLike == 1" />
       <img class="img" src="@/assets/img/heart.png" v-else />
       <span class="num" id="conLike">{{ like }}</span>
     </b-button>
@@ -24,20 +24,27 @@ export default {
     hit: Number,
     like: Number,
     contentId: Number,
-    isLike: Number,
   },
   components: {},
   data() {
     return {
       message: "",
+      isLike: 0,
     };
   },
-  created() {},
+  beforeUpdate() {
+    http
+      .get(`/user/isLike?contentId=${this.contentId}&userId=${this.userInfo.userId}`)
+      .then(({ data }) => {
+        this.isLike = data;
+      });
+  },
+
   methods: {
     setLike() {
       if (this.userInfo == null) {
         alert("로그인하세요!!");
-      } else if (this.islike == 1) {
+      } else if (this.isLike == 1) {
         alert("이미 좋아요 눌렀어요!!");
       } else {
         http
@@ -47,7 +54,7 @@ export default {
           })
           .then(function (response) {
             console.log(response.status);
-            window.location.reload();
+            window.location.reload(true);
           });
       }
     },
