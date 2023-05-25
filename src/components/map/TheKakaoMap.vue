@@ -22,6 +22,7 @@ export default {
             map : null,
             markers: [],
             linePath : [],
+            planList :[],
             latitude:0,
             longitude:0,
         };
@@ -35,12 +36,15 @@ export default {
             this.loadScript();
         }
     },
+    created() {
+        this.planList = this.getPlanData;
+    },
     computed:{
         getDetailData(){
             return this.$store.getters["mapStore/getDetailData"]
         },
         getPlanData(){
-            return this.$store.getters["mapStore/getPlanData"]
+          return this.$store.state.mapStore.planList;
         },
     },
     watch:{
@@ -62,7 +66,6 @@ export default {
                         }
                         markerList.push(tmpMarker);
                     }
-
                 }
                 this.removeMarkers();
                 this.markers = markerList;
@@ -87,6 +90,24 @@ export default {
                 level: 5,
             };
             this.map = new kakao.maps.Map(container, options);
+            if(this.planList.length != 0){
+              var markerList = [];
+              for(const key in this.planList){
+                if(this.planList[key]['elements'].length != 0){
+                  var tmpMarker = [];
+                  for(const element in this.planList[key]['elements']){
+                    tmpMarker.push(new kakao.maps.Marker({
+                      position:new kakao.maps.LatLng(this.planList[key]['elements'][element]['latitude'],this.planList[key]['elements'][element]['longitude'])
+                    }));
+                  }
+                  markerList.push(tmpMarker);
+                }
+              }
+              if(markerList.length != 0){
+                this.markers = markerList;
+                this.displayMarkers();
+              }
+            }
         },
         initMap() {
            if(this.lat != null && this.lng != null){
@@ -140,6 +161,7 @@ export default {
             this.map.setLevel(2);
         },
         displayMarkers() {
+          console.log("displayMarkers")
            for(let day in this.markers) {
                if(this.markers[day].length != 0){
                    for(let idx in this.markers[day]) {
@@ -185,26 +207,6 @@ export default {
                     }
                 }
             }
-        },
-        displayInfoWindow() {
-            if (this.infowindow && this.infowindow.getMap()) {
-                //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
-                this.map.setCenter(this.infowindow.getPosition());
-                return;
-            }
-
-            var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
-                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-            this.infowindow = new kakao.maps.InfoWindow({
-                map: this.map, // 인포윈도우가 표시될 지도
-                position: iwPosition,
-                content: iwContent,
-                removable: iwRemoveable,
-            });
-
-            this.map.setCenter(iwPosition);
         },
     },
 };
