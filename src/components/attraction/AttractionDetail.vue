@@ -6,6 +6,7 @@
       :hit="attraction.hit"
       :like="attraction.likeCnt"
       :contentId="attraction.contentId"
+      :isLike="isLike"
     ></attraction-like-view>
     <hr style="margin-bottom: 0px" />
     <b-nav tabs class="tabs">
@@ -27,7 +28,7 @@
       <the-kakao-map :lat="attraction.latitude" :lng="attraction.longitude"></the-kakao-map>
     </div>
     <attraction-addr class="addr"></attraction-addr>
-    <div ref="comment"><h2 style="text-align: left">톡 댓글!</h2></div>
+    <div ref="comment"><h2 style="text-align: left">여행지에 대해 댓글달아주세요!!</h2></div>
     <attraction-comment :contentId="attraction.contentId"></attraction-comment>
     <attraction-comment2 :commentsList="commentsList"></attraction-comment2>
     <hr />
@@ -55,6 +56,9 @@ import AttractionComment2 from "./item/AttractionComment2.vue";
 import AttractionImgCard from "./item/AttractionImgCard.vue";
 import TheKakaoMap from "../map/TheKakaoMap.vue";
 import http from "@/util/http-common";
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 
 export default {
   components: {
@@ -76,6 +80,7 @@ export default {
       attraction: {},
       recommendList: [],
       commentsList: {},
+      isLike: 0,
     };
   },
 
@@ -113,6 +118,19 @@ export default {
     http.get(`/comment/${this.contentId}`).then(({ data }) => {
       this.commentsList = data;
     });
+
+    if (this.userInfo != null) {
+      http
+        .get(`/user/isLike?contentId=${this.contentId}&userId=${this.userInfo.userId}`)
+        .then(({ data }) => {
+          this.isLike = data;
+        });
+    }
+  },
+
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
   },
 };
 </script>

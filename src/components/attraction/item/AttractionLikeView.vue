@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-button type="button" class="btn on" @click="setLike()" title="선택됨">
-      <img class="img" src="@/assets/img/redheart.png" />
+      <img class="img" src="@/assets/img/redheart.png" v-if="this.isLike" />
+      <img class="img" src="@/assets/img/heart.png" v-else />
       <span class="num" id="conLike">{{ like }}</span>
     </b-button>
     <span class="num_view"
@@ -13,6 +14,9 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 import http from "@/util/http-common";
 export default {
   name: "AttractionLikeView",
@@ -20,32 +24,37 @@ export default {
     hit: Number,
     like: Number,
     contentId: Number,
+    isLike: Number,
   },
   components: {},
   data() {
     return {
-      userinfo: null,
       message: "",
     };
   },
-  created() {
-    this.userinfo = this.$session.get("userinfo");
-  },
+  created() {},
   methods: {
     setLike() {
-      if (this.userinfo == null) {
+      if (this.userInfo == null) {
         alert("로그인하세요!!");
+      } else if (this.islike == 1) {
+        alert("이미 좋아요 눌렀어요!!");
       } else {
         http
           .post(`/user/like`, {
-            userId: this.userinfo.userId,
+            userId: this.userInfo.userId,
             contentId: this.contentId,
           })
           .then(function (response) {
-            console(response.status);
+            console.log(response.status);
+            window.location.reload();
           });
       }
     },
+  },
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
   },
 };
 </script>

@@ -16,7 +16,7 @@
                   <span class="date">2023-05-05</span>
                 </div>
 
-                <button class="btn-write">대댓글 달기</button>
+                <!-- <button class="btn-write">대댓글 달기</button> -->
               </span>
               <!-- <div class="button_base b01_simple_rollover">01_Button</div> -->
             </div>

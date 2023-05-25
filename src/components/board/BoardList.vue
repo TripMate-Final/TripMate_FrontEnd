@@ -112,7 +112,6 @@ export default {
     };
   },
   created() {
-    this.userInfo = this.$session.get("userinfo");
     http.get(`/board/list`).then(({ data }) => {
       this.items = data;
       // console.log(this.items);
@@ -138,11 +137,7 @@ export default {
 
   methods: {
     moveWrite() {
-      if (this.userInfo == null) {
-        alert("로그인이 필요합니다!!");
-      } else {
-        this.$router.push({ name: "boardwrite" });
-      }
+      this.$router.push({ name: "boardwrite" });
     },
     handleRowClick(item) {
       console.log(item);

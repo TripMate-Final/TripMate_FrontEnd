@@ -27,6 +27,9 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
 import hljs from "highlight.js";
 import debounce from "lodash/debounce";
 import { quillEditor } from "vue-quill-editor";
@@ -68,7 +71,6 @@ export default {
       },
       content: "",
       boardTitle: "",
-      userinfo: null,
     };
   },
   methods: {
@@ -86,15 +88,12 @@ export default {
     },
 
     write() {
-      console.log(this.boardTitle);
-      console.log(this.content);
-      console.log(this.userinfo.userId);
       var vm = this;
       http
         .post(`/board`, {
           boardContent: this.content,
           boardTitle: this.boardTitle,
-          userId: this.userinfo.userId,
+          userId: this.userInfo.userId,
         })
         .then(function (response) {
           if (response.status == 200) {
@@ -107,6 +106,8 @@ export default {
     },
   },
   computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
     editor() {
       return this.$refs.myTextEditor.quill;
     },
