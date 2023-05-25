@@ -2,13 +2,14 @@
   <div class="example">
     <b-row>
       <b-col>
-        <b-alert show><h3>글수정</h3></b-alert>
+        <b-alert show><h3 class="board-title">글수정</h3></b-alert>
       </b-col>
     </b-row>
+    <b-row class="my-3 mx-2">
     <span class="text-left">
-      <h2>Title<input class="write" v-model="boardTitle" /></h2>
+      <h2>제목<input class="write" v-model="boardTitle" /></h2>
     </span>
-
+    </b-row>
     <quill-editor
       class="editor"
       ref="myTextEditor"
@@ -20,9 +21,11 @@
       @focus="onEditorFocus($event)"
       @ready="onEditorReady($event)"
     />
+    <b-row class="my-3">
     <b-col class="text-right">
-      <b-button variant="outline-primary" @click="modify()">글수정</b-button>
+      <b-button id="modify-btn" @click="modify()">글수정</b-button>
     </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -131,7 +134,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+::v-deep{
+  #modify-btn{
+    background-color: #EFECEC;
+    border-color: #0d172a;
+    color:#0d172a;
+  }
+  #modify-btn:hover{
+    background-color: #569a64ad;
+    border-color:#ffffff;
+    color: white;
+  }
+  .alert-info{
+    background-color: #efececb5;
+    border: white;
+    color: #2c3e50;
+    width: 700px;
+    margin:auto;
+  }
+}
 .write {
   margin-left: 20px;
 }

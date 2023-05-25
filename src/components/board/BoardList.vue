@@ -2,28 +2,25 @@
   <div>
     <b-row>
       <b-col>
-        <b-alert show><h3>글목록</h3></b-alert>
+        <b-alert show><h3 class="board-title">글목록</h3></b-alert>
       </b-col>
     </b-row>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
+        <b-button id="write-btn" @click="moveWrite()">글쓰기</b-button>
       </b-col>
     </b-row>
     <b-form-group
-      label="검색"
-      label-for="filter-input"
-      label-cols-sm="3"
       label-align-sm="right"
       label-size="sm"
-      class="mb-0"
+      class="my-3"
     >
       <b-input-group size="sm">
         <b-form-input
           id="filter-input"
           v-model="filter"
           type="search"
-          placeholder="Type to Search"
+          placeholder="검색어를 입력하세요"
         ></b-form-input>
 
         <b-input-group-append>
@@ -71,7 +68,7 @@
         v-model="currentPage"
         :total-rows="totalRows"
         :per-page="perPage"
-        align="fill"
+        align="center"
         size="sm"
         class="my-0"
       ></b-pagination>
@@ -165,7 +162,45 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+::v-deep{
+  .form-group{
+    width: 300px;
+    float: right;
+  }
+  .alert-info{
+    background-color: #efececb5;
+    border: white;
+    color: #2c3e50;
+    width: 700px;
+    margin:auto;
+  }
+  #write-btn{
+    background-color: #EFECEC;
+    border-color: #0d172a;
+    color:#0d172a;
+  }
+  #write-btn:hover{
+    background-color: #569a64ad;
+    border-color:#ffffff;
+    color: white;
+  }
+  .page-item.disabled .page-link{
+    background-color: #EFECEC;
+    border-color:#0d172a;
+    color: #0d172a;
+  }
+  .page-item.active .page-link{
+    background-color:  #0d172a;
+    border-color:#0d172a;
+    color: #EFECEC;
+  }
+  .page-item .page-link{
+    background-color: #EFECEC;
+    border-color:#0d172a;
+    color: #0d172a;
+  }
+}
 .tdClass {
   width: 50px;
   text-align: center;

@@ -2,27 +2,34 @@
   <div class="example">
     <b-row>
       <b-col>
-        <b-alert show><h3>글쓰기</h3></b-alert>
+        <b-alert show><h3 class="board-title">글쓰기</h3></b-alert>
       </b-col>
     </b-row>
-    <span class="text-left">
-      <h2>Title<input class="write" v-model="boardTitle" /></h2>
+    <b-row class="my-3 mx-2">
+      <span class="text-left">
+      <h4>제목<input class="write" v-model="boardTitle" /></h4>
     </span>
+    </b-row>
 
-    <quill-editor
-      class="editor"
-      ref="myTextEditor"
-      :disabled="false"
-      :value="content"
-      :options="editorOption"
-      @change="onEditorChange"
-      @blur="onEditorBlur($event)"
-      @focus="onEditorFocus($event)"
-      @ready="onEditorReady($event)"
-    />
-    <b-col class="text-right">
-      <b-button variant="outline-primary" @click="write()">글쓰기</b-button>
-    </b-col>
+     <quill-editor
+         class="editor"
+         ref="myTextEditor"
+         :disabled="false"
+         :value="content"
+         :options="editorOption"
+         @change="onEditorChange"
+         @blur="onEditorBlur($event)"
+         @focus="onEditorFocus($event)"
+         @ready="onEditorReady($event)"
+     />
+   <b-row class="my-3">
+     <b-col class="text-left">
+       <b-button id="list-btn" @click="moveList">목록</b-button>
+     </b-col>
+     <b-col class="text-right">
+       <b-button id="write-btn" @click="write()">글쓰기</b-button>
+     </b-col>
+   </b-row>
   </div>
 </template>
 
@@ -86,7 +93,9 @@ export default {
     onEditorReady(editor) {
       console.log("editor ready!", editor);
     },
-
+    moveList() {
+      this.$router.push("/board/list");
+    },
     write() {
       var vm = this;
       http
@@ -125,7 +134,36 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+::v-deep{
+  #write-btn{
+    background-color: #EFECEC;
+    border-color: #0d172a;
+    color:#0d172a;
+  }
+  #write-btn:hover{
+    background-color: #569a64ad;
+    border-color:#ffffff;
+    color: white;
+  }
+  #list-btn{
+    background-color: #EFECEC;
+    border-color: #0d172a;
+    color:#0d172a;
+  }
+  #list-btn:hover{
+    background-color: #569a64ad;
+    border-color:#ffffff;
+    color: white;
+  }
+  .alert-info{
+    background-color: #efececb5;
+    border: white;
+    color: #2c3e50;
+    width: 700px;
+    margin:auto;
+  }
+}
 .write {
   margin-left: 20px;
 }
