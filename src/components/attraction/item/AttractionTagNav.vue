@@ -63,16 +63,24 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .nav-container {
   margin-top: 10px; /* 원하는 마진 값을 설정하세요 */
   margin-bottom: 30px;
 }
 
-.active > a {
-  color: #070707;
-}
-.inactive > a:hover {
-  color: #2d352e;
+::v-deep {
+    .nav{
+        a{
+            font-size: 21px;
+            color: #3b3e51;
+        }
+        .active > a  {
+            color: #569A64;
+        }
+        .inactive > a:hover {
+            color: #569A64;
+        }
+    }
 }
 </style>

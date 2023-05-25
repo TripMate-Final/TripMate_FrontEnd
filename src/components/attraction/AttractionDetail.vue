@@ -32,7 +32,7 @@
     <attraction-comment2 :commentsList="commentsList"></attraction-comment2>
     <hr />
     <div ref="recommendation"><h2>제목과 유사한 여행지 추천</h2></div>
-
+    <br/>
     <div class="card-container" style="max-width: 200rem; max-height: 200px">
       <attraction-img-card
         :attraction="item"
@@ -147,15 +147,30 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+::v-deep{
+  .nav-tabs{
+    font-size: 18px;
+    .nav-link{
+      color: #3b3e51;
+    }
+    .nav-link:hover{
+      color: #569A64;
+    }
+    .active > .nav-link{
+      color: #569A64;
+    }
+  }
+}
 .tabs {
   display: flex;
+  justify-content: center;
   width: 100%;
 }
 
 .tab {
-  margin-right: 8%;
-  margin-left: 8%;
+  margin-right: 9%;
+  margin-left: 9%;
 }
 .img {
   margin-top: 30px;
@@ -173,9 +188,9 @@ h2 {
 }
 .card-container {
   display: flex;
+  justify-content: center;
   margin-bottom: 400px;
 }
-
 .card {
   flex: 1; /* 가로 공간을 동일하게 분할 */
 }

@@ -47,7 +47,7 @@
             >
           </b-nav-form>
 
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown class="navbar-profile" right>
             <template #button-content>
               <img src="../assets/img/navbar/user-person.png" class="UserPerson" />
             </template>
@@ -150,6 +150,9 @@ export default {
   margin-left: 10px;
 }
 ::v-deep {
+  .navbar-nav .navbar-profile a{
+    font-size: 18px;
+  }
   .navbar-nav{
     margin:20px;
   }
