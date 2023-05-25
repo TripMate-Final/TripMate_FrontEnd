@@ -1,14 +1,12 @@
 <template>
-  <div></div>
+  <div class="myplan">{{ data }}</div>
 </template>
 
 <script>
 export default {
-  name: "",
+  name: "ShowMyPlan",
   props: {
-    planTitle: "",
-    planId: "",
-    planLength: "",
+    data: {},
   },
 
   components: {},
@@ -22,4 +20,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.myplan {
+  margin-top: 20px;
+}
+</style>
