@@ -42,24 +42,24 @@ export default {
       ],
       cards: {
         0: {
-          title: '여행요약',
-          subTitle: '여행요약입니다',
-          content: '내용입니다'
+          title: '',
+          subTitle: '',
+          content: ''
         },
         1: {
-          title: 'Card 1',
-          subTitle: 'Subtitle for Card 1',
-          content: 'Content for Card 1'
+          title: '',
+          subTitle: '',
+          content: ''
         },
         2: {
-          title: 'Card 2',
-          subTitle: 'Subtitle for Card 2',
-          content: 'Content for Card 2'
+          title: '',
+          subTitle: '',
+          content: ''
         },
         3: {
-          title: 'Card 3',
-          subTitle: 'Subtitle for Card 3',
-          content: 'Content for Card 3'
+          title: '',
+          subTitle: '',
+          content: ''
         },
       }
     }
