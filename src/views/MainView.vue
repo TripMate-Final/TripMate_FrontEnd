@@ -7,12 +7,36 @@
           style="text-shadow: 0px 0px 2px #000"
           fade
           indicators
-          img-width="1024"
-          img-height="300"
+          img-width="720"
+          img-height="720"
         >
-          <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=10"></b-carousel-slide>
-          <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=12"></b-carousel-slide>
-          <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=22"></b-carousel-slide>
+          <b-carousel-slide>
+              <template #img>
+                  <img class="d-block w-100"
+                          width="720"
+                          height="720"
+                          src="../assets/img/main/main1.jpg"
+                  >
+              </template>
+          </b-carousel-slide>
+          <b-carousel-slide>
+              <template #img>
+                  <img class="d-block w-100"
+                       width="720"
+                       height="720"
+                       src="../assets/img/main/main2.jpg"
+                  >
+              </template>
+          </b-carousel-slide>
+          <b-carousel-slide>
+              <template #img>
+                  <img class="d-block w-100"
+                       width="720"
+                       height="720"
+                       src="../assets/img/main/main3.jpg"
+                  >
+              </template>
+          </b-carousel-slide>
         </b-carousel>
       </b-col>
     </b-row>
