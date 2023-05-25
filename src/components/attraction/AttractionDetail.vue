@@ -138,6 +138,12 @@ export default {
       http.get(`/comment/${this.contentId}`).then(({ data }) => {
         this.commentsList = data;
       });
+
+      http
+        .get(`/user/isLike?contentId=${this.contentId}&userId=${this.userInfo.userId}`)
+        .then(({ data }) => {
+          this.isLike = data;
+        });
     }
   },
 
