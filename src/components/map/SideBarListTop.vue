@@ -1,5 +1,6 @@
 <template>
     <div class="sidebar-list-top">
+        <img class="top-img" src="../../assets/img/map/location.png"/>
         <strong class="top-title">{{ this.$store.state.mapStore.address }}</strong>
         <button class="plan-button" @click="checkUser" v-b-toggle.sidebar-plan>계획짜기</button>
     </div>
@@ -35,7 +36,7 @@ export default {
 <style scoped>
 .sidebar-list-top{
   height: 30px;
-  margin:5px 10px;
+  //margin:5px 10px;
   margin-bottom: 20px;
   display: block;
 }
@@ -62,13 +63,19 @@ export default {
   color: #fff;
   border: 0px;
 }
-.sidebar-list-top .top-title{
-    float: left;
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: -1.2px;
-    line-height: 26px;
-    color: #000;
-    margin:0px;
+
+.sidebar-list-top {
+    .top-img{
+        float: left;
+        height: 45px;
+        padding-right: 5px;
+        margin-top: -5px;
+    }
+    .top-title{
+        float: left;
+        font-size: 25px;
+        letter-spacing: -1.2px;
+        color: #000;
+    }
 }
 </style>
