@@ -8,7 +8,7 @@ import UserView from "@/views/UserView.vue";
 import AttrationList from "@/components/attraction/AttractionList.vue";
 import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
 import PlanView from "@/views/PlanView.vue";
-
+import ShowPlanList from "@/components/plan/ShowPlanList.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -80,21 +80,21 @@ const routes = [
           import(/* webpackChunkName: "about" */ "../components/map/SideBarDetail.vue"),
       },
     ],
-
   },
   {
-    path:'/plan',
-    name:'plan',
+    path: "/plan",
+    name: "plan",
     component: PlanView,
-    children:[
+    children: [
       {
-        path: 'detail/:planId',
-        name: 'planDetail',
-        component: () => import(/* webpackChunkName: "about" */ '../components/plan/ShowPlanList.vue')
+        path: "detail/:planId",
+        name: "planDetail",
+        component: ShowPlanList,
+        // component: () =>
+        //   import(/* webpackChunkName: "about" */ "../components/plan/ShowPlanList.vue"),
       },
-    ]
+    ],
   },
-
 
   {
     path: "/board",

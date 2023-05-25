@@ -7,8 +7,8 @@
       <div class="px-3 py-5">
         <side-bar-detail-top :detailData="detailData"></side-bar-detail-top>
       </div>
-      <attraction-comment></attraction-comment>
-      <attraction-comment2></attraction-comment2>
+      <attraction-comment :contentId="detailData.contentId"></attraction-comment>
+      <attraction-comment2 :commentsList="commentsList"></attraction-comment2>
     </b-sidebar>
   </div>
 </template>
@@ -17,6 +17,7 @@
 import AttractionComment from "@/components/attraction/item/AttractionComment.vue";
 import AttractionComment2 from "../attraction/item/AttractionComment2.vue";
 import SideBarDetailTop from "@/components/map/SideBarDetailTop.vue";
+import http from "@/util/http-common";
 import { mapActions, mapState } from "vuex";
 export default {
   name: "SideBarDetail",
@@ -31,11 +32,21 @@ export default {
       selectedDay: (state) => state.selectedDay,
     }),
   },
+  data() {
+    return {
+      commentsList: {},
+    };
+  },
   methods: {
     ...mapActions(["mapStore/addPlan"]),
     addPlan() {
       this["mapStore/addPlan"](this.detailData);
     },
+  },
+  created() {
+    http.get(`/comment/${this.detailData.contentId}`).then(({ data }) => {
+      this.commentsList = data;
+    });
   },
 };
 </script>

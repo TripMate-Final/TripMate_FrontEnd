@@ -106,6 +106,7 @@ export default {
         })
         .then(function (response) {
           if (response.status == 200) {
+            http.get.login();
             alert("정보 수정!!");
             window.location.reload(true);
           } else {

@@ -62,6 +62,7 @@ export default {
             vm.isLike = 1;
           });
       }
+      this.$forceUpdate();
     },
   },
   computed: {
