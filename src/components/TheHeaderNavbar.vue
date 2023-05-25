@@ -23,7 +23,7 @@
           </b-nav-item>
         </b-navbar-nav>
 
-        <b-navbar-nav>
+        <b-navbar-nav id="navbar-middle">
           <b-nav-form v-if="isMapPage">
             <b-form-input
               size="sm"
@@ -145,12 +145,17 @@ export default {
 
 <style scoped lang="scss">
 .logo {
-  height: 70px;
+  height: 60px;
+  margin-bottom: 5px;
+  margin-left: 10px;
 }
 ::v-deep {
+  .navbar-nav{
+    margin:20px;
+  }
   .navbar-nav a {
     color: #0d172a;
-    font-size: 18px;
+    font-size: 22px;
   }
   .navbar-nav a:hover {
     color: #569a64;
