@@ -30,7 +30,7 @@
           <template #lead> 내 정보 확인페이지입니다. </template>
           <hr class="my-4" />
           <b-container class="mt-4">
-            <b-row v-if="this.modify">
+            <b-row>
               <b-col cols="2"></b-col>
               <b-col cols="2" align-self="end">아이디</b-col
               ><b-col cols="4" align-self="start">{{ userInfo.userId }}</b-col>
@@ -50,7 +50,7 @@
             </b-row>
           </b-container>
           <hr class="my-4" />
-          <b-button variant="primary" @click="usermodify" class="mr-1">정보수정</b-button>
+          <b-button variant="primary" v-b-modal.modal-modify class="mr-1">정보수정</b-button>
           <b-button variant="danger" @click="userdelete">회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
@@ -68,8 +68,9 @@
         <show-my-plan v-for="(tag, index) in planList" :key="index" :data="tag" remove="false">
         </show-my-plan>
       </b-col>
-      <b-col> </b-col>
+      <b-col></b-col>
     </b-row>
+    <UserModifyModal></UserModifyModal>
   </b-container>
 </template>
 
@@ -78,7 +79,7 @@ import { mapState, mapGetters } from "vuex";
 import http from "@/util/http-common";
 import AttractionCard from "../attraction/item/AttractionCard.vue";
 import ShowMyPlan from "../plan/ShowMyPlan.vue";
-
+import UserModifyModal from "./UserModifyModal.vue";
 const userStore = "userStore";
 
 export default {
@@ -86,6 +87,7 @@ export default {
   components: {
     AttractionCard,
     ShowMyPlan,
+    UserModifyModal,
   },
   computed: {
     ...mapState(userStore, ["isLogin", "userInfo"]),
