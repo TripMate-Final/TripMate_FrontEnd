@@ -24,6 +24,9 @@ const mapStore={
         SET_PLAN_TITLE(state,value){
             state.planTitle = value;
         },
+        SET_PLAN_LIST(state,value){
+            state.planList = value;
+        },
         ADD_PLAN(state,plan){
             const existingDay = state.planList.find((day) => day.day === state.selectedDay);
             if(existingDay){
@@ -78,6 +81,9 @@ const mapStore={
         },
         setPlanTitle({commit},planTitle){
             commit('SET_PLAN_TITLE',planTitle);
+        },
+        setPlanList({commit},planList){
+            commit('SET_PLAN_LIST',planList);
         },
         addPlan({commit,state},plan){
             if(state.selectedDay != 0){

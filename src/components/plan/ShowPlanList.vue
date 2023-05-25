@@ -17,7 +17,7 @@
 import ShowPlanTop from "@/components/plan/ShowPlanTop.vue";
 import ShowPlanCard from "@/components/plan/ShowPlanCard.vue";
 import http from "@/util/http-common";
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: 'ShowPlanList',
@@ -40,6 +40,7 @@ export default {
         .then(({data}) => {
           this.planList = data.planList;
           this.planTitle = data.planTitle;
+          this.savePlanList();
         });
   },
   computed:{
@@ -52,6 +53,12 @@ export default {
       }else{
         return this.planList.filter((dayItem) => dayItem.day === this.selectedDay);
       }
+    }
+  },
+  methods:{
+    ...mapActions(['mapStore/setPlanList']),
+    savePlanList(){
+      this['mapStore/setPlanList'](this.planList);
     }
   }
 }

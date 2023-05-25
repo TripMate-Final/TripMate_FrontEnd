@@ -16,7 +16,7 @@
 <script>
 import SideBarPlanCard from "@/components/plan/SideBarPlanCard.vue";
 import SideBarPlanTop from "@/components/plan/SideBarPlanTop.vue";
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 import http from "@/util/http-common";
 
 export default {
@@ -31,10 +31,13 @@ export default {
     }
   },
   computed:{
-    ...mapState('mapStore', {
-      planTitle : state => state.planTitle,
-      planList: state => state.planList,
-      selectedDay: state => state.selectedDay,
+    ...mapGetters(["checkUserInfo"]),
+    ...mapState({
+      isLogin: state => state.userStore.isLogin,
+      userInfo: state => state.userStore.userInfo,
+      planTitle: state => state.mapStore.planTitle,
+      planList: state => state.mapStore.planList,
+      selectedDay: state => state.mapStore.selectedDay
     }),
     filteredList(){
       if(this.selectedDay == 0){
@@ -51,7 +54,7 @@ export default {
                   planList: this.planList,
                   planLength: this.planList.length,
                   planTitle: this.planTitle,
-                  userId : 'ssafy',
+                  userId : this.userInfo.userId,
               })
               .then(function (response) {
                   if (response.status == 200) {
