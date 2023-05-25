@@ -46,31 +46,23 @@
         <b-row>
           <b-col cols="6">
             <AttractionImgCard :attraction="card1"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card2"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card3"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
         </b-row>
         <b-row>
           <b-col cols="6">
-            <!-- <p>인기게시판</p>
-            <board-list></board-list> -->
-            <!-- <b-table :items="items" thead-class="d-none"> </b-table> -->
             <AttractionImgCard :attraction="card6"></AttractionImgCard>
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card4"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card5"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
         </b-row>
         <board-list class="board"></board-list>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h2>{{ attraction.title }}</h2> -->
     <b-card
       class="img card w-100 h-100"
       @click="handleClick"
@@ -72,5 +71,9 @@ export default {
 h2 {
   margin-top: 50px;
   text-align: left;
+}
+h3{
+    font-family: 'TheJamsil5Bold';
+    color: #070707;
 }
 </style>
