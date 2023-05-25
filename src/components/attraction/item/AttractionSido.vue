@@ -1,5 +1,5 @@
 <template>
-  <div>{{ addr }}</div>
+  <div id="attraction-detail-addr">{{ addr }}</div>
 </template>
 
 <script>
@@ -19,4 +19,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#attraction-detail-addr{
+    font-size: 19px;
+}
+</style>

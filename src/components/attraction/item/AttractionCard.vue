@@ -9,7 +9,7 @@
           <b-card-body
             ><router-link
               :to="{ name: 'attractiondetail', params: { contentId: attraction.contentId } }"
-              ><h3>{{ attraction.title }}</h3></router-link
+              ><h3 id="attraction-card-title">{{ attraction.title }}</h3></router-link
             >
             <b-card-text class="content"
               ><h5>
@@ -86,7 +86,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+#attraction-card-title{
+    color:#0d172a;
+}
+#attraction-card-title:hover{
+  color:#569A64;
+}
 .b-card-body {
   display: flex;
   align-items: center;
