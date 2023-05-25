@@ -5,10 +5,10 @@
         <b-col md="4">
           <b-card-img :src="displayedImage" alt="Image" class="rounded-0" height="250"></b-card-img>
         </b-col>
-
         <b-col md="8">
           <b-card-body
-            ><router-link :to="`./detail/${attraction.contentId}`"
+            ><router-link
+              :to="{ name: 'attractiondetail', params: { contentId: attraction.contentId } }"
               ><h3>{{ attraction.title }}</h3></router-link
             >
             <b-card-text class="content"
