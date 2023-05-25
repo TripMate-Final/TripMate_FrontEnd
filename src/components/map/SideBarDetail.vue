@@ -41,7 +41,7 @@ export default {
 <style scoped lang="scss">
 ::v-deep {
     #sidebar-detail{
-        left: 400px;
+        left: 500px;
         .b-sidebar-body{
             overflow-x: hidden;
         }
@@ -51,12 +51,12 @@ export default {
   float: right;
   height: 35px;
   z-index: 3;
-  padding: 0px 10px;
+  padding: 2px 12px;
   background-color:#EFECEC;
   border: 1px solid #0d172a;
   border-radius: 1.5rem;
   color: #0d172a;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
