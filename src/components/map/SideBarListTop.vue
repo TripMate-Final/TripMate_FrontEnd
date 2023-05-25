@@ -1,19 +1,33 @@
 <template>
     <div class="sidebar-list-top">
         <strong class="top-title">{{ this.$store.state.mapStore.address }}</strong>
-        <button class="plan-button"  v-b-toggle.sidebar-plan>계획짜기</button>
+        <button class="plan-button" @click="checkUser" v-b-toggle.sidebar-plan>계획짜기</button>
     </div>
 </template>
 
 <script>
+import {mapGetters, mapState} from "vuex";
+
+const userStore = "userStore";
+
 export default {
   name:'SideBarListTop',
   data() {
     return {
     }
   },
+    computed:{
+        ...mapState(userStore, ["isLogin", "userInfo"]),
+        ...mapGetters(["checkUserInfo"]),
+    },
   methods:{
-
+      checkUser(){
+          console.log("check!!!!")
+          if(this.userInfo == null){
+              alert("로그인이 필요합니다.")
+              this.$router.push({ name: "userlogin" });
+          }
+      }
   }
 }
 

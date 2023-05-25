@@ -17,23 +17,11 @@ export default {
     name: "KakaoMap",
     data() {
         return {
+            polyline : null,
+            marker : null,
             map : null,
-            // markerPositions1: [
-            //     [33.452278, 126.567803],
-            //     [33.452671, 126.574792],
-            //     [33.451744, 126.572441],
-            // ],
-            // markerPositions2: [
-            //     [37.499590490909185, 127.0263723554437],
-            //     [37.499427948430814, 127.02794423197847],
-            //     [37.498553760499505, 127.02882598822454],
-            //     [37.497625593121384, 127.02935713582038],
-            //     [37.49629291770947, 127.02587362608637],
-            //     [37.49754540521486, 127.02546694890695],
-            //     [37.49646391248451, 127.02675574250912],
-            // ],
-            // markers: [],
-            // infowindow: null,
+            markers: [],
+            linePath : [],
             latitude:0,
             longitude:0,
         };
@@ -53,7 +41,7 @@ export default {
         },
         getPlanData(){
             return this.$store.getters["mapStore/getPlanData"]
-        }
+        },
     },
     watch:{
         getDetailData(detailData){
@@ -61,9 +49,27 @@ export default {
             this.longitude = detailData.longitude;
             this.displayMarker();
         },
-        getPlanData(planList){
-            console.log("plan ::: " + planList);
-        }
+        getPlanData: {
+            handler(planList){
+                var markerList = [];
+                for(const key in planList){
+                    if(planList[key]['elements'].length != 0){
+                        var tmpMarker = [];
+                        for(const element in planList[key]['elements']){
+                            tmpMarker.push(new kakao.maps.Marker({
+                                position:new kakao.maps.LatLng(planList[key]['elements'][element]['latitude'],planList[key]['elements'][element]['longitude'])
+                            }));
+                        }
+                        markerList.push(tmpMarker);
+                    }
+
+                }
+                this.removeMarkers();
+                this.markers = markerList;
+                this.displayMarkers();
+            },
+            immediate :true, deep:true
+        },
     },
     methods: {
         loadScript(){
@@ -121,38 +127,63 @@ export default {
            this.loadMap();
         },
         displayMarker(){
+            if (this.marker != null){
+                this.marker.setMap(null);
+            }
             const markerPosition = new kakao.maps.LatLng(this.latitude, this.longitude);
             const marker = new kakao.maps.Marker({
                 position:markerPosition
             });
+            this.marker = marker;
             marker.setMap(this.map);
             this.map.setCenter(markerPosition);
             this.map.setLevel(2);
         },
-        displayMarkers(markerPositions) {
-            if (this.markers.length > 0) {
-                this.markers.forEach((marker) => marker.setMap(null));
+        displayMarkers() {
+           for(let day in this.markers) {
+               if(this.markers[day].length != 0){
+                   for(let idx in this.markers[day]) {
+                        this.markers[day][idx].setMap(this.map);
+                    }
+               }
+           }
+           this.addLine();
+        },
+        addLine(){
+            console.log("add line");
+            if(this.linePath.length != 0){
+                this.polyline.setMap(null);
+            }
+            this.linePath = [];
+            var pathBounds = new kakao.maps.LatLngBounds();
+            for(let day in this.markers) {
+                if(this.markers[day].length != 0){
+                    for(let idx in this.markers[day]) {
+                        this.linePath.push(this.markers[day][idx].getPosition());
+                        pathBounds.extend(this.markers[day][idx].getPosition());
+                    }
+                }
             }
 
-            const positions = markerPositions.map(
-                (position) => new kakao.maps.LatLng(...position)
-            );
+            // 선 생성
+            this.polyline = new kakao.maps.Polyline({
+                path: this.linePath,
+                strokeWeight: 5,
+                strokeColor: '#00973c',
+                strokeOpacity: 0.7,
+                strokeStyle: 'solid'
+            });
 
-            if (positions.length > 0) {
-                this.markers = positions.map(
-                    (position) =>
-                        new kakao.maps.Marker({
-                            map: this.map,
-                            position,
-                        })
-                );
-
-                const bounds = positions.reduce(
-                    (bounds, latlng) => bounds.extend(latlng),
-                    new kakao.maps.LatLngBounds()
-                );
-
-                this.map.setBounds(bounds);
+            this.polyline.setMap(this.map);
+            this.map.setBounds(pathBounds);
+        },
+        removeMarkers(){
+            if(this.markers.length != 0){
+                for(let day = 0; day < this.markers.length; day++){
+                    for(let idx = 0;idx < this.markers[day].length; idx++){
+                        this.markers[day][idx].setMap(null);
+                    }
+                }
             }
         },
         displayInfoWindow() {
