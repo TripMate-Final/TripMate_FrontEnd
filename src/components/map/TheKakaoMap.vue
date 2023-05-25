@@ -2,12 +2,6 @@
     <div>
         <div id="map">
         </div>
-        <!--        <div class="button-group">-->
-        <!--            <button @click="displayMarker(markerPositions1)">marker set 1</button>-->
-        <!--            <button @click="displayMarker(markerPositions2)">marker set 2</button>-->
-        <!--            <button @click="displayMarker([])">marker set 3 (empty)</button>-->
-        <!--            <button @click="displayInfoWindow">infowindow</button>-->
-        <!--        </div>-->
     </div>
 </template>
 
@@ -25,6 +19,18 @@ export default {
             planList :[],
             latitude:0,
             longitude:0,
+            categoryList: [
+              {"categoryCode":10,"categoryName":"전체"},
+              {"categoryCode":12,"categoryName":"관광지"},
+              {"categoryCode":14,"categoryName":"문화시설"},
+              {"categoryCode":15,"categoryName":"축제공연행사"},
+              {"categoryCode":25,"categoryName":"여행코스"},
+              {"categoryCode":28,"categoryName":"레포츠"},
+              {"categoryCode":32,"categoryName":"숙박"},
+              {"categoryCode":38,"categoryName":"쇼핑"},
+              {"categoryCode":39,"categoryName":"음식점"},
+              {"categoryCode":77,"categoryName":"좋아요"}
+            ]
         };
     },
     props: ['lat','lng'],
@@ -60,9 +66,15 @@ export default {
                     if(planList[key]['elements'].length != 0){
                         var tmpMarker = [];
                         for(const element in planList[key]['elements']){
-                            tmpMarker.push(new kakao.maps.Marker({
-                                position:new kakao.maps.LatLng(planList[key]['elements'][element]['latitude'],planList[key]['elements'][element]['longitude'])
-                            }));
+                          var categorycode = this.findCategoryCode(this.categoryList,this.planList[key]['elements'][element]['categoryName']);
+                          var imageSrc = require(`@/assets/img/map/category/${categorycode}.png`),
+                              imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                              imageOption = {offset: new kakao.maps.Point(27, 69)};
+                          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+                          tmpMarker.push(new kakao.maps.Marker({
+                            position:new kakao.maps.LatLng(this.planList[key]['elements'][element]['latitude'],this.planList[key]['elements'][element]['longitude']),
+                            image:markerImage
+                          }));
                         }
                         markerList.push(tmpMarker);
                     }
@@ -96,8 +108,14 @@ export default {
                 if(this.planList[key]['elements'].length != 0){
                   var tmpMarker = [];
                   for(const element in this.planList[key]['elements']){
+                    var categorycode = this.findCategoryCode(this.categoryList,this.planList[key]['elements'][element]['categoryName']);
+                    var imageSrc = require(`@/assets/img/map/category/${categorycode}.png`),
+                        imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                        imageOption = {offset: new kakao.maps.Point(27, 69)};
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
                     tmpMarker.push(new kakao.maps.Marker({
-                      position:new kakao.maps.LatLng(this.planList[key]['elements'][element]['latitude'],this.planList[key]['elements'][element]['longitude'])
+                      position:new kakao.maps.LatLng(this.planList[key]['elements'][element]['latitude'],this.planList[key]['elements'][element]['longitude']),
+                      image:markerImage
                     }));
                   }
                   markerList.push(tmpMarker);
@@ -151,9 +169,14 @@ export default {
             if (this.marker != null){
                 this.marker.setMap(null);
             }
-            const markerPosition = new kakao.maps.LatLng(this.latitude, this.longitude);
+          var imageSrc = require(`@/assets/img/map/location.png`),
+              imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+              imageOption = {offset: new kakao.maps.Point(27, 69)};
+          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+          const markerPosition = new kakao.maps.LatLng(this.latitude, this.longitude);
             const marker = new kakao.maps.Marker({
-                position:markerPosition
+                position:markerPosition,
+              image:markerImage
             });
             this.marker = marker;
             marker.setMap(this.map);
@@ -191,7 +214,7 @@ export default {
             this.polyline = new kakao.maps.Polyline({
                 path: this.linePath,
                 strokeWeight: 5,
-                strokeColor: '#00973c',
+                strokeColor: '#3b3e51',
                 strokeOpacity: 0.7,
                 strokeStyle: 'solid'
             });
@@ -208,7 +231,15 @@ export default {
                 }
             }
         },
-    },
+      findCategoryCode(categoryList, categoryName) {
+        for (let i = 0; i < categoryList.length; i++) {
+          if (categoryList[i].categoryName === categoryName) {
+            return categoryList[i].categoryCode;
+          }
+        }
+        return null;
+      }
+},
 };
 </script>
 
