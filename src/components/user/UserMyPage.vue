@@ -56,7 +56,6 @@
       </b-col>
       <b-col cols="8" v-if="selectedNavItem == 2">
         <attraction-card
-          onclick=""
           v-for="(tag, index) in attractionList"
           :key="index"
           :attraction="tag"
@@ -65,7 +64,10 @@
         </attraction-card>
       </b-col>
 
-      <b-col cols="8" v-if="selectedNavItem == 3"> </b-col>
+      <b-col cols="8" v-if="selectedNavItem == 3">
+        <show-my-plan v-for="(tag, index) in planList" :key="index" :data="tag" remove="false">
+        </show-my-plan>
+      </b-col>
       <b-col> </b-col>
     </b-row>
   </b-container>
@@ -75,6 +77,7 @@
 import { mapState, mapGetters } from "vuex";
 import http from "@/util/http-common";
 import AttractionCard from "../attraction/item/AttractionCard.vue";
+import ShowMyPlan from "../plan/ShowMyPlan.vue";
 
 const userStore = "userStore";
 
@@ -82,6 +85,7 @@ export default {
   name: "UserMyPage",
   components: {
     AttractionCard,
+    ShowMyPlan,
   },
   computed: {
     ...mapState(userStore, ["isLogin", "userInfo"]),
@@ -95,6 +99,7 @@ export default {
     return {
       modalCheck: false,
       attractionList: [],
+      planList: [],
       keyword: "",
       isScrolledToBottom: false,
       pageNum: 0,
@@ -163,6 +168,14 @@ export default {
             this.attractionList = this.attractionList.concat(data);
           }
         });
+
+      http.get(`/plan/list/${this.userInfo.userId}`).then(({ data }) => {
+        if (data.length < 2) {
+          this.pageNum = 9999;
+        } else {
+          this.planList = this.planList.concat(data);
+        }
+      });
     },
   },
   mounted() {
