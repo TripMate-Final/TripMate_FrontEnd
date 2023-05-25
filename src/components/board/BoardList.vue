@@ -86,7 +86,7 @@ export default {
       fields: [
         { key: "boardId", label: "글번호", tdClass: "tdClass" },
         { key: "boardTitle", label: "제목", tdClass: "tdSubject" },
-        { key: "userId", label: "작성자", tdClass: "tdClass" },
+        { key: "userName", label: "작성자", tdClass: "tdClass" },
         { key: "hit", label: "조회수", tdClass: "tdClass" },
         { key: "boardDate", label: "작성일", tdClass: "tdClass" },
       ],
