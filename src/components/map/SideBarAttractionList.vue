@@ -13,6 +13,9 @@
 <script>
 import AttractionCard from "@/components/map/AttractionCard.vue";
 import http from "@/util/http-common";
+import {mapGetters, mapState} from "vuex";
+
+const userStore = "userStore";
 export default {
 
     name: "SideBarAttractionList",
@@ -31,6 +34,8 @@ export default {
         }
     },
     computed:{
+        ...mapState(userStore, ["isLogin", "userInfo"]),
+        ...mapGetters(["checkUserInfo"]),
         category(){
             return this.$store.getters["mapStore/getCategoryCode"]
         }
@@ -40,10 +45,19 @@ export default {
             this.categoryCode = value;
             this.pageNum = 0;
             this.$refs.scrollContainer.scrollTo(0, 0);
-            http.get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`)
-                .then(({ data }) => {
-                this.attractionList = data;
-            });
+            if(this.userInfo == null){
+                http
+                    .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=`)
+                    .then(({data}) => {
+                        this.attractionList = data;
+                    });
+            }else{
+                http
+                    .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`)
+                    .then(({data}) => {
+                        this.attractionList = data;
+                    });
+            }
         }
     },
     created() {
@@ -55,11 +69,19 @@ export default {
         if(this.categoryCode == undefined){
             this.categoryCode = 10;
         }
-        http
-            .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`)
-            .then(({data}) => {
-                this.attractionList = data;
-            });
+        if(this.userInfo == null){
+            http
+                .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=`)
+                .then(({data}) => {
+                    this.attractionList = data;
+                });
+        }else{
+            http
+                .get(`/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`)
+                .then(({data}) => {
+                    this.attractionList = data;
+                });
+        }
     },
     destroyed() {
         window.removeEventListener("scroll", this.handleScroll);
@@ -67,24 +89,42 @@ export default {
     methods:{
         handleScroll() {
             const scrollContainer = this.$refs.scrollContainer;
+            console.log(scrollContainer)
             const scrollTop = scrollContainer.scrollTop;
-            const windowHeight = scrollContainer.offsetHeight;
+            const windowHeight = scrollContainer.offsetHeight+2
             const documentHeight = scrollContainer.scrollHeight;
+            console.log("top ::: " + scrollTop + "height :::" +windowHeight + " doc height :::" + documentHeight)
+            console.log(scrollTop + windowHeight)
             if (scrollTop + windowHeight >= documentHeight) {
+                console.log("get!!!!!!!")
                 this.isScrolledToBottom = true;
                 this.pageNum += 1;
                 if (this.pageNum < 9999) {
-                    http
-                        .get(
-                            `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}`
-                        )
-                        .then(({ data }) => {
-                            if (data.length < 2) {
-                                this.pageNum = 9999;
-                            } else {
-                                this.attractionList = this.attractionList.concat(data);
-                            }
-                        });
+                    if(this.userInfo == null){
+                      http
+                          .get(
+                              `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=`
+                          )
+                          .then(({ data }) => {
+                              if (data.length < 2) {
+                                  this.pageNum = 9999;
+                              } else {
+                                  this.attractionList = this.attractionList.concat(data);
+                              }
+                          });
+                    }else{
+                        http
+                            .get(
+                                `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`
+                            )
+                            .then(({ data }) => {
+                                if (data.length < 2) {
+                                    this.pageNum = 9999;
+                                } else {
+                                    this.attractionList = this.attractionList.concat(data);
+                                }
+                            });
+                    }
                 }
             } else {
                 this.isScrolledToBottom = false;
