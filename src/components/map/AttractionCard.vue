@@ -63,7 +63,9 @@
 
 <script>
 import AttractionTag from "@/components/attraction/item/AttractionTag.vue";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
+
+const userStore = "userStore";
 export default {
   name: "AttractionCard",
   components: {
@@ -75,6 +77,8 @@ export default {
         },
     },
   computed:{
+      ...mapState(userStore, ["isLogin", "userInfo"]),
+      ...mapGetters(["checkUserInfo"]),
     displayedImage() {
       if (this.attraction.firstImage != "") {
         return this.attraction.firstImage; // 이미지가 있는 경우 실제 이미지 출력
@@ -92,8 +96,8 @@ export default {
       ...mapActions(['mapStore/fetchDetailData']),
 
     openDetail(contentId){
-      console.log(contentId)
-      this["mapStore/fetchDetailData"](contentId)
+      console.log(contentId + ":::" + this.userInfo)
+      this["mapStore/fetchDetailData"](contentId,this.userInfo)
     }
 
   }

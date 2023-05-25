@@ -45,18 +45,30 @@ const mapStore={
           }
     },
     actions:{
-        fetchDetailData({commit}, contentId){
-            console.log("detail!!!");
-            console.log(contentId);
-            http.get(`/attraction/${contentId}`)
-                .then(response =>{
-                    console.log("response!!!")
-                    console.log(response.data);
-                    commit('SET_DETAIL_DATA',response.data);
-                })
-                .catch(error=>{
-                    console.error("데이터 가져오는 중",error);
-                });
+        fetchDetailData({commit}, contentId,userInfo){
+            console.log(contentId + ":::" + userInfo)
+            if(userInfo == undefined){
+                http.get(`/attraction?contentId=${contentId}&userId=`)
+                    .then(response =>{
+                        console.log("response!!!")
+                        console.log(response.data);
+                        commit('SET_DETAIL_DATA',response.data);
+                    })
+                    .catch(error=>{
+                        console.error("데이터 가져오는 중",error);
+                    });
+            }else{
+                http.get(`/attraction?contentId=${contentId}&userId=${userInfo.userId}`)
+                    .then(response =>{
+                        console.log("response!!!")
+                        console.log(response.data);
+                        commit('SET_DETAIL_DATA',response.data);
+                    })
+                    .catch(error=>{
+                        console.error("데이터 가져오는 중",error);
+                    });
+            }
+
         },
         setCategoryCode({commit},categoryCode){
             commit('SET_CATEGORY_CODE',categoryCode)
