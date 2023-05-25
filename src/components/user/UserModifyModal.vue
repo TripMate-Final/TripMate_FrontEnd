@@ -9,21 +9,11 @@
             invalid-feedback="Id is required"
             :state="nameState"
           >
-            <b-form-input id="id-input" v-model="id" :state="nameState" required></b-form-input>
-          </b-form-group>
-        </form>
-        <form ref="form" @submit.stop.prevent="handleSubmit">
-          <b-form-group
-            label="Password"
-            label-for="password-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
             <b-form-input
-              id="name-input"
-              type="password"
-              v-model="password"
+              id="id-input"
+              v-model="id"
               :state="nameState"
+              disabled
               required
             ></b-form-input>
           </b-form-group>
@@ -53,9 +43,25 @@
             ></b-form-input>
           </b-form-group>
         </form>
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-form-group
+            label="Password"
+            label-for="password-input"
+            invalid-feedback="Name is required"
+            :state="nameState"
+          >
+            <b-form-input
+              id="name-input"
+              type="password"
+              v-model="password"
+              :state="nameState"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </form>
       </div>
-      <b-button class="btn-regist" size="sm" variant="success" @click="regist">
-        회원가입하기
+      <b-button class="btn-regist" size="sm" variant="success" @click="modify">
+        정보 수정하기
       </b-button>
       <template #modal-footer="{ ok }">
         <b-button size="sm" @click="ok()"> 뒤로가기 </b-button>
@@ -66,6 +72,10 @@
 
 <script>
 import http from "@/util/http-common";
+import { mapState, mapGetters } from "vuex";
+
+const userStore = "userStore";
+
 export default {
   name: "UserRegisterModal",
   components: {},
@@ -79,12 +89,16 @@ export default {
       submittedNames: [],
     };
   },
-  created() {},
+  created() {
+    this.id = this.userInfo.userId;
+    this.name = this.userInfo.userName;
+    this.email = this.userInfo.userEmail;
+  },
   methods: {
-    regist() {
+    modify() {
       http
-        .post(`/user/regist`, {
-          userId: this.id,
+        .put(`/user/update`, {
+          userId: this.userInfo.userId,
           userPassword: this.password,
           userEmail: this.email,
           userName: this.name,
@@ -92,13 +106,17 @@ export default {
         })
         .then(function (response) {
           if (response.status == 200) {
-            alert("가입 성공");
+            alert("정보 수정!!");
             window.location.reload(true);
           } else {
-            alert("가입 실패");
+            alert("수정 실패");
           }
         });
     },
+  },
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
   },
 };
 </script>

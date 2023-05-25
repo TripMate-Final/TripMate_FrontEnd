@@ -26,6 +26,7 @@ export default {
     contentId: Number,
   },
   components: {},
+
   data() {
     return {
       message: "",
@@ -33,6 +34,7 @@ export default {
       likecnt: 0,
     };
   },
+
   beforeUpdate() {
     this.likecnt = this.like;
     http
@@ -57,8 +59,7 @@ export default {
           })
           .then(function (response) {
             console.log(response.status);
-            vm.isLike += 1;
-            vm.likecnt += 1;
+            vm.isLike = 1;
           });
       }
     },

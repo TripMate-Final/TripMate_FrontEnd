@@ -1,5 +1,9 @@
 <template>
-  <div class="myplan">{{ data }}</div>
+  <div class="myplan">
+    <router-link :to="`../plan/detail/${data.planId} `"
+      >여행 제목 :: {{ data.planTitle }}</router-link
+    >
+  </div>
 </template>
 
 <script>
