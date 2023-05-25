@@ -1,18 +1,42 @@
 <template>
   <b-container-fluid>
-    <b-row class="mt-0">
+    <b-row class="mt-0 mx-2">
       <b-col>
         <b-carousel
           id="carousel-fade"
           style="text-shadow: 0px 0px 2px #000"
           fade
           indicators
-          img-width="1024"
-          img-height="300"
+          img-width="720"
+          img-height="800"
         >
-          <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=10"></b-carousel-slide>
-          <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=12"></b-carousel-slide>
-          <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=22"></b-carousel-slide>
+          <b-carousel-slide>
+              <template #img>
+                  <img class="d-block w-100"
+                          width="720"
+                          height="800"
+                          src="../assets/img/main/main1.jpg"
+                  >
+              </template>
+          </b-carousel-slide>
+          <b-carousel-slide>
+              <template #img>
+                  <img class="d-block w-100"
+                       width="720"
+                       height="800"
+                       src="../assets/img/main/main2.jpg"
+                  >
+              </template>
+          </b-carousel-slide>
+          <b-carousel-slide>
+              <template #img>
+                  <img class="d-block w-100"
+                       width="720"
+                       height="800"
+                       src="../assets/img/main/main3.jpg"
+                  >
+              </template>
+          </b-carousel-slide>
         </b-carousel>
       </b-col>
     </b-row>
@@ -22,31 +46,23 @@
         <b-row>
           <b-col cols="6">
             <AttractionImgCard :attraction="card1"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card2"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card3"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
         </b-row>
         <b-row>
           <b-col cols="6">
-            <!-- <p>인기게시판</p>
-            <board-list></board-list> -->
-            <!-- <b-table :items="items" thead-class="d-none"> </b-table> -->
             <AttractionImgCard :attraction="card6"></AttractionImgCard>
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card4"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
           <b-col cols="3">
             <AttractionImgCard :attraction="card5"></AttractionImgCard>
-            <!-- <b-card img-src="https://placekitten.com/g/400/450" img-height="400"></b-card> -->
           </b-col>
         </b-row>
         <board-list class="board"></board-list>

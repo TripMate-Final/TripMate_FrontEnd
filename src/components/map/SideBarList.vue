@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-button id="show-list-btn" v-b-toggle.sidebar-list>목록보기</b-button>
-        <b-sidebar width="400px" id="sidebar-list" shadow visible>
+        <b-sidebar width="500px" id="sidebar-list" shadow visible>
             <div class="px-3 py-2">
                 <side-bar-list-top></side-bar-list-top>
             </div>
@@ -38,13 +38,12 @@ export default {
       height: 35px;
       z-index: 3;
       margin: 20px;
-      padding: 0px 10px;
+      padding: 2px 12px;
       background-color: #EFECEC;
       border: 1px solid #0d172a;
       border-radius: 1.5rem;
       color: #0d172a;
-      font-family: "NanumSquareOTF", "RocGrotesk-Wide";
-      font-size: 15px;
+      font-size: 20px;
       font-weight: bold;
       font-stretch: normal;
       font-style: normal;

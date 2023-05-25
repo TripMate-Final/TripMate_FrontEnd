@@ -109,7 +109,6 @@ export default {
   z-index: 3;
   background-color:#EFECEC;
   color: #0d172a;
-  font-family: "NanumSquareOTF","RocGrotesk-Wide";
   font-size: 15px;
   font-weight: bold;
   font-stretch: normal;

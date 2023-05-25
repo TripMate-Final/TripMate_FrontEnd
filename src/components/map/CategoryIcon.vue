@@ -34,7 +34,6 @@ export default {
 .category-icon span{
   display: block;
   text-align: center;
-  font-family: NanumSquare;
   font-size: 15px;
   font-weight: bold;
   font-stretch: normal;

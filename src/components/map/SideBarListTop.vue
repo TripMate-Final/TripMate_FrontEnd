@@ -44,13 +44,12 @@ export default {
   height: 35px;
   z-index: 3;
   margin-bottom: 10px;
-  padding: 0px 10px;
+  padding: 2px 12px;
   background-color:#EFECEC;
   border: 1px solid #0d172a;
   border-radius: 1.5rem;
   color: #0d172a;
-  font-family: "NanumSquareOTF","RocGrotesk-Wide";
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -65,7 +64,7 @@ export default {
 }
 .sidebar-list-top .top-title{
     float: left;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 700;
     letter-spacing: -1.2px;
     line-height: 26px;

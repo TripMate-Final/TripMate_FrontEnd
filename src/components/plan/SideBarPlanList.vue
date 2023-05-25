@@ -90,7 +90,6 @@ export default {
     border: 1px solid #0d172a;
     border-radius: 1.5rem;
     color: #0d172a;
-    font-family: "NanumSquareOTF","RocGrotesk-Wide";
     font-size: 15px;
     font-weight: bold;
     font-stretch: normal;

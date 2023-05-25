@@ -30,7 +30,6 @@ export default {
 }
 
 h2 {
-  font-family: NotoSansKR, NotoSansJP, "돋움", Dotum, AppleGothic, Tahoma, Sans-serif;
   padding: 6px 0 0;
 }
 

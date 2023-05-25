@@ -1,18 +1,15 @@
 <template>
   <div>
-    <!-- <h2>{{ attraction.title }}</h2> -->
-    <b-card
-      class="img card w-100 h-100"
-      @click="handleClick"
-      overlay
-      :img-src="displayedImage"
-      img-alt="Card Image"
-      text-variant="black"
-    >
-      <b-card-text class="text">
-        <h3>{{ attraction.title }}</h3>
-      </b-card-text>
-    </b-card>
+      <b-card class="img card w-100 h-100"
+              overlay
+              text-variant="black"
+              @click="handleClick"
+              :img-src="displayedImage"
+              footer-tag="header">
+          <template #header>
+              <h6 class="mb-0" id="title">{{ attraction.title }}</h6>
+          </template>
+      </b-card>
   </div>
 </template>
 
@@ -55,22 +52,30 @@ export default {
 };
 </script>
 
-<style scoped>
-.card {
-  display: inline-block; /* 인라인 블록 요소로 설정하여 가로 공간을 차지하도록 함 */
+<style lang="scss" scoped>
+
+
+::v-deep{
+  .card {
+    display: inline-block; /* 인라인 블록 요소로 설정하여 가로 공간을 차지하도록 함 */
+  }
+  .card-img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 10px;
+    top: 0;
+  }
+  h2 {
+    margin-top: 50px;
+    text-align: left;
+  }
+  #title{
+    font-size: 25px;
+    color: #070707;
+  }
 }
 
-.card-img {
-  height: 300px;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-  margin-right: 10px;
-  top: 0;
-}
 
-h2 {
-  margin-top: 50px;
-  text-align: left;
-}
 </style>
