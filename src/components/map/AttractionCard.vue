@@ -3,27 +3,29 @@
     <b-card no-body class="overflow-hidden">
       <b-row>
         <b-col md="4">
-            <b-card-img
-                    :src="displayedImage"
-                    alt="Image"
-                    class="rounded-0"
-            ></b-card-img>
+          <b-card-img :src="displayedImage" alt="Image" class="rounded-0"></b-card-img>
         </b-col>
 
         <b-col md="8">
           <b-card-body>
-              <a v-b-toggle href="#sidebar-detail" @click="openDetail(`${attraction.contentId}`)" @click.prevent>{{ attraction.title }}</a>
-            <b-card-text >
-                {{ attraction.addr1 }}
+            <a
+              v-b-toggle
+              href="#sidebar-detail"
+              @click="openDetail(`${attraction.contentId}`)"
+              @click.prevent
+              >{{ attraction.title }}</a
+            >
+            <b-card-text>
+              {{ attraction.addr1 }}
             </b-card-text>
             <AttractionTag
-                class="tag"
-                :gugunName="attraction.gugunName"
-                :categoryName="attraction.categoryName"
-                :cat3Name="attraction.cat3Name"
+              class="tag"
+              :gugunName="attraction.gugunName"
+              :categoryName="attraction.categoryName"
+              :cat3Name="attraction.cat3Name"
             ></AttractionTag>
           </b-card-body>
-          <div class="heart-icon">
+          <div class="heart-icon" v-if="attraction.isLike">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -37,7 +39,7 @@
               />
             </svg>
           </div>
-          <div class="heart-icon">
+          <div class="heart-icon" v-else>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -63,7 +65,7 @@
 
 <script>
 import AttractionTag from "@/components/attraction/item/AttractionTag.vue";
-import {mapActions, mapGetters, mapState} from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 const userStore = "userStore";
 export default {
@@ -71,14 +73,14 @@ export default {
   components: {
     AttractionTag,
   },
-    props: {
-        attraction: {
-          type:Object
-        },
+  props: {
+    attraction: {
+      type: Object,
     },
-  computed:{
-      ...mapState(userStore, ["isLogin", "userInfo"]),
-      ...mapGetters(["checkUserInfo"]),
+  },
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
     displayedImage() {
       if (this.attraction.firstImage != "") {
         return this.attraction.firstImage; // 이미지가 있는 경우 실제 이미지 출력
@@ -87,20 +89,17 @@ export default {
       }
     },
   },
-  data(){
-    return{
-
-    }
+  data() {
+    return {};
   },
-  methods:{
-      ...mapActions(['mapStore/fetchDetailData']),
+  methods: {
+    ...mapActions(["mapStore/fetchDetailData"]),
 
-    openDetail(contentId){
-      console.log(contentId + ":::" + this.userInfo)
-      this["mapStore/fetchDetailData"](contentId,this.userInfo)
-    }
-
-  }
+    openDetail(contentId) {
+      console.log(contentId + ":::" + this.userInfo);
+      this["mapStore/fetchDetailData"](contentId, this.userInfo);
+    },
+  },
 };
 </script>
 

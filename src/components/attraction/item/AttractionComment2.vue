@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>댓글입니다</h4>
+    <!-- <h4>댓글입니다</h4> -->
     <div class="mt-4" v-for="(item, index) in commentsList" :key="index">
       <b-card
         img-src="https://placekitten.com/300/300"

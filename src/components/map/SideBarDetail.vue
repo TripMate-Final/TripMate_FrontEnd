@@ -1,58 +1,60 @@
 <template>
-    <div>
-      <b-sidebar width="400px" id="sidebar-detail" shadow>
-        <div class="px-3 py-2">
-          <button class="add-plan-button" v-if="selectedDay != 0" @click="addPlan">일정 추가</button>
-        </div>
-        <div class="px-3 py-5">
-                <side-bar-detail-top :detailData="detailData"></side-bar-detail-top>
-            </div>
-            <attraction-comment></attraction-comment>
-        </b-sidebar>
-    </div>
-
+  <div>
+    <b-sidebar width="400px" id="sidebar-detail" shadow>
+      <div class="px-3 py-2">
+        <button class="add-plan-button" v-if="selectedDay != 0" @click="addPlan">일정 추가</button>
+      </div>
+      <div class="px-3 py-5">
+        <side-bar-detail-top :detailData="detailData"></side-bar-detail-top>
+      </div>
+      <attraction-comment></attraction-comment>
+      <attraction-comment2></attraction-comment2>
+    </b-sidebar>
+  </div>
 </template>
 
 <script>
 import AttractionComment from "@/components/attraction/item/AttractionComment.vue";
+import AttractionComment2 from "../attraction/item/AttractionComment2.vue";
 import SideBarDetailTop from "@/components/map/SideBarDetailTop.vue";
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "SideBarDetail",
-  components:{
+  components: {
     SideBarDetailTop,
     AttractionComment,
+    AttractionComment2,
   },
-    computed: {
-      ...mapState('mapStore', {
-        detailData: state => state.detailData,
-        selectedDay: state => state.selectedDay
-      }),
-    },
+  computed: {
+    ...mapState("mapStore", {
+      detailData: (state) => state.detailData,
+      selectedDay: (state) => state.selectedDay,
+    }),
+  },
   methods: {
-    ...mapActions(['mapStore/addPlan']),
-      addPlan(){
-        this["mapStore/addPlan"](this.detailData);
-      }
-  }
-}
+    ...mapActions(["mapStore/addPlan"]),
+    addPlan() {
+      this["mapStore/addPlan"](this.detailData);
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
 ::v-deep {
-    #sidebar-detail{
-        left: 500px;
-        .b-sidebar-body{
-            overflow-x: hidden;
-        }
+  #sidebar-detail {
+    left: 500px;
+    .b-sidebar-body {
+      overflow-x: hidden;
     }
+  }
 }
-.add-plan-button{
+.add-plan-button {
   float: right;
   height: 35px;
   z-index: 3;
   padding: 2px 12px;
-  background-color:#EFECEC;
+  background-color: #efecec;
   border: 1px solid #0d172a;
   border-radius: 1.5rem;
   color: #0d172a;
@@ -64,8 +66,8 @@ export default {
   letter-spacing: normal;
   text-align: left;
 }
-.add-plan-button:hover{
-  background-color: #569A64;
+.add-plan-button:hover {
+  background-color: #569a64;
   color: #fff;
   border: 0px;
 }
