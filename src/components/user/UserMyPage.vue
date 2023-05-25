@@ -1,6 +1,6 @@
 <template>
   <b-container class="mt-4" v-if="userInfo">
-    <div class="nav-container">
+    <div class="nav-container my-4">
       <b-nav fill pills v-model="selectedNavItem" card-header tabs>
         <b-nav-item
           v-for="navItem in navItems"
@@ -27,7 +27,6 @@
       <b-col cols="8" v-if="selectedNavItem == 1">
         <b-jumbotron>
           <template #header>My Page</template>
-          <template #lead> 내 정보 확인페이지입니다. </template>
           <hr class="my-4" />
           <b-container class="mt-4">
             <b-row>
@@ -109,7 +108,7 @@ export default {
       navItems: [
         { id: 1, title: "내 정보" },
         { id: 2, title: "좋아요 목록" },
-        { id: 3, title: "플랜 목록" },
+        { id: 3, title: "여행 계획 목록" },
       ],
     };
   },
@@ -189,4 +188,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.display-3{
+  font-size: 50px;
+}
+a{
+  font-size: 20px;
+  color: #0d172a;
+}
+a:hover{
+  color: #569A64;
+}
+</style>

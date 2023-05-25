@@ -45,6 +45,9 @@ export default {
       ],
     };
   },
+  created() {
+    this.selectedNavItem = Number(new URLSearchParams(location.search).get('categoryCode'));
+  },
   methods: {
     selectNavItem(navItemId) {
       this.selectedNavItem = navItemId;
