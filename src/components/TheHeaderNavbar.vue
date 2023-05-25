@@ -155,7 +155,7 @@ export default {
   }
   .navbar-nav a {
     color: #0d172a;
-    font-size: 22px;
+    font-size: 25px;
   }
   .navbar-nav a:hover {
     color: #569a64;

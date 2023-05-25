@@ -1,6 +1,6 @@
 <template>
   <b-container-fluid>
-    <b-row class="mt-0">
+    <b-row class="mt-0 mx-2">
       <b-col>
         <b-carousel
           id="carousel-fade"
@@ -8,13 +8,13 @@
           fade
           indicators
           img-width="720"
-          img-height="720"
+          img-height="800"
         >
           <b-carousel-slide>
               <template #img>
                   <img class="d-block w-100"
                           width="720"
-                          height="720"
+                          height="800"
                           src="../assets/img/main/main1.jpg"
                   >
               </template>
@@ -23,7 +23,7 @@
               <template #img>
                   <img class="d-block w-100"
                        width="720"
-                       height="720"
+                       height="800"
                        src="../assets/img/main/main2.jpg"
                   >
               </template>
@@ -32,7 +32,7 @@
               <template #img>
                   <img class="d-block w-100"
                        width="720"
-                       height="720"
+                       height="800"
                        src="../assets/img/main/main3.jpg"
                   >
               </template>
