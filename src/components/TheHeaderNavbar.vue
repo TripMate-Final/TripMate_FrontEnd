@@ -150,7 +150,6 @@ export default {
 ::v-deep {
   .navbar-nav a {
     color: #0d172a;
-    font-family: "NanumSquareOTF", "RocGrotesk-Wide";
     font-size: 18px;
   }
   .navbar-nav a:hover {
