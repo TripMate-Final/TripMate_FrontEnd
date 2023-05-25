@@ -2,37 +2,40 @@
   <div>
     <b-row>
       <b-col>
-        <b-alert show><h3>글상세</h3></b-alert>
+        <b-alert show><h3 class="board-title">글상세</h3></b-alert>
       </b-col>
     </b-row>
-    <b-row class="mb-1">
-      <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
-      </b-col>
+    <b-row class="my-3 mx-2">
+    <span class="text-left">
+      <h3>Title<input class="write" v-model="boardTitle" :disabled="true" /></h3>
+    </span>
+    </b-row>
+      <quill-editor
+          class="editor"
+          ref="myTextEditor"
+          :disabled="true"
+          :value="content"
+          :options="editorOption"
+          @change="onEditorChange"
+          @blur="onEditorBlur($event)"
+          @focus="onEditorFocus($event)"
+          @ready="onEditorReady($event)"
+      />
+    <b-row class="my-3">
+      <b-row class="mb-1 mx-1">
       <span v-if="userInfo != null">
         <b-col class="text-right" v-if="userInfo.userId === board.userId">
-          <b-button variant="outline-info" size="sm" @click="boardModify" class="mr-2"
-            >글수정</b-button
+          <b-button id="modify-btn" size="sm" @click="boardModify" class="mr-2"
+          >글수정</b-button
           >
           <b-button variant="outline-danger" size="sm" @click="boardDelete">글삭제</b-button>
         </b-col>
       </span>
+      </b-row>
+      <b-col class="text-right">
+        <b-button id="list-btn" @click="moveList">목록</b-button>
+      </b-col>
     </b-row>
-    <span class="text-left">
-      <h3>Title<input class="write" v-model="boardTitle" :disabled="true" /></h3>
-    </span>
-
-    <quill-editor
-      class="editor"
-      ref="myTextEditor"
-      :disabled="true"
-      :value="content"
-      :options="editorOption"
-      @change="onEditorChange"
-      @blur="onEditorBlur($event)"
-      @focus="onEditorFocus($event)"
-      @ready="onEditorReady($event)"
-    />
   </div>
 </template>
 
@@ -137,7 +140,36 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+::v-deep{
+  .alert-info{
+    background-color: #efececb5;
+    border: white;
+    color: #2c3e50;
+    width: 700px;
+    margin:auto;
+  }
+  #modify-btn{
+    background-color: #EFECEC;
+    border-color: #0d172a;
+    color:#0d172a;
+  }
+  #modify-btn:hover{
+    background-color: #569a64ad;
+    border-color:#ffffff;
+    color: white;
+  }
+  #list-btn{
+    background-color: #EFECEC;
+    border-color: #0d172a;
+    color:#0d172a;
+  }
+  #list-btn:hover{
+    background-color: #569a64ad;
+    border-color:#ffffff;
+    color: white;
+  }
+}
 .write {
   margin-left: 20px;
 }
