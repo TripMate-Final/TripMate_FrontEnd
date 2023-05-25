@@ -50,17 +50,31 @@ export default {
         this.isScrolledToBottom = true;
         this.pageNum += 1;
         if (this.pageNum < 9999) {
-          http
-            .get(
-              `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`
-            )
-            .then(({ data }) => {
-              if (data.length < 2) {
-                this.pageNum = 9999;
-              } else {
-                this.attractionList = this.attractionList.concat(data);
-              }
-            });
+          if (this.userInfo == null) {
+            http
+              .get(
+                `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=`
+              )
+              .then(({ data }) => {
+                if (data.length < 2) {
+                  this.pageNum = 9999;
+                } else {
+                  this.attractionList = this.attractionList.concat(data);
+                }
+              });
+          } else {
+            http
+              .get(
+                `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`
+              )
+              .then(({ data }) => {
+                if (data.length < 2) {
+                  this.pageNum = 9999;
+                } else {
+                  this.attractionList = this.attractionList.concat(data);
+                }
+              });
+          }
         }
       } else {
         this.isScrolledToBottom = false;
@@ -72,13 +86,31 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
     this.keyword = this.$route.query.keyword;
     this.categoryCode = this.$route.query.categoryCode;
-    http
-      .get(
-        `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`
-      )
-      .then(({ data }) => {
-        this.attractionList = data;
-      });
+    if (this.userInfo == null) {
+      http
+        .get(
+          `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=`
+        )
+        .then(({ data }) => {
+          if (data.length < 2) {
+            this.pageNum = 9999;
+          } else {
+            this.attractionList = this.attractionList.concat(data);
+          }
+        });
+    } else {
+      http
+        .get(
+          `/attraction/select?keyword=${this.keyword}&categoryCode=${this.categoryCode}&page=${this.pageNum}&userId=${this.userInfo.userId}`
+        )
+        .then(({ data }) => {
+          if (data.length < 2) {
+            this.pageNum = 9999;
+          } else {
+            this.attractionList = this.attractionList.concat(data);
+          }
+        });
+    }
     // window.location.reload(true);
   },
 

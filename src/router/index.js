@@ -7,6 +7,7 @@ import BoardView from "@/views/BoardView.vue";
 import UserView from "@/views/UserView.vue";
 import AttrationList from "@/components/attraction/AttractionList.vue";
 import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
+import PlanView from "@/views/PlanView.vue";
 
 import store from "@/store";
 
@@ -79,7 +80,21 @@ const routes = [
           import(/* webpackChunkName: "about" */ "../components/map/SideBarDetail.vue"),
       },
     ],
+
   },
+  {
+    path:'/plan',
+    name:'plan',
+    component: PlanView,
+    children:[
+      {
+        path: 'detail/:planId',
+        name: 'planDetail',
+        component: () => import(/* webpackChunkName: "about" */ '../components/plan/ShowPlanList.vue')
+      },
+    ]
+  },
+
 
   {
     path: "/board",

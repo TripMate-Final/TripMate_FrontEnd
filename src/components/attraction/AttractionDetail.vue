@@ -102,29 +102,42 @@ export default {
   created() {
     window.scrollTo(0, 0);
     this.contentId = this.$route.params.contentId;
-    // console.log(this.contentId);
-    http.get(`/attraction/${this.contentId}`).then(({ data }) => {
-      this.attraction = data;
-      http.get(`/attraction/preview/${this.attraction.recommendId1}`).then(({ data }) => {
-        this.recommendList.push(data);
-      });
-      http.get(`/attraction/preview/${this.attraction.recommendId2}`).then(({ data }) => {
-        this.recommendList.push(data);
-      });
-      http.get(`/attraction/preview/${this.attraction.recommendId3}`).then(({ data }) => {
-        this.recommendList.push(data);
-      });
-    });
-    http.get(`/comment/${this.contentId}`).then(({ data }) => {
-      this.commentsList = data;
-    });
-
-    if (this.userInfo != null) {
-      http
-        .get(`/user/isLike?contentId=${this.contentId}&userId=${this.userInfo.userId}`)
-        .then(({ data }) => {
-          this.isLike = data;
+    if (this.userInfo == null) {
+      http.get(`/attraction?contentId=${this.contentId}&userId=`).then(({ data }) => {
+        this.attraction = data;
+        console.log(this.attraction);
+        http.get(`/attraction/preview/${this.attraction.recommendId1}`).then(({ data }) => {
+          this.recommendList.push(data);
         });
+        http.get(`/attraction/preview/${this.attraction.recommendId2}`).then(({ data }) => {
+          this.recommendList.push(data);
+        });
+        http.get(`/attraction/preview/${this.attraction.recommendId3}`).then(({ data }) => {
+          this.recommendList.push(data);
+        });
+      });
+      http.get(`/comment/${this.contentId}`).then(({ data }) => {
+        this.commentsList = data;
+      });
+    } else {
+      http
+        .get(`/attraction?contentId=${this.contentId}&userId=${this.userInfo.userId}`)
+        .then(({ data }) => {
+          this.attraction = data;
+          console.log(this.attraction);
+          http.get(`/attraction/preview/${this.attraction.recommendId1}`).then(({ data }) => {
+            this.recommendList.push(data);
+          });
+          http.get(`/attraction/preview/${this.attraction.recommendId2}`).then(({ data }) => {
+            this.recommendList.push(data);
+          });
+          http.get(`/attraction/preview/${this.attraction.recommendId3}`).then(({ data }) => {
+            this.recommendList.push(data);
+          });
+        });
+      http.get(`/comment/${this.contentId}`).then(({ data }) => {
+        this.commentsList = data;
+      });
     }
   },
 
