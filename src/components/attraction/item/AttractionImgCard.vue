@@ -73,7 +73,6 @@ h2 {
   text-align: left;
 }
 h3{
-    font-family: 'TheJamsil5Bold';
     color: #070707;
 }
 </style>
