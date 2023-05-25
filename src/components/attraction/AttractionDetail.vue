@@ -27,7 +27,7 @@
       <the-kakao-map :lat="attraction.latitude" :lng="attraction.longitude"></the-kakao-map>
     </div>
     <attraction-addr class="addr"></attraction-addr>
-    <div ref="comment"><h2 style="text-align: left">댓글달아주세요!!</h2></div>
+    <div ref="comment"></div>
     <attraction-comment :contentId="attraction.contentId"></attraction-comment>
     <attraction-comment2 :commentsList="commentsList"></attraction-comment2>
     <hr />

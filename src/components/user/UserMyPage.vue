@@ -1,12 +1,30 @@
 <template>
   <b-container class="mt-4" v-if="userInfo">
+    <div class="nav-container">
+      <b-nav fill pills v-model="selectedNavItem" card-header tabs>
+        <b-nav-item
+          v-for="navItem in navItems"
+          :key="navItem.id"
+          :class="{
+            active: navItem.id === selectedNavItem,
+            inactive: navItem.id !== selectedNavItem,
+          }"
+          @click="selectNavItem(navItem.id)"
+        >
+          {{ navItem.title }}</b-nav-item
+        >
+      </b-nav>
+    </div>
     <b-row>
       <b-col>
-        <b-alert variant="secondary" show><h3>내정보</h3></b-alert>
+        <b-alert variant="secondary" show
+          ><h3>{{ navItems[selectedNavItem - 1].title }}</h3></b-alert
+        >
       </b-col>
     </b-row>
     <b-row>
-      <b-col cols="5">
+      <b-col></b-col>
+      <b-col cols="8" v-if="selectedNavItem == 1">
         <b-jumbotron>
           <template #header>My Page</template>
           <template #lead> 내 정보 확인페이지입니다. </template>
@@ -36,7 +54,7 @@
           <b-button variant="danger" @click="userdelete">회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
-      <b-col>
+      <b-col cols="8" v-if="selectedNavItem == 2">
         <attraction-card
           onclick=""
           v-for="(tag, index) in attractionList"
@@ -46,6 +64,9 @@
         >
         </attraction-card>
       </b-col>
+
+      <b-col cols="8" v-if="selectedNavItem == 3"> </b-col>
+      <b-col> </b-col>
     </b-row>
   </b-container>
 </template>
@@ -65,6 +86,9 @@ export default {
   computed: {
     ...mapState(userStore, ["isLogin", "userInfo"]),
     ...mapGetters(["checkUserInfo"]),
+    activeCard() {
+      return this.cards[this.selectedNavItem];
+    },
   },
 
   data() {
@@ -74,10 +98,19 @@ export default {
       keyword: "",
       isScrolledToBottom: false,
       pageNum: 0,
+      selectedNavItem: 1,
+      navItems: [
+        { id: 1, title: "내 정보" },
+        { id: 2, title: "좋아요 목록" },
+        { id: 3, title: "플랜 목록" },
+      ],
     };
   },
 
   methods: {
+    selectNavItem(navItemId) {
+      this.selectedNavItem = navItemId;
+    },
     userdelete() {
       var vm = this;
       http.delete(`/user/${this.userInfo.userId}`).then(function (response) {

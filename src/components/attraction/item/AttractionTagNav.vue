@@ -12,13 +12,13 @@
       >
         {{ navItem.title }}</b-nav-item
       >
-      <div class="ml-auto">
+      <!-- <div class="ml-auto">
         <b-dropdown id="dropdown-offset" offset="0" text="정렬" class="m-2">
           <b-dropdown-item href="#">좋아요순</b-dropdown-item>
           <div class="dropdown-divider"></div>
           <b-dropdown-item href="#">조회수순</b-dropdown-item>
         </b-dropdown>
-      </div>
+      </div> -->
     </b-nav>
   </div>
 </template>
@@ -66,6 +66,7 @@ export default {
 <style scoped>
 .nav-container {
   margin-top: 10px; /* 원하는 마진 값을 설정하세요 */
+  margin-bottom: 30px;
 }
 
 .active > a {
