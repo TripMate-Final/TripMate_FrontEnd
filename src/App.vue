@@ -1,16 +1,29 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+      <the-header-navbar></the-header-navbar>
+      <router-view></router-view>
   </div>
 </template>
 
+<script>
+  import TheHeaderNavbar from "@/components/TheHeaderNavbar.vue";
+  export default {
+      components:{
+          TheHeaderNavbar,
+      }
+  };
+</script>
+
 <style>
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family:'TheJamsil5Bold';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -23,10 +36,6 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
